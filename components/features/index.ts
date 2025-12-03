@@ -1,3 +1,4 @@
-import MemberCard from "./MemberCard";
+import MemberCard from "./member-card";
+import MemberTypeButton from "./member-type-button";
 
-export {MemberCard}
+export { MemberCard, MemberTypeButton };
