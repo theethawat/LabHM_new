@@ -1,8 +1,9 @@
 "use client";
-
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import _ from "lodash";
+
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import {
   DropdownMenu,
@@ -15,22 +16,20 @@ import { ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { membersTranslations } from "@/translations/members";
 import { getImagePath } from "@/lib/utils";
+import { UnifiedMember } from "@/types";
 import {
   getCompleteFacultyMembers,
   getCompleteStudentsByProgram,
   getCompleteAlumniByYear,
   getAvailableAcademicYears,
-  type UnifiedMember,
 } from "@/translations/complete-unified-members-data";
-import { MemberCard, MemberTypeButton } from "@/components/features";
-import { getMembers } from "@/lib/get-members";
+import {
+  MemberCard,
+  MemberTitle,
+  MemberTypeButton,
+} from "@/components/features";
 
-export default async function StudentPage() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const members = await getMembers();
-
+export default function StudentPage({ members }: { members: UnifiedMember[] }) {
   const { language } = useLanguage();
   const t = membersTranslations[language];
 
@@ -44,54 +43,55 @@ export default async function StudentPage() {
   // console.log("Fetched rows:", rows);
 
   // データ取得
-  const facultyMembers = getCompleteFacultyMembers();
-  const doctoralStudents = getCompleteStudentsByProgram("doctoral");
-  const mastersStudents = getCompleteStudentsByProgram("masters");
-  const bachelorStudents = getCompleteStudentsByProgram("bachelor");
+  const doctoralStudents = _.filter(members, { program: "doctoral" });
+  const mastersStudents = _.filter(members, { program: "masters" });
+  const bachelorStudents = _.filter(members, { program: "bachelor" });
   const availableYears = getAvailableAcademicYears();
+
+  console.log("Doctoral Students:", doctoralStudents);
 
   const [selectedYear, setSelectedYear] = useState(availableYears[0] || "");
   const selectedYearAlumni = getCompleteAlumniByYear(selectedYear);
 
-  // タブ管理
-  const [activeTab, setActiveTab] = useState("faculty");
+  // // タブ管理
+  // const [activeTab, setActiveTab] = useState("faculty");
 
-  // ハッシュの変更を検知して適切なタブを選択
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash && ["faculty", "students", "alumni"].includes(hash)) {
-        setActiveTab(hash);
-        // ハッシュに対応する要素までスクロール
-        setTimeout(() => {
-          const element = document.getElementById(hash);
-          if (element) {
-            element.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        }, 100);
-      }
-    };
+  // // ハッシュの変更を検知して適切なタブを選択
+  // useEffect(() => {
+  //   const handleHashChange = () => {
+  //     const hash = window.location.hash.replace("#", "");
+  //     if (hash && ["faculty", "students", "alumni"].includes(hash)) {
+  //       setActiveTab(hash);
+  //       // ハッシュに対応する要素までスクロール
+  //       setTimeout(() => {
+  //         const element = document.getElementById(hash);
+  //         if (element) {
+  //           element.scrollIntoView({ behavior: "smooth", block: "start" });
+  //         }
+  //       }, 100);
+  //     }
+  //   };
 
-    // 初回読み込み時の処理
-    handleHashChange();
+  //   // 初回読み込み時の処理
+  //   handleHashChange();
 
-    // ハッシュ変更の監視
-    window.addEventListener("hashchange", handleHashChange);
+  //   // ハッシュ変更の監視
+  //   window.addEventListener("hashchange", handleHashChange);
 
-    const observer = new MutationObserver(() => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash && ["faculty", "students", "alumni"].includes(hash)) {
-        setActiveTab(hash);
-      }
-    });
+  //   const observer = new MutationObserver(() => {
+  //     const hash = window.location.hash.replace("#", "");
+  //     if (hash && ["faculty", "students", "alumni"].includes(hash)) {
+  //       setActiveTab(hash);
+  //     }
+  //   });
 
-    observer.observe(document, { subtree: true, childList: true });
+  //   observer.observe(document, { subtree: true, childList: true });
 
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-      observer.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("hashchange", handleHashChange);
+  //     observer.disconnect();
+  //   };
+  // }, []);
 
   //   // タブ変更時にURLハッシュも更新
   //   const handleTabChange = (value: string) => {
@@ -112,26 +112,12 @@ export default async function StudentPage() {
       {/* メインコンテンツ */}
       <div className="flex-grow">
         <div className="py-16">
-          {/* Member タイトル */}
-          <div className="text-center mb-16">
-            <div className="relative w-full max-w-md mx-auto h-16 mb-4">
-              <Image
-                src={getImagePath("/images/logo_member.png")}
-                alt="Member"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-            <p className="text-lg">
-              {language === "ja" ? "メンバー" : "Members"}
-            </p>
-          </div>
+          <MemberTitle language={language} />
 
           <div className="container">
             <MemberTypeButton activeTab="students" />
 
-            <TabsContent value="students" className="mt-0" id="students">
+            <div className="mt-0" id="students">
               <div className="space-y-16">
                 {/* 博士課程 */}
                 {doctoralStudents.length > 0 && (
@@ -187,7 +173,7 @@ export default async function StudentPage() {
                   </div>
                 )}
               </div>
-            </TabsContent>
+            </div>
           </div>
         </div>
       </div>

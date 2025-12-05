@@ -23,7 +23,7 @@ import {
   type UnifiedMember,
 } from "@/translations/complete-unified-members-data";
 import { MemberCard } from "@/components/features";
-import { getMembers } from "@/lib/get-members";
+import { getMembers } from "@/lib/member-utils";
 
 export default async function MembersPage() {
   const router = useRouter();

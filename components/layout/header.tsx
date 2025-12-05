@@ -1,59 +1,59 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useState, useEffect } from "react"
-import { Menu, X, Search, ChevronDown } from "lucide-react"
-import { useLanguage } from "@/contexts/language-context"
-import { cn } from "@/lib/utils"
-import { getImagePath, getLinkPath } from "@/lib/utils"
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { Menu, X, Search, ChevronDown } from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
+import { cn } from "@/lib/utils";
+import { getImagePath, getLinkPath } from "@/lib/utils";
 
 // useState部分を更新して、メニューの開閉状態を管理
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
-  const pathname = usePathname()
-  const { language, setLanguage } = useLanguage()
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const pathname = usePathname();
+  const { language, setLanguage } = useLanguage();
 
   // 2. 検索処理を行う関数を追加
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (searchQuery.trim()) {
       // 検索クエリがある場合は検索ページに遷移
-      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`
+      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`;
     }
-  }
+  };
 
   // 言語切り替え処理
   const toggleLanguage = () => {
-    setLanguage(language === "ja" ? "en" : "ja")
-  }
+    setLanguage(language === "ja" ? "en" : "ja");
+  };
 
   // ハッシュリンクのナビゲーション処理
   const handleHashNavigation = (e: React.MouseEvent, hash: string) => {
-    e.preventDefault()
-    if (pathname.endsWith("/members")) {
-      // 既にmembersページにいる場合は、直接ハッシュに移動
-      window.location.hash = hash
-      const element = document.querySelector(hash)
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
-      }
-    } else {
-      // 他のページからの場合は、ページ遷移してからハッシュに移動
-      window.location.href = getLinkPath(`/members${hash}`)
-    }
-  }
+    e.preventDefault();
+    // if (pathname.endsWith("/members")) {
+    //   // 既にmembersページにいる場合は、直接ハッシュに移動
+    //   window.location.hash = hash;
+    //   const element = document.querySelector(hash);
+    //   if (element) {
+    //     element.scrollIntoView({ behavior: "smooth" });
+    //   }
+    // } else {
+    //   // 他のページからの場合は、ページ遷移してからハッシュに移動
+    //   window.location.href = getLinkPath(`/members${hash}`);
+    // }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // 言語に応じたメニュー項目
   const menuItems = {
@@ -91,22 +91,36 @@ const Header = () => {
       contact: "Contact",
       search: "Search",
     },
-  }
+  };
 
-  const currentMenu = menuItems[language]
+  const currentMenu = menuItems[language];
 
   return (
-    <header className={cn("sticky top-0 z-50 w-full transition-all duration-300 bg-white", isScrolled && "shadow-sm")}>
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full transition-all duration-300 bg-white",
+        isScrolled && "shadow-sm"
+      )}
+    >
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
-          <Image src={getImagePath("/logo.png")} alt="ロゴ" width={180} height={180} className="object-contain" />
+          <Image
+            src={getImagePath("/logo.png")}
+            alt="ロゴ"
+            width={180}
+            height={180}
+            className="object-contain"
+          />
         </Link>
 
         {/* デスクトップナビゲーション */}
         <div className="hidden md:flex items-center space-x-1">
           <Link
             href="/about"
-            className={cn("px-3 py-2 text-sm hover:text-primary", pathname === "/about" && "text-primary")}
+            className={cn(
+              "px-3 py-2 text-sm hover:text-primary",
+              pathname === "/about" && "text-primary"
+            )}
           >
             {currentMenu.about}
           </Link>
@@ -116,19 +130,30 @@ const Header = () => {
             <div
               className={cn(
                 "px-3 py-2 text-sm hover:text-primary flex items-center cursor-pointer",
-                (pathname === "/research" || pathname.startsWith("/research/")) && "text-primary",
+                (pathname === "/research" ||
+                  pathname.startsWith("/research/")) &&
+                  "text-primary"
               )}
             >
               {currentMenu.research} <ChevronDown className="h-4 w-4 ml-1" />
             </div>
             <div className="absolute left-0 top-full w-48 bg-white shadow-md rounded-b-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-              <Link href="/research" className="block px-4 py-2 text-sm hover:bg-gray-100">
+              <Link
+                href="/research"
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
                 {currentMenu.researchOverview}
               </Link>
-              <Link href="/research/projects" className="block px-4 py-2 text-sm hover:bg-gray-100">
+              <Link
+                href="/research/projects"
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
                 {currentMenu.researchProjects}
               </Link>
-              <Link href="/research/collaborations" className="block px-4 py-2 text-sm hover:bg-gray-100">
+              <Link
+                href="/research/collaborations"
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
                 {currentMenu.collaborations}
               </Link>
             </div>
@@ -136,14 +161,20 @@ const Header = () => {
 
           <Link
             href="/news"
-            className={cn("px-3 py-2 text-sm hover:text-primary", pathname === "/news" && "text-primary")}
+            className={cn(
+              "px-3 py-2 text-sm hover:text-primary",
+              pathname === "/news" && "text-primary"
+            )}
           >
             {currentMenu.news}
           </Link>
 
           <Link
             href="/international"
-            className={cn("px-3 py-2 text-sm hover:text-primary", pathname === "/international" && "text-primary")}
+            className={cn(
+              "px-3 py-2 text-sm hover:text-primary",
+              pathname === "/international" && "text-primary"
+            )}
           >
             {currentMenu.international}
           </Link>
@@ -153,28 +184,28 @@ const Header = () => {
             <div
               className={cn(
                 "px-3 py-2 text-sm hover:text-primary flex items-center cursor-pointer",
-                pathname.startsWith("/members") && "text-primary",
+                pathname.startsWith("/members") && "text-primary"
               )}
             >
               {currentMenu.members} <ChevronDown className="h-4 w-4 ml-1" />
             </div>
             <div className="absolute left-0 top-full w-48 bg-white shadow-md rounded-b-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
               <a
-                href={getLinkPath("/members#faculty")}
+                href={getLinkPath("/members/faculty")}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
                 onClick={(e) => handleHashNavigation(e, "#faculty")}
               >
                 {currentMenu.faculty}
               </a>
               <a
-                href={getLinkPath("/members#students")}
+                href={getLinkPath("/members/students")}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
                 onClick={(e) => handleHashNavigation(e, "#students")}
               >
                 {currentMenu.students}
               </a>
               <a
-                href={getLinkPath("/members#alumni")}
+                href={getLinkPath("/members/alumni")}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
                 onClick={(e) => handleHashNavigation(e, "#alumni")}
               >
@@ -185,21 +216,30 @@ const Header = () => {
 
           <Link
             href="/achievements"
-            className={cn("px-3 py-2 text-sm hover:text-primary", pathname === "/achievements" && "text-primary")}
+            className={cn(
+              "px-3 py-2 text-sm hover:text-primary",
+              pathname === "/achievements" && "text-primary"
+            )}
           >
             {currentMenu.achievements}
           </Link>
 
           <Link
             href="/career"
-            className={cn("px-3 py-2 text-sm hover:text-primary", pathname === "/career" && "text-primary")}
+            className={cn(
+              "px-3 py-2 text-sm hover:text-primary",
+              pathname === "/career" && "text-primary"
+            )}
           >
             {currentMenu.career}
           </Link>
 
           <Link
             href="/contact"
-            className={cn("px-3 py-2 text-sm hover:text-primary", pathname === "/contact" && "text-primary")}
+            className={cn(
+              "px-3 py-2 text-sm hover:text-primary",
+              pathname === "/contact" && "text-primary"
+            )}
           >
             {currentMenu.contact}
           </Link>
@@ -228,7 +268,11 @@ const Header = () => {
               className="p-2 focus:outline-none"
               aria-label={isMenuOpen ? "メニューを閉じる" : "メニューを開く"}
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
 
@@ -256,7 +300,10 @@ const Header = () => {
           <div className="flex flex-col p-4">
             <Link
               href="/about"
-              className={cn("px-3 py-3 text-sm border-b text-right", pathname === "/about" && "text-primary")}
+              className={cn(
+                "px-3 py-3 text-sm border-b text-right",
+                pathname === "/about" && "text-primary"
+              )}
               onClick={() => setIsMenuOpen(false)}
             >
               {currentMenu.about}
@@ -268,10 +315,18 @@ const Header = () => {
                 <span>{currentMenu.research}</span>
               </div>
               <div className="pr-4 mt-2 space-y-2 text-right">
-                <Link href="/research" className="block py-1 text-sm" onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/research"
+                  className="block py-1 text-sm"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   {currentMenu.researchOverview}
                 </Link>
-                <Link href="/research/projects" className="block py-1 text-sm" onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/research/projects"
+                  className="block py-1 text-sm"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   {currentMenu.researchProjects}
                 </Link>
                 <Link
@@ -286,7 +341,10 @@ const Header = () => {
 
             <Link
               href="/news"
-              className={cn("px-3 py-3 text-sm border-b text-right", pathname === "/news" && "text-primary")}
+              className={cn(
+                "px-3 py-3 text-sm border-b text-right",
+                pathname === "/news" && "text-primary"
+              )}
               onClick={() => setIsMenuOpen(false)}
             >
               {currentMenu.news}
@@ -294,7 +352,10 @@ const Header = () => {
 
             <Link
               href="/international"
-              className={cn("px-3 py-3 text-sm border-b text-right", pathname === "/international" && "text-primary")}
+              className={cn(
+                "px-3 py-3 text-sm border-b text-right",
+                pathname === "/international" && "text-primary"
+              )}
               onClick={() => setIsMenuOpen(false)}
             >
               {currentMenu.international}
@@ -306,32 +367,32 @@ const Header = () => {
                 <span>{currentMenu.members}</span>
               </div>
               <div className="pr-4 mt-2 space-y-2 text-right">
-                <a 
-                  href={getLinkPath("/members#faculty")} 
-                  className="block py-1 text-sm" 
+                <a
+                  href={getLinkPath("/members/faculty")}
+                  className="block py-1 text-sm"
                   onClick={(e) => {
-                    handleHashNavigation(e, "#faculty")
-                    setIsMenuOpen(false)
+                    // handleHashNavigation(e, "#faculty");
+                    setIsMenuOpen(false);
                   }}
                 >
                   {currentMenu.faculty}
                 </a>
-                <a 
-                  href={getLinkPath("/members#students")} 
-                  className="block py-1 text-sm" 
+                <a
+                  href={getLinkPath("/members/students")}
+                  className="block py-1 text-sm"
                   onClick={(e) => {
-                    handleHashNavigation(e, "#students")
-                    setIsMenuOpen(false)
+                    // handleHashNavigation(e, "#students");
+                    setIsMenuOpen(false);
                   }}
                 >
                   {currentMenu.students}
                 </a>
-                <a 
-                  href={getLinkPath("/members#alumni")} 
-                  className="block py-1 text-sm" 
+                <a
+                  href={getLinkPath("/members/alumni")}
+                  className="block py-1 text-sm"
                   onClick={(e) => {
-                    handleHashNavigation(e, "#alumni")
-                    setIsMenuOpen(false)
+                    //   handleHashNavigation(e, "#alumni");
+                    setIsMenuOpen(false);
                   }}
                 >
                   {currentMenu.alumni}
@@ -341,7 +402,10 @@ const Header = () => {
 
             <Link
               href="/achievements"
-              className={cn("px-3 py-3 text-sm border-b text-right", pathname === "/achievements" && "text-primary")}
+              className={cn(
+                "px-3 py-3 text-sm border-b text-right",
+                pathname === "/achievements" && "text-primary"
+              )}
               onClick={() => setIsMenuOpen(false)}
             >
               {currentMenu.achievements}
@@ -349,7 +413,10 @@ const Header = () => {
 
             <Link
               href="/career"
-              className={cn("px-3 py-3 text-sm border-b text-right", pathname === "/career" && "text-primary")}
+              className={cn(
+                "px-3 py-3 text-sm border-b text-right",
+                pathname === "/career" && "text-primary"
+              )}
               onClick={() => setIsMenuOpen(false)}
             >
               {currentMenu.career}
@@ -357,7 +424,10 @@ const Header = () => {
 
             <Link
               href="/contact"
-              className={cn("px-3 py-3 text-sm text-right", pathname === "/contact" && "text-primary")}
+              className={cn(
+                "px-3 py-3 text-sm text-right",
+                pathname === "/contact" && "text-primary"
+              )}
               onClick={() => setIsMenuOpen(false)}
             >
               {currentMenu.contact}
@@ -381,7 +451,7 @@ const Header = () => {
         </div>
       )}
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

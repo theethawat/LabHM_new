@@ -1,40 +1,4 @@
-// 統一されたメンバーの型定義
-export type UnifiedMember = {
-  id: string
-  name: string
-  nameEn?: string
-  isAlumni: boolean // 卒業生かどうかのフラグ
-  graduationYear?: string // 卒業年度（卒業生の場合）
-  position?: string // 教員・研究員の場合の役職
-  positionEn?: string
-  program?: "doctoral" | "masters" | "bachelor" | "faculty" // 所属課程または教員
-  year?: number // 現在の学年（在校生の場合）
-  lab?: string // 所属研究室
-  labEn?: string
-  image: string
-  background?: {
-    ja: string[]
-    en: string[]
-  }
-  researchFields?: {
-    ja: string
-    en: string
-  }
-  researchTopic?: {
-    ja: string
-    en: string
-  }
-  socialLinks?: {
-    github?: string
-    twitter?: string
-    linkedin?: string
-    website?: string
-  }
-  // 卒業生の場合のデータ
-  degreeType?: "doctor" | "master" | "bachelor"
-  academicYear?: string // 学術年度（例：「令和5年度」）
-  academicYearEn?: string
-}
+import { UnifiedMember } from "@/types";
 
 // 教員・研究員データ（既存データを統一形式に変換）
 export const unifiedFacultyMembers: UnifiedMember[] = [
@@ -76,7 +40,8 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
     nameEn: "Kazuhisa Shiiya",
     isAlumni: false,
     position: "助教（情報通信工学プログラム）",
-    positionEn: "Assistant Professor (Information and Communication Engineering Program)",
+    positionEn:
+      "Assistant Professor (Information and Communication Engineering Program)",
     program: "faculty",
     image: "/images/no_image.png",
     background: {
@@ -104,7 +69,8 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
     nameEn: "Pyke Tin",
     isAlumni: false,
     position: "宮崎大学名誉博士（宮崎大学国際連携センター客員教授）",
-    positionEn: "Honorary Doctor, University of Miyazaki (Visiting Professor, International Collaboration Center)",
+    positionEn:
+      "Honorary Doctor, University of Miyazaki (Visiting Professor, International Collaboration Center)",
     program: "faculty",
     image: "/images/no_image.png",
     background: {
@@ -134,7 +100,8 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
     nameEn: "Cho Nilar Phyo",
     isAlumni: false,
     position: "助教（情報通信工学プログラム）",
-    positionEn: "Assistant Professor (Information and Communication Engineering Program)",
+    positionEn:
+      "Assistant Professor (Information and Communication Engineering Program)",
     program: "faculty",
     image: "/images/Cho_Nilar_Phyo.jpg",
     background: {
@@ -212,7 +179,7 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
       en: "",
     },
   },
-]
+];
 
 // 現在の学生データ（統一形式）
 export const unifiedCurrentStudents: UnifiedMember[] = [
@@ -412,7 +379,7 @@ export const unifiedCurrentStudents: UnifiedMember[] = [
     labEn: "Shiiya Laboratory",
     image: "/images/no_image.png",
   },
-]
+];
 
 // 卒業生データ（統一形式）
 export const unifiedAlumniMembers: UnifiedMember[] = [
@@ -549,32 +516,40 @@ export const unifiedAlumniMembers: UnifiedMember[] = [
   },
   // 以下、他の卒業生データも同様に追加...
   // ここでは例示として数名のみ記載、実際には全卒業生データを統一形式で追加
-]
+];
 
 // 全メンバーを統合した配列
 export const allUnifiedMembers: UnifiedMember[] = [
   ...unifiedFacultyMembers,
   ...unifiedCurrentStudents,
   ...unifiedAlumniMembers,
-]
+];
 
 // フィルタリング関数
 export function getActiveMembers(): UnifiedMember[] {
-  return allUnifiedMembers.filter(member => !member.isAlumni)
+  return allUnifiedMembers.filter((member) => !member.isAlumni);
 }
 
 export function getAlumniMembers(): UnifiedMember[] {
-  return allUnifiedMembers.filter(member => member.isAlumni)
+  return allUnifiedMembers.filter((member) => member.isAlumni);
 }
 
 export function getFacultyMembers(): UnifiedMember[] {
-  return allUnifiedMembers.filter(member => member.program === "faculty" && !member.isAlumni)
+  return allUnifiedMembers.filter(
+    (member) => member.program === "faculty" && !member.isAlumni
+  );
 }
 
-export function getStudentsByProgram(program: "doctoral" | "masters" | "bachelor"): UnifiedMember[] {
-  return allUnifiedMembers.filter(member => member.program === program && !member.isAlumni)
+export function getStudentsByProgram(
+  program: "doctoral" | "masters" | "bachelor"
+): UnifiedMember[] {
+  return allUnifiedMembers.filter(
+    (member) => member.program === program && !member.isAlumni
+  );
 }
 
 export function getAlumniByYear(academicYear: string): UnifiedMember[] {
-  return allUnifiedMembers.filter(member => member.isAlumni && member.academicYear === academicYear)
-} 
+  return allUnifiedMembers.filter(
+    (member) => member.isAlumni && member.academicYear === academicYear
+  );
+}
