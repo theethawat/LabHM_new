@@ -3,7 +3,7 @@ import StudentPage from "./student-page";
 
 export default async function Student() {
   const memberResponse = await getMembers();
+  console.log("Student memberResponse:", memberResponse);
   const members = memberToMemberObject(memberResponse.data);
-  console.log("Members Data:", members);
   return <StudentPage members={members} />;
 }

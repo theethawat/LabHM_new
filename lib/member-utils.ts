@@ -25,7 +25,7 @@ export const memberToMemberObject = (rows: string[][]): UnifiedMember[] => {
       id: eachMember["id"] || "",
       name: eachMember["name"] || "",
       nameEn: eachMember["nameEn"] || undefined,
-      isAlumni: eachMember["isAlumni"] === "true",
+      isAlumni: eachMember["isAlumni"] === "TRUE",
       graduationYear: eachMember["graduationYear"] || undefined,
       position: eachMember["position"] || undefined,
       positionEn: eachMember["positionEn"] || undefined,

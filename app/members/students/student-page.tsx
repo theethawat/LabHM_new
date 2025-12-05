@@ -43,9 +43,18 @@ export default function StudentPage({ members }: { members: UnifiedMember[] }) {
   // console.log("Fetched rows:", rows);
 
   // データ取得
-  const doctoralStudents = _.filter(members, { program: "doctoral" });
-  const mastersStudents = _.filter(members, { program: "masters" });
-  const bachelorStudents = _.filter(members, { program: "bachelor" });
+  const doctoralStudents = _.filter(members, {
+    program: "doctoral",
+    isAlumni: false,
+  });
+  const mastersStudents = _.filter(members, {
+    program: "masters",
+    isAlumni: false,
+  });
+  const bachelorStudents = _.filter(members, {
+    program: "bachelor",
+    isAlumni: false,
+  });
   const availableYears = getAvailableAcademicYears();
 
   console.log("Doctoral Students:", doctoralStudents);

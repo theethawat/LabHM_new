@@ -31,20 +31,9 @@ const Header = () => {
     setLanguage(language === "ja" ? "en" : "ja");
   };
 
-  // ハッシュリンクのナビゲーション処理
-  const handleHashNavigation = (e: React.MouseEvent, hash: string) => {
-    e.preventDefault();
-    // if (pathname.endsWith("/members")) {
-    //   // 既にmembersページにいる場合は、直接ハッシュに移動
-    //   window.location.hash = hash;
-    //   const element = document.querySelector(hash);
-    //   if (element) {
-    //     element.scrollIntoView({ behavior: "smooth" });
-    //   }
-    // } else {
-    //   // 他のページからの場合は、ページ遷移してからハッシュに移動
-    //   window.location.href = getLinkPath(`/members${hash}`);
-    // }
+  // Handle To Location with Along with Menu Close
+  const handleGoLocation = (url: string) => {
+    window.location.href = url;
   };
 
   useEffect(() => {
@@ -193,21 +182,21 @@ const Header = () => {
               <a
                 href={getLinkPath("/members/faculty")}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
-                onClick={(e) => handleHashNavigation(e, "#faculty")}
+                onClick={(e) => handleGoLocation("/members/faculty")}
               >
                 {currentMenu.faculty}
               </a>
               <a
                 href={getLinkPath("/members/students")}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
-                onClick={(e) => handleHashNavigation(e, "#students")}
+                onClick={(e) => handleGoLocation("/members/students")}
               >
                 {currentMenu.students}
               </a>
               <a
                 href={getLinkPath("/members/alumni")}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
-                onClick={(e) => handleHashNavigation(e, "#alumni")}
+                onClick={(e) => handleGoLocation("/members/alumni")}
               >
                 {currentMenu.alumni}
               </a>
@@ -371,7 +360,7 @@ const Header = () => {
                   href={getLinkPath("/members/faculty")}
                   className="block py-1 text-sm"
                   onClick={(e) => {
-                    // handleHashNavigation(e, "#faculty");
+                    handleGoLocation("/members/faculty");
                     setIsMenuOpen(false);
                   }}
                 >
@@ -381,7 +370,7 @@ const Header = () => {
                   href={getLinkPath("/members/students")}
                   className="block py-1 text-sm"
                   onClick={(e) => {
-                    // handleHashNavigation(e, "#students");
+                    handleGoLocation("/members/students");
                     setIsMenuOpen(false);
                   }}
                 >
@@ -391,7 +380,7 @@ const Header = () => {
                   href={getLinkPath("/members/alumni")}
                   className="block py-1 text-sm"
                   onClick={(e) => {
-                    //   handleHashNavigation(e, "#alumni");
+                    handleGoLocation("/members/alumni");
                     setIsMenuOpen(false);
                   }}
                 >
