@@ -1,7 +1,7 @@
-import StudentPage from "./student-page";
+import AlumniPage from "./alumni-page";
 import { UnifiedMember } from "@/types";
 
-export default async function Student() {
+export default async function Alumni() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_MEMBER_DATA}`);
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
@@ -9,5 +9,5 @@ export default async function Student() {
   }
   const members: UnifiedMember[] = await res.json();
 
-  return <StudentPage members={members} />;
+  return <AlumniPage members={members} />;
 }

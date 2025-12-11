@@ -1,7 +1,11 @@
-import { type UnifiedMember, unifiedFacultyMembers, unifiedCurrentStudents } from './unified-members-data'
+import {
+  type UnifiedMember,
+  unifiedFacultyMembers,
+  unifiedCurrentStudents,
+} from "./unified-members-data";
 
 // 型の再エクスポート
-export type { UnifiedMember }
+export type { UnifiedMember };
 
 // 完全な卒業生データ（統一形式）
 export const completeUnifiedAlumniMembers: UnifiedMember[] = [
@@ -1112,55 +1116,70 @@ export const completeUnifiedAlumniMembers: UnifiedMember[] = [
       en: "Research: Study on Detection of White Spot Disease in Shrimp Using Image Processing",
     },
   },
-]
+];
 
 // 全メンバーを統合した配列（完全版）
 export const allCompleteUnifiedMembers: UnifiedMember[] = [
   ...unifiedFacultyMembers,
   ...unifiedCurrentStudents,
   ...completeUnifiedAlumniMembers,
-]
+];
 
 // フィルタリング関数（完全版）
 export function getCompleteActiveMembers(): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter(member => !member.isAlumni)
+  return allCompleteUnifiedMembers.filter((member) => !member.isAlumni);
 }
 
 export function getCompleteAlumniMembers(): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter(member => member.isAlumni)
+  return allCompleteUnifiedMembers.filter((member) => member.isAlumni);
 }
 
 export function getCompleteFacultyMembers(): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter(member => member.program === "faculty" && !member.isAlumni)
+  return allCompleteUnifiedMembers.filter(
+    (member) => member.program === "faculty" && !member.isAlumni
+  );
 }
 
-export function getCompleteStudentsByProgram(program: "doctoral" | "masters" | "bachelor"): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter(member => member.program === program && !member.isAlumni)
+export function getCompleteStudentsByProgram(
+  program: "doctoral" | "masters" | "bachelor"
+): UnifiedMember[] {
+  return allCompleteUnifiedMembers.filter(
+    (member) => member.program === program && !member.isAlumni
+  );
 }
 
-export function getCompleteAlumniByYear(academicYear: string): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter(member => member.isAlumni && member.academicYear === academicYear)
+export function getCompleteAlumniByYear(
+  academicYear: string,
+  allMember: UnifiedMember
+): UnifiedMember[] {
+  return allCompleteUnifiedMembers.filter(
+    (allMember) => allMember.isAlumni && allMember.academicYear === academicYear
+  );
 }
 
-export function getCompleteAlumniByDegree(degreeType: "doctor" | "master" | "bachelor"): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter(member => member.isAlumni && member.degreeType === degreeType)
+export function getCompleteAlumniByDegree(
+  degreeType: "doctor" | "master" | "bachelor"
+): UnifiedMember[] {
+  return allCompleteUnifiedMembers.filter(
+    (member) => member.isAlumni && member.degreeType === degreeType
+  );
 }
 
 // 卒業年度のリストを取得
 export function getAvailableAcademicYears(): string[] {
   const years = completeUnifiedAlumniMembers
-    .map(member => member.academicYear)
-    .filter((year): year is string => year !== undefined)
+    .map((member) => member.academicYear)
+    .filter((year): year is string => year !== undefined);
   return [...new Set(years)].sort((a, b) => {
     // 令和年度での並び替え
     const getYearNumber = (year: string): number => {
-      if (year === '令和元年度') return 1
-      const match = year.match(/令和(\d+)年度/)
-      return match ? parseInt(match[1]) : 0
-    }
-    
-    const aYear = getYearNumber(a)
-    const bYear = getYearNumber(b)
-    return bYear - aYear // 降順
-  })
-} 
+      if (year === "令和元年度") return 1;
+      const match = year.match(/令和(\d+)年度/);
+      return match ? parseInt(match[1]) : 0;
+    };
+
+    const aYear = getYearNumber(a);
+    const bYear = getYearNumber(b);
+    return bYear - aYear; // 降順
+  });
+}
