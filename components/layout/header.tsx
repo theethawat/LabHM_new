@@ -357,7 +357,7 @@ const Header = () => {
               </div>
               <div className="pr-4 mt-2 space-y-2 text-right">
                 <a
-                  href={getLinkPath("/members/faculty")}
+                  href={"/members/faculty"}
                   className="block py-1 text-sm"
                   onClick={(e) => {
                     handleGoLocation("/members/faculty");
@@ -367,20 +367,18 @@ const Header = () => {
                   {currentMenu.faculty}
                 </a>
                 <a
-                  href={getLinkPath("/members/students")}
+                  href={"/members/students"}
                   className="block py-1 text-sm"
                   onClick={(e) => {
-                    handleGoLocation("/members/students");
                     setIsMenuOpen(false);
                   }}
                 >
                   {currentMenu.students}
                 </a>
                 <a
-                  href={getLinkPath("/members/alumni")}
+                  href={"/members/alumni"}
                   className="block py-1 text-sm"
                   onClick={(e) => {
-                    handleGoLocation("/members/alumni");
                     setIsMenuOpen(false);
                   }}
                 >

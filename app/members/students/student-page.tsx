@@ -1,28 +1,14 @@
 "use client";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import _ from "lodash";
 
-import { Tabs, TabsContent } from "@/components/ui/tabs";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { membersTranslations } from "@/translations/members";
 import { getImagePath } from "@/lib/utils";
 import { UnifiedMember } from "@/types";
-import {
-  getCompleteFacultyMembers,
-  getCompleteStudentsByProgram,
-  getCompleteAlumniByYear,
-  getAvailableAcademicYears,
-} from "@/translations/complete-unified-members-data";
+import { getAvailableAcademicYears } from "@/translations/complete-unified-members-data";
 import {
   MemberCard,
   MemberTitle,
@@ -60,7 +46,6 @@ export default function StudentPage({ members }: { members: UnifiedMember[] }) {
   console.log("Doctoral Students:", doctoralStudents);
 
   const [selectedYear, setSelectedYear] = useState(availableYears[0] || "");
-  const selectedYearAlumni = getCompleteAlumniByYear(selectedYear);
 
   // // タブ管理
   // const [activeTab, setActiveTab] = useState("faculty");
