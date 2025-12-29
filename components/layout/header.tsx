@@ -180,23 +180,24 @@ const Header = () => {
             </div>
             <div className="absolute left-0 top-full w-48 bg-white shadow-md rounded-b-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
               <a
-                href={getLinkPath("/members/faculty")}
+                href={"/members/faculty"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
-                onClick={(e) => handleGoLocation("/members/faculty")}
+                // onClick={(e) => handleGoLocation("/members/faculty")}
               >
                 {currentMenu.faculty}
               </a>
               <a
-                href={getLinkPath("/members/students")}
+                href={"/members/students"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
-                onClick={(e) => handleGoLocation("/members/students")}
+                // onClick={(e) => handleGoLocation("/members/students")}
               >
                 {currentMenu.students}
               </a>
               <a
-                href={getLinkPath("/members/alumni")}
+                href={"/members/alumni"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
-                onClick={(e) => handleGoLocation("/members/alumni")}
+                // TODO: Remove it
+                // onClick={(e) => handleGoLocation("/members/alumni")}
               >
                 {currentMenu.alumni}
               </a>

@@ -19,6 +19,7 @@ export const membersTranslations = {
       doctoral: "博士課程",
       masters: "修士課程",
       bachelor: "学部生",
+      researchStudents: "研究生",
       year: {
         doctoral: "博士",
         masters: "修士",
@@ -55,6 +56,7 @@ export const membersTranslations = {
       doctoral: "Doctoral Course",
       masters: "Master's Course",
       bachelor: "Bachelor Course",
+      researchStudents: "Research Students",
       year: {
         doctoral: "D",
         masters: "M",
@@ -71,4 +73,4 @@ export const membersTranslations = {
       researchPrefix: "Research: ",
     },
   },
-}
+};

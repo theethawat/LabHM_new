@@ -35,3 +35,27 @@ export type UnifiedMember = {
   academicYear?: string; // 学術年度（例：「令和5年度」）
   academicYearEn?: string;
 };
+
+export function convertSpreadSheetRowToUnifiedMember(
+  sheetObject: any
+): UnifiedMember {
+  const tempMember: UnifiedMember = { ...sheetObject } as UnifiedMember;
+  tempMember.researchTopic = {
+    ja: sheetObject?.jaResearchTopic,
+    en: sheetObject?.enResearchTopic,
+  };
+
+  tempMember.socialLinks = {
+    github: sheetObject?.github || undefined,
+    twitter: sheetObject?.twitter || undefined,
+    linkedin: sheetObject?.linkedin || undefined,
+    website: sheetObject?.website || undefined,
+  };
+
+  tempMember.background = {
+    ja: sheetObject?.jaBackground ? sheetObject.jaBackground.split("\n") : [],
+    en: sheetObject?.enBackground ? sheetObject.enBackground.split("\n") : [],
+  };
+
+  return tempMember;
+}

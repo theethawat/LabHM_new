@@ -41,6 +41,10 @@ export default function StudentPage({ members }: { members: UnifiedMember[] }) {
     program: "bachelor",
     isAlumni: false,
   });
+  const researchStudents = _.filter(members, {
+    program: "research_student",
+    isAlumni: false,
+  });
   const availableYears = getAvailableAcademicYears();
 
   console.log("Doctoral Students:", doctoralStudents);
@@ -157,6 +161,23 @@ export default function StudentPage({ members }: { members: UnifiedMember[] }) {
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-0">
                       {bachelorStudents.map((member) => (
+                        <MemberCard
+                          key={member.id}
+                          member={member}
+                          language={language}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {/*　研究生 */}
+                {researchStudents.length > 0 && (
+                  <div>
+                    <h2 className="text-2xl font-bold mb-6 border-b pb-2">
+                      {t.students.researchStudents}
+                    </h2>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-0">
+                      {researchStudents.map((member) => (
                         <MemberCard
                           key={member.id}
                           member={member}

@@ -14,8 +14,8 @@ import { useLanguage } from "@/contexts/language-context";
 import { membersTranslations } from "@/translations/members";
 import { UnifiedMember } from "@/types";
 import {
-  getCompleteAlumniByYear,
   getAvailableAcademicYears,
+  getCompleteAlumniByYear,
 } from "@/translations/complete-unified-members-data";
 import { MemberTitle, MemberTypeButton } from "@/components/features";
 
@@ -29,7 +29,7 @@ export default function AlumniPage({ members }: { members: UnifiedMember[] }) {
     isAlumni: false,
   });
 
-  const availableYears = getAvailableAcademicYears();
+  const availableYears = getAvailableAcademicYears(members);
 
   const [selectedYear, setSelectedYear] = useState<string>(
     availableYears[0] || ""

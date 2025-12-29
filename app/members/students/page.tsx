@@ -1,5 +1,5 @@
 import StudentPage from "./student-page";
-import { UnifiedMember } from "@/types";
+import { UnifiedMember, convertSpreadSheetRowToUnifiedMember } from "@/types";
 
 export default async function Student() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_MEMBER_DATA}`);
@@ -7,7 +7,10 @@ export default async function Student() {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
-  const members: UnifiedMember[] = await res.json();
+  const jsonResult = await res.json();
+  const members: UnifiedMember[] = jsonResult.map((row: any) =>
+    convertSpreadSheetRowToUnifiedMember(row)
+  );
 
   return <StudentPage members={members} />;
 }
