@@ -7,7 +7,7 @@ import { ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { membersTranslations } from "@/translations/members";
 import { getImagePath } from "@/lib/utils";
-import { UnifiedMember } from "@/types";
+import { Member } from "@/types";
 import { getAvailableAcademicYears } from "@/translations/complete-unified-members-data";
 import {
   MemberCard,
@@ -15,7 +15,7 @@ import {
   MemberTypeButton,
 } from "@/components/features";
 
-export default function StudentPage({ members }: { members: UnifiedMember[] }) {
+export default function StudentPage({ members }: { members: Member[] }) {
   const { language } = useLanguage();
   const t = membersTranslations[language];
 
@@ -45,11 +45,8 @@ export default function StudentPage({ members }: { members: UnifiedMember[] }) {
     program: "research_student",
     isAlumni: false,
   });
-  const availableYears = getAvailableAcademicYears();
 
   console.log("Doctoral Students:", doctoralStudents);
-
-  const [selectedYear, setSelectedYear] = useState(availableYears[0] || "");
 
   // // タブ管理
   // const [activeTab, setActiveTab] = useState("faculty");

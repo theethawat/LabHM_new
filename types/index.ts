@@ -1,2 +1,2 @@
-export type { UnifiedMember } from "./UniFiedMember";
-export { convertSpreadSheetRowToUnifiedMember } from "./UniFiedMember";
+export type { Member } from "./Member";
+export { convertSpreadSheetRowToUnifiedMember } from "./Member";

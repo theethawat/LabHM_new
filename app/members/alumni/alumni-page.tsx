@@ -12,14 +12,15 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { membersTranslations } from "@/translations/members";
-import { UnifiedMember } from "@/types";
+import { Member } from "@/types";
 import {
   getAvailableAcademicYears,
   getCompleteAlumniByYear,
 } from "@/translations/complete-unified-members-data";
 import { MemberTitle, MemberTypeButton } from "@/components/features";
+import { reiwaYearNameToChristianYearName } from "@/lib/reiwa-to-christian";
 
-export default function AlumniPage({ members }: { members: UnifiedMember[] }) {
+export default function AlumniPage({ members }: { members: Member[] }) {
   const { language } = useLanguage();
   const t = membersTranslations[language];
 
@@ -47,7 +48,7 @@ export default function AlumniPage({ members }: { members: UnifiedMember[] }) {
       groups[degreeType].push(member);
       return groups;
     },
-    {} as Record<string, UnifiedMember[]>
+    {} as Record<string, Member[]>
   );
 
   return (
@@ -66,19 +67,7 @@ export default function AlumniPage({ members }: { members: UnifiedMember[] }) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="w-48">
-                      {selectedYear === "令和元年度"
-                        ? "2019年度"
-                        : selectedYear === "令和2年度"
-                          ? "2020年度"
-                          : selectedYear === "令和3年度"
-                            ? "2021年度"
-                            : selectedYear === "令和4年度"
-                              ? "2022年度"
-                              : selectedYear === "令和5年度"
-                                ? "2023年度"
-                                : selectedYear === "令和6年度"
-                                  ? "2024年度"
-                                  : selectedYear}
+                      {reiwaYearNameToChristianYearName(selectedYear)}
                       <ChevronDown className="ml-2 h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
@@ -89,19 +78,7 @@ export default function AlumniPage({ members }: { members: UnifiedMember[] }) {
                         onClick={() => setSelectedYear(year)}
                         className={selectedYear === year ? "bg-gray-100" : ""}
                       >
-                        {year === "令和元年度"
-                          ? "2019年度"
-                          : year === "令和2年度"
-                            ? "2020年度"
-                            : year === "令和3年度"
-                              ? "2021年度"
-                              : year === "令和4年度"
-                                ? "2022年度"
-                                : year === "令和5年度"
-                                  ? "2023年度"
-                                  : year === "令和6年度"
-                                    ? "2024年度"
-                                    : year}
+                        {reiwaYearNameToChristianYearName(year)}
                       </DropdownMenuItem>
                     ))}
                   </DropdownMenuContent>
@@ -111,19 +88,7 @@ export default function AlumniPage({ members }: { members: UnifiedMember[] }) {
               {selectedYearAlumni.length > 0 ? (
                 <div className="space-y-12">
                   <h2 className="text-2xl font-bold text-center mb-8">
-                    {selectedYear === "令和元年度"
-                      ? "2019年度"
-                      : selectedYear === "令和2年度"
-                        ? "2020年度"
-                        : selectedYear === "令和3年度"
-                          ? "2021年度"
-                          : selectedYear === "令和4年度"
-                            ? "2022年度"
-                            : selectedYear === "令和5年度"
-                              ? "2023年度"
-                              : selectedYear === "令和6年度"
-                                ? "2024年度"
-                                : selectedYear}
+                    {reiwaYearNameToChristianYearName(selectedYear)}
                   </h2>
 
                   {/* 博士課程 */}

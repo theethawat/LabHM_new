@@ -1,5 +1,5 @@
 // 統一されたメンバーの型定義
-export type UnifiedMember = {
+export type Member = {
   id: string;
   name: string;
   nameEn?: string;
@@ -36,10 +36,8 @@ export type UnifiedMember = {
   academicYearEn?: string;
 };
 
-export function convertSpreadSheetRowToUnifiedMember(
-  sheetObject: any
-): UnifiedMember {
-  const tempMember: UnifiedMember = { ...sheetObject } as UnifiedMember;
+export function convertSpreadSheetRowToUnifiedMember(sheetObject: any): Member {
+  const tempMember: Member = { ...sheetObject } as Member;
   tempMember.researchTopic = {
     ja: sheetObject?.jaResearchTopic,
     en: sheetObject?.enResearchTopic,
