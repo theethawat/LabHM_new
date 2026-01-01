@@ -1,3 +1,11 @@
+export enum DegreeType {
+  Doctor = "doctor",
+  Master = "masters",
+  Bachelor = "bachelor",
+  Faculty = "faculty",
+  ResearchStudent = "research_student",
+}
+
 // 統一されたメンバーの型定義
 export type Member = {
   id: string;
@@ -7,7 +15,7 @@ export type Member = {
   graduationYear?: string; // 卒業年度（卒業生の場合）
   position?: string; // 教員・研究員の場合の役職
   positionEn?: string;
-  program?: "doctoral" | "masters" | "bachelor" | "faculty"; // 所属課程または教員
+  program?: DegreeType; // 所属課程または教員
   year?: number; // 現在の学年（在校生の場合）
   lab?: string; // 所属研究室
   labEn?: string;
@@ -31,7 +39,7 @@ export type Member = {
     website?: string;
   };
   // 卒業生の場合のデータ
-  degreeType?: "doctor" | "master" | "bachelor";
+  degreeType?: DegreeType;
   academicYear?: string; // 学術年度（例：「令和5年度」）
   academicYearEn?: string;
 };

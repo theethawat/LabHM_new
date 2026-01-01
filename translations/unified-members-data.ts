@@ -1,7 +1,7 @@
-import { UnifiedMember } from "@/types";
+import { Member, DegreeType } from "@/types";
 
 // 教員・研究員データ（既存データを統一形式に変換）
-export const unifiedFacultyMembers: UnifiedMember[] = [
+export const unifiedFacultyMembers: Member[] = [
   {
     id: "thithizin",
     name: "Thi Thi Zin（ティ ティ ズイン）",
@@ -9,7 +9,7 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
     isAlumni: false,
     position: "教授（情報通信工学プログラム）",
     positionEn: "Professor (Information and Communication Engineering Program)",
-    program: "faculty",
+    program: DegreeType.Faculty,
     image: "/images/thithizin.jpg",
     background: {
       ja: [
@@ -42,7 +42,7 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
     position: "助教（情報通信工学プログラム）",
     positionEn:
       "Assistant Professor (Information and Communication Engineering Program)",
-    program: "faculty",
+    program: DegreeType.Faculty,
     image: "/images/no_image.png",
     background: {
       ja: [
@@ -71,7 +71,7 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
     position: "宮崎大学名誉博士（宮崎大学国際連携センター客員教授）",
     positionEn:
       "Honorary Doctor, University of Miyazaki (Visiting Professor, International Collaboration Center)",
-    program: "faculty",
+    program: DegreeType.Faculty,
     image: "/images/no_image.png",
     background: {
       ja: [
@@ -102,7 +102,7 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
     position: "助教（情報通信工学プログラム）",
     positionEn:
       "Assistant Professor (Information and Communication Engineering Program)",
-    program: "faculty",
+    program: DegreeType.Faculty,
     image: "/images/Cho_Nilar_Phyo.jpg",
     background: {
       ja: [
@@ -132,7 +132,7 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
     isAlumni: false,
     position: "研究員",
     positionEn: "Researcher",
-    program: "faculty",
+    program: DegreeType.Faculty,
     image: "/images/no_image.png",
     background: {
       ja: [],
@@ -150,7 +150,7 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
     isAlumni: false,
     position: "研究員",
     positionEn: "Researcher",
-    program: "faculty",
+    program: DegreeType.Faculty,
     image: "/images/no_image.png",
     background: {
       ja: [],
@@ -164,11 +164,11 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
   {
     id: "nomoto",
     name: "野元 理美",
-    nameEn: "Rimi Nomoto",
+    nameEn: "Satomi Nomoto",
     isAlumni: false,
     position: "秘書",
     positionEn: "Secretary",
-    program: "faculty",
+    program: DegreeType.Faculty,
     image: "/images/no_image.png",
     background: {
       ja: [],
@@ -181,375 +181,11 @@ export const unifiedFacultyMembers: UnifiedMember[] = [
   },
 ];
 
-// 現在の学生データ（統一形式）
-export const unifiedCurrentStudents: UnifiedMember[] = [
-  // 博士課程
-  {
-    id: "tunncholwin",
-    name: "Tunn Cho Lwin（ﾄｩﾝ ﾁｮ ﾚﾝ）",
-    nameEn: "Tunn Cho Lwin",
-    isAlumni: false,
-    program: "doctoral",
-    year: 3,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "hashimoto",
-    name: "橋本 幸枝",
-    nameEn: "Sachie Hashimoto",
-    isAlumni: false,
-    program: "doctoral",
-    year: 3,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "sanchaintun",
-    name: "San Chain Tun（ｻﾝ ﾁｪｲﾝ ﾄｩﾝ）",
-    nameEn: "San Chain Tun",
-    isAlumni: false,
-    program: "doctoral",
-    year: 2,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "bobomyint",
-    name: "Bo Bo Myint（ﾎﾞｰ ﾎﾞｰ ﾐｪｴﾝﾄ）",
-    nameEn: "Bo Bo Myint",
-    isAlumni: false,
-    program: "doctoral",
-    year: 2,
-    image: "/images/no_image.png",
-  },
-
-  // 修士課程
-  {
-    id: "ishikawa",
-    name: "石川 太一",
-    nameEn: "Taichi Ishikawa",
-    isAlumni: false,
-    program: "masters",
-    year: 2,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "shiihara",
-    name: "椎原 陽",
-    nameEn: "Akira Shiihara",
-    isAlumni: false,
-    program: "masters",
-    year: 2,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "shimizu",
-    name: "清水 祐一朗",
-    nameEn: "Yuichiro Shimizu",
-    isAlumni: false,
-    program: "masters",
-    year: 2,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "pyaephyokyaw",
-    name: "Pyae Phyo Kyaw（ﾋﾟｪ ﾋﾟｮ ﾁｮｰ）",
-    nameEn: "Pyae Phyo Kyaw",
-    isAlumni: false,
-    program: "masters",
-    year: 2,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "aungsithumoe",
-    name: "Aung Si Thu Moe（ｱｳﾝ ｼ ﾄｩ ﾓｰ）",
-    nameEn: "Aung Si Thu Moe",
-    isAlumni: false,
-    program: "masters",
-    year: 2,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "nakashima-m1",
-    name: "中嶋 麗文",
-    nameEn: "Reifumi Nakashima",
-    isAlumni: false,
-    program: "masters",
-    year: 1,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "nishimoto-m1",
-    name: "西本 大地",
-    nameEn: "Daichi Nishimoto",
-    isAlumni: false,
-    program: "masters",
-    year: 1,
-    image: "/images/no_image.png",
-    socialLinks: {
-      github: "https://github.com/nishimoto265",
-    },
-  },
-  {
-    id: "murayama-m1",
-    name: "村山 拓海",
-    nameEn: "Takumi Murayama",
-    isAlumni: false,
-    program: "masters",
-    year: 1,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "araki-m1",
-    name: "荒木 駿佑",
-    nameEn: "Shunsuke Araki",
-    isAlumni: false,
-    program: "masters",
-    year: 1,
-    image: "/images/no_image.png",
-  },
-  {
-    id: "myoponeponeswe-m1",
-    name: "Myo Pone Pone Swe（ﾐｮ ﾎﾟﾝ ﾎﾟﾝ ｽｴ）",
-    nameEn: "Myo Pone Pone Swe",
-    isAlumni: false,
-    program: "masters",
-    year: 1,
-    image: "/images/no_image.png",
-  },
-
-  // 学部生
-  {
-    id: "sato",
-    name: "佐藤 賢吾",
-    nameEn: "Kengo Sato",
-    isAlumni: false,
-    program: "bachelor",
-    lab: "椎屋研究室",
-    labEn: "Shiiya Laboratory",
-    image: "/images/no_image.png",
-  },
-  {
-    id: "shibaharanaoki",
-    name: "芝原直希",
-    nameEn: "Naoki Shibahara",
-    isAlumni: false,
-    program: "bachelor",
-    image: "/images/no_image.png",
-  },
-  {
-    id: "tokitonaoya",
-    name: "時任尚哉",
-    nameEn: "Naoya Tokito",
-    isAlumni: false,
-    program: "bachelor",
-    image: "/images/no_image.png",
-  },
-  {
-    id: "matsushitanaohide",
-    name: "松下直瑛",
-    nameEn: "Naohide Matsushita",
-    isAlumni: false,
-    program: "bachelor",
-    image: "/images/no_image.png",
-  },
-  {
-    id: "matsumotohiroki",
-    name: "松本浩輝",
-    nameEn: "Hiroki Matsumoto",
-    isAlumni: false,
-    program: "bachelor",
-    image: "/images/no_image.png",
-  },
-  {
-    id: "uchikurakoki",
-    name: "内倉康喜",
-    nameEn: "Koki Uchikura",
-    isAlumni: false,
-    program: "bachelor",
-    lab: "Cho Nilar Phyo 研究室",
-    labEn: "Cho Nilar Phyo Laboratory",
-    image: "/images/no_image.png",
-  },
-  {
-    id: "tanegatamiki",
-    name: "種子田美葵",
-    nameEn: "Miki Tanegata",
-    isAlumni: false,
-    program: "bachelor",
-    lab: "椎屋研究室",
-    labEn: "Shiiya Laboratory",
-    image: "/images/no_image.png",
-  },
-];
-
-// 卒業生データ（統一形式）
-export const unifiedAlumniMembers: UnifiedMember[] = [
-  // 令和5年度 修士課程
-  {
-    id: "chochoaye-r5",
-    name: "Cho Cho Aye",
-    nameEn: "Cho Cho Aye",
-    isAlumni: true,
-    program: "masters",
-    degreeType: "master",
-    graduationYear: "2023",
-    academicYear: "令和5年度",
-    academicYearEn: "2023 Academic Year",
-    image: "/images/no_image.png",
-    researchTopic: {
-      ja: "Black Cow Detection and Tracking for Behavior Analysis",
-      en: "Black Cow Detection and Tracking for Behavior Analysis",
-    },
-  },
-  {
-    id: "mayphyukhin-r5",
-    name: "May Phyu Khin",
-    nameEn: "May Phyu Khin",
-    isAlumni: true,
-    program: "masters",
-    degreeType: "master",
-    graduationYear: "2023",
-    academicYear: "令和5年度",
-    academicYearEn: "2023 Academic Year",
-    image: "/images/no_image.png",
-    researchTopic: {
-      ja: "Cattle Pose Classification for Calving Time Prediction",
-      en: "Cattle Pose Classification for Calving Time Prediction",
-    },
-  },
-  {
-    id: "sanchaintun-r5",
-    name: "San Chain Tun",
-    nameEn: "San Chain Tun",
-    isAlumni: true,
-    program: "masters",
-    degreeType: "master",
-    graduationYear: "2023",
-    academicYear: "令和5年度",
-    academicYearEn: "2023 Academic Year",
-    image: "/images/no_image.png",
-    researchTopic: {
-      ja: "Cow Lameness Detection using Depth Image Analysis",
-      en: "Cow Lameness Detection using Depth Image Analysis",
-    },
-  },
-  {
-    id: "sularbmon-r5",
-    name: "Su Larb Mon",
-    nameEn: "Su Larb Mon",
-    isAlumni: true,
-    program: "masters",
-    degreeType: "master",
-    graduationYear: "2023",
-    academicYear: "令和5年度",
-    academicYearEn: "2023 Academic Year",
-    image: "/images/no_image.png",
-    researchTopic: {
-      ja: "Automatic Cattle Identification Using RGB Images",
-      en: "Automatic Cattle Identification Using RGB Images",
-    },
-  },
-  {
-    id: "kamahori-r5",
-    name: "釜堀 慶次郎",
-    nameEn: "Keijiro Kamahori",
-    isAlumni: true,
-    program: "masters",
-    degreeType: "master",
-    graduationYear: "2023",
-    academicYear: "令和5年度",
-    academicYearEn: "2023 Academic Year",
-    image: "/images/no_image.png",
-    researchTopic: {
-      ja: "バランスタスクを用いた高齢者の転倒リスク評価に関する研究",
-      en: "Study on Fall Risk Assessment for the Elderly Using Balance Tasks",
-    },
-  },
-  {
-    id: "onitsuka-r5",
-    name: "鬼塚 翼",
-    nameEn: "Tsubasa Onitsuka",
-    isAlumni: true,
-    program: "masters",
-    degreeType: "master",
-    graduationYear: "2023",
-    academicYear: "令和5年度",
-    academicYearEn: "2023 Academic Year",
-    image: "/images/no_image.png",
-    researchTopic: {
-      ja: "画像処理技術を用いた牛の跛行検知に関する研究",
-      en: "Study on Lameness Detection in Cattle Using Image Processing Technology",
-    },
-  },
-
-  // 令和5年度 学部生
-  {
-    id: "nagano-r5",
-    name: "永野 流磨",
-    nameEn: "Ryuma Nagano",
-    isAlumni: true,
-    program: "bachelor",
-    degreeType: "bachelor",
-    graduationYear: "2023",
-    academicYear: "令和5年度",
-    academicYearEn: "2023 Academic Year",
-    image: "/images/no_image.png",
-    researchTopic: {
-      ja: "Flaskを用いたファブリー病の振戦運動評価の研究",
-      en: "Study on Tremor Movement Evaluation of Fabry Disease Using Flask",
-    },
-  },
-  {
-    id: "takaoka-r5",
-    name: "高岡 柚貴",
-    nameEn: "Yuki Takaoka",
-    isAlumni: true,
-    program: "bachelor",
-    degreeType: "bachelor",
-    graduationYear: "2023",
-    academicYear: "令和5年度",
-    academicYearEn: "2023 Academic Year",
-    image: "/images/no_image.png",
-    researchTopic: {
-      ja: "RGBカメラによる牛の歩行動画を用いた個体識別に関する研究",
-      en: "Study on Individual Identification Using Walking Videos of Cattle with RGB Camera",
-    },
-  },
-  // 以下、他の卒業生データも同様に追加...
-  // ここでは例示として数名のみ記載、実際には全卒業生データを統一形式で追加
-];
-
 // 全メンバーを統合した配列
-export const allUnifiedMembers: UnifiedMember[] = [
-  ...unifiedFacultyMembers,
-  ...unifiedCurrentStudents,
-  ...unifiedAlumniMembers,
-];
+export const allUnifiedMembers: Member[] = [...unifiedFacultyMembers];
 
-// フィルタリング関数
-export function getActiveMembers(): UnifiedMember[] {
-  return allUnifiedMembers.filter((member) => !member.isAlumni);
-}
-
-export function getAlumniMembers(): UnifiedMember[] {
-  return allUnifiedMembers.filter((member) => member.isAlumni);
-}
-
-export function getFacultyMembers(): UnifiedMember[] {
+export function getFacultyMembers(): Member[] {
   return allUnifiedMembers.filter(
     (member) => member.program === "faculty" && !member.isAlumni
-  );
-}
-
-export function getStudentsByProgram(
-  program: "doctoral" | "masters" | "bachelor"
-): UnifiedMember[] {
-  return allUnifiedMembers.filter(
-    (member) => member.program === program && !member.isAlumni
-  );
-}
-
-export function getAlumniByYear(academicYear: string): UnifiedMember[] {
-  return allUnifiedMembers.filter(
-    (member) => member.isAlumni && member.academicYear === academicYear
   );
 }

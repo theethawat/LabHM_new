@@ -1,14 +1,10 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
+
 import _ from "lodash";
 
-import { ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { membersTranslations } from "@/translations/members";
-import { getImagePath } from "@/lib/utils";
-import { Member } from "@/types";
-import { getAvailableAcademicYears } from "@/translations/complete-unified-members-data";
+import { Member, DegreeType } from "@/types";
 import {
   MemberCard,
   MemberTitle,
@@ -19,88 +15,23 @@ export default function StudentPage({ members }: { members: Member[] }) {
   const { language } = useLanguage();
   const t = membersTranslations[language];
 
-  // // Fetching the data
-  // const data = await sheets.spreadsheets.values.get({
-  //   spreadsheetId: spreadsheetId,
-  //   range: "members!A:Z",
-  // });
-
-  // const rows = data.data.values || [];
-  // console.log("Fetched rows:", rows);
-
   // データ取得
   const doctoralStudents = _.filter(members, {
-    program: "doctoral",
+    program: DegreeType.Doctor,
     isAlumni: false,
   });
   const mastersStudents = _.filter(members, {
-    program: "masters",
+    program: DegreeType.Master,
     isAlumni: false,
   });
   const bachelorStudents = _.filter(members, {
-    program: "bachelor",
+    program: DegreeType.Bachelor,
     isAlumni: false,
   });
   const researchStudents = _.filter(members, {
-    program: "research_student",
+    program: DegreeType.ResearchStudent,
     isAlumni: false,
   });
-
-  console.log("Doctoral Students:", doctoralStudents);
-
-  // // タブ管理
-  // const [activeTab, setActiveTab] = useState("faculty");
-
-  // // ハッシュの変更を検知して適切なタブを選択
-  // useEffect(() => {
-  //   const handleHashChange = () => {
-  //     const hash = window.location.hash.replace("#", "");
-  //     if (hash && ["faculty", "students", "alumni"].includes(hash)) {
-  //       setActiveTab(hash);
-  //       // ハッシュに対応する要素までスクロール
-  //       setTimeout(() => {
-  //         const element = document.getElementById(hash);
-  //         if (element) {
-  //           element.scrollIntoView({ behavior: "smooth", block: "start" });
-  //         }
-  //       }, 100);
-  //     }
-  //   };
-
-  //   // 初回読み込み時の処理
-  //   handleHashChange();
-
-  //   // ハッシュ変更の監視
-  //   window.addEventListener("hashchange", handleHashChange);
-
-  //   const observer = new MutationObserver(() => {
-  //     const hash = window.location.hash.replace("#", "");
-  //     if (hash && ["faculty", "students", "alumni"].includes(hash)) {
-  //       setActiveTab(hash);
-  //     }
-  //   });
-
-  //   observer.observe(document, { subtree: true, childList: true });
-
-  //   return () => {
-  //     window.removeEventListener("hashchange", handleHashChange);
-  //     observer.disconnect();
-  //   };
-  // }, []);
-
-  //   // タブ変更時にURLハッシュも更新
-  //   const handleTabChange = (value: string) => {
-  //     setActiveTab(value);
-  //     // basePath対応のURL生成
-  //     const basePath =
-  //       typeof window !== "undefined"
-  //         ? document
-  //             .querySelector('script[src*="/_next/"]')
-  //             ?.getAttribute("src")
-  //             ?.match(/^(\/[^\/]+)?\//)?.[1] || ""
-  //         : "";
-  //     window.history.replaceState(null, "", `${basePath}/members#${value}`);
-  //   };
 
   return (
     <div className="min-h-screen flex flex-col">
