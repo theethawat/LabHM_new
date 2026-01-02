@@ -1,63 +1,8 @@
 import _ from "lodash";
-import {
-  type UnifiedMember,
-  unifiedFacultyMembers,
-  unifiedCurrentStudents,
-} from "./unified-members-data";
-
-// 型の再エクスポート
-export type { UnifiedMember };
-
-// 全メンバーを統合した配列（完全版）
-export const allCompleteUnifiedMembers: UnifiedMember[] = [
-  ...unifiedFacultyMembers,
-  ...unifiedCurrentStudents,
-];
-
-// フィルタリング関数（完全版）
-export function getCompleteActiveMembers(): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter((member) => !member.isAlumni);
-}
-
-export function getCompleteAlumniMembers(): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter((member) => member.isAlumni);
-}
-
-export function getCompleteFacultyMembers(): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter(
-    (member) => member.program === "faculty" && !member.isAlumni
-  );
-}
-
-export function getCompleteStudentsByProgram(
-  program: "doctoral" | "masters" | "bachelor"
-): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter(
-    (member) => member.program === program && !member.isAlumni
-  );
-}
-
-export function getCompleteAlumniByYear(
-  academicYear: string,
-  inputMembers: UnifiedMember[]
-): UnifiedMember[] {
-  return inputMembers.filter(
-    (allMember) => allMember.isAlumni && allMember.academicYear === academicYear
-  );
-}
-
-export function getCompleteAlumniByDegree(
-  degreeType: "doctor" | "master" | "bachelor"
-): UnifiedMember[] {
-  return allCompleteUnifiedMembers.filter(
-    (member) => member.isAlumni && member.degreeType === degreeType
-  );
-}
+import { Member } from "@/types";
 
 // 卒業年度のリストを取得
-export function getAvailableAcademicYears(
-  alumniMembers: UnifiedMember[]
-): string[] {
+export function getAvailableAcademicYears(alumniMembers: Member[]): string[] {
   if (_.isEmpty(alumniMembers)) {
     return [];
   }
