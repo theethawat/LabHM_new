@@ -122,8 +122,8 @@ export function convertSpreadsheetToResearch(sheetObject: any): Research {
     key.replace(/^jp/, "")
   );
 
-  const jaResearch: ResearchSingleLanguage = singleLanguagePlaceholder;
-  const enResearch: ResearchSingleLanguage = singleLanguagePlaceholder;
+  const jaResearch: ResearchSingleLanguage = { ...singleLanguagePlaceholder };
+  const enResearch: ResearchSingleLanguage = { ...singleLanguagePlaceholder };
 
   _.map(langSpecKeysWithoutPrefix, (key) => {
     jaResearch[_.camelCase(key) as keyof ResearchSingleLanguage] =

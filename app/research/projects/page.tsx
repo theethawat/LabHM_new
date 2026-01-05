@@ -6,11 +6,6 @@ export default async function ResearchProject() {
     `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs`
   );
 
-  console.log(
-    "URL",
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs`
-  );
-
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");

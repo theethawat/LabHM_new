@@ -4,6 +4,8 @@ import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import _ from "lodash";
+
 import { useLanguage } from "@/contexts/language-context";
 import { researchProjectsTranslations, researchAreas } from "@/translations";
 import { getImagePath } from "@/lib/utils";
@@ -31,35 +33,26 @@ export default function ResearchProjectsPage({
     ResearchArea | undefined
   >(foundArea);
 
+  const findSelectedArea = (searchKey: string): ResearchArea | undefined => {
+    return researchAreas.find((area) => area.id === searchKey);
+  };
+
   // URLパラメータが変更されたときに選択キーワードを更新
-  // useEffect(() => {
-  //   if (categoryParam) {
-  //     setSelectedKeyword(categoryParam)
-  //     console.log("Category param detected:", categoryParam) // デバッグ用
-  //   }
-  // }, [categoryParam])
+  useEffect(() => {
+    if (categoryParam) {
+      const selectedArea = findSelectedArea(categoryParam);
+      setSelectedKeyword(selectedArea);
+    }
+  }, [categoryParam]);
 
-  // 言語が変更されたときに選択キーワードを更新するための useEffect を追加します
-  // また、キーワードの対応関係を定義します
-
-  // 既存の useEffect の後に以下のコードを追加します
-  // useEffect(() => {
-  //   // 言語が変更されたときに選択キーワードを対応する言語のものに更新
-  //   if (selectedKeyword === "すべて" || selectedKeyword === "All") {
-  //     // 「すべて」/「All」の場合は現在の言語の「すべて」に変更
-  //     setSelectedKeyword(t.keywords.all)
-  //   } else if (selectedKeyword === "牛" || selectedKeyword === "Cattle") {
-  //     // 「牛」/「Cattle」の場合は現在の言語の対応するものに変更
-  //     setSelectedKeyword(language === "ja" ? "牛" : "Cattle")
-  //   } else if (selectedKeyword === "人" || selectedKeyword === "Human") {
-  //     // 「人」/「Human」の場合は現在の言語の対応するものに変更
-  //     setSelectedKeyword(language === "ja" ? "人" : "Human")
-  //   } else if (selectedKeyword === "医療" || selectedKeyword === "Medical") {
-  //     // 「医療」/「Medical」の場合は現在の言語の対応するものに変更
-  //     setSelectedKeyword(language === "ja" ? "医療" : "Medical")
-  //   }
-  //   // AI はそのままでOK
-  // }, [language, t.keywords.all, selectedKeyword])
+  const filteredProjects = useMemo(() => {
+    if (!selectedKeyword) {
+      return researches;
+    }
+    return researches.filter((research) =>
+      research.tags.includes(selectedKeyword.id)
+    );
+  }, [selectedKeyword, researches]);
 
   // const researchProjectsData: ResearchProject[] = useMemo(
   //   () => [
@@ -218,29 +211,38 @@ export default function ResearchProjectsPage({
             </div>
 
             {/* プロジェクト一覧 */}
-            {/* <div className="grid gap-8">
-              {filteredProjects.map((project) => (
-                <div key={project.id} className="overflow-hidden bg-white border-b border-gray-200">
+            <div className="grid gap-8">
+              {filteredProjects.map((project: Research) => (
+                <div
+                  key={project.id}
+                  className="overflow-hidden bg-white border-b border-gray-200"
+                >
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="relative aspect-[4/3] md:col-span-1">
                       <Image
-                        src={project.image}
-                        alt={project.title}
+                        src={project?.images?.overview_image || ""}
+                        alt={project.ja.title}
                         fill
                         className="object-contain"
                       />
                     </div>
                     <div className="p-6 md:col-span-2 flex flex-col justify-between">
                       <div>
-                        <h2 className="text-2xl font-bold mb-4">{project.title}</h2>
-                        <p className="text-gray-700 mb-6">{project.description}</p>
-                        {project.keywords && (
+                        <h2 className="text-2xl font-bold mb-4">
+                          {project?.[language]?.title}
+                        </h2>
+                        <p className="text-gray-700 mb-6">
+                          {project?.[language]?.overview}
+                        </p>
+                        {project?.tags && (
                           <div className="flex flex-wrap gap-2 mb-4">
-                            {project.keywords.map((keyword, index) => (
+                            {project?.tags?.map((keyword, index) => (
                               <span
                                 key={index}
                                 className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full cursor-pointer hover:bg-gray-200"
-                                onClick={() => setSelectedKeyword(keyword)}
+                                onClick={() =>
+                                  setSelectedKeyword(findSelectedArea(keyword))
+                                }
                               >
                                 {keyword}
                               </span>
@@ -249,7 +251,10 @@ export default function ResearchProjectsPage({
                         )}
                       </div>
                       <div>
-                        <Link href={project.link} className="text-primary hover:underline font-medium">
+                        <Link
+                          href={`projects/${project?.id}`}
+                          className="text-primary hover:underline font-medium"
+                        >
                           {t.viewDetails} →
                         </Link>
                       </div>
@@ -257,22 +262,22 @@ export default function ResearchProjectsPage({
                   </div>
                 </div>
               ))}
-            </div> */}
+            </div>
 
             {/* 検索結果がない場合 */}
-            {/* {filteredProjects.length === 0 && (
+            {filteredProjects.length === 0 && (
               <div className="text-center py-12">
                 <p className="text-gray-500">
-                  「{selectedKeyword}」{t.noResults.message}
+                  「{selectedKeyword?.[language]?.title}」{t.noResults.message}
                 </p>
-                <button 
+                <button
                   className="mt-4 px-4 py-2 border border-gray-300 rounded-full bg-white text-black hover:bg-gray-100 transition-colors"
-                  onClick={() => setSelectedKeyword(t.keywords.all)}
+                  onClick={() => setSelectedKeyword(undefined)}
                 >
                   {t.noResults.showAll}
                 </button>
               </div>
-            )} */}
+            )}
           </div>
         </div>
       </div>
