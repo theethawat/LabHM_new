@@ -12,6 +12,7 @@ export default async function ResearchProject() {
   }
 
   const jsonResult = await res.json();
+
   const researches: Research[] = jsonResult.map((row: any) =>
     convertSpreadsheetToResearch(row)
   );

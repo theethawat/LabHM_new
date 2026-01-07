@@ -220,7 +220,9 @@ export default function ResearchProjectsPage({
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="relative aspect-[4/3] md:col-span-1">
                       <Image
-                        src={project?.images?.overview_image || ""}
+                        src={
+                          project?.images?.overview_image || "/placeholder.svg"
+                        }
                         alt={project.ja.title}
                         fill
                         className="object-contain"
@@ -252,7 +254,7 @@ export default function ResearchProjectsPage({
                       </div>
                       <div>
                         <Link
-                          href={`projects/${project?.id}`}
+                          href={`projects/detail/${project?.id}`}
                           className="text-primary hover:underline font-medium"
                         >
                           {t.viewDetails} →
