@@ -1,5 +1,5 @@
 export enum DegreeType {
-  Doctor = "doctor",
+  Doctor = "doctoral",
   Master = "masters",
   Bachelor = "bachelor",
   Faculty = "faculty",
