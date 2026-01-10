@@ -1,8 +1,14 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+
 import { Research } from "@/types";
 import { useLanguage } from "@/contexts/language-context";
 import { getImagePath } from "@/lib/utils";
+import { researchProjectsTranslations } from "@/translations/research-projects";
+import { Button } from "@/components/ui/button";
+import _ from "lodash";
 
 export default function DetailResearchPage({
   selectedResearch,
@@ -10,6 +16,12 @@ export default function DetailResearchPage({
   selectedResearch: Research;
 }) {
   const { language } = useLanguage();
+  const t = researchProjectsTranslations[language];
+
+  const splitDataFromHyphen = (data: string | undefined) => {
+    const splittedResult = _.split(data, "-");
+    return _.tail(splittedResult);
+  };
 
   return (
     <div>
@@ -37,94 +49,175 @@ export default function DetailResearchPage({
         <div className="container">
           <div className="max-w-4xl mx-auto">
             {/* プロジェクト概要 */}
-            <div className="mb-16">
-              <h2 className="text-2xl font-bold mb-4">
-                {selectedResearch?.[language]?.overview}
-              </h2>
-              <p className="text-gray-700">
-                {selectedResearch?.[language]?.overview}
-              </p>
+            <div
+              className="relative aspect-auto rounded-lg overflow-hidden"
+              style={{ height: "auto", minHeight: "250px" }}
+            >
+              {selectedResearch?.images?.overview_image && (
+                <Image
+                  src={selectedResearch?.images?.overview_image}
+                  alt={selectedResearch?.[language]?.title}
+                  fill
+                  className="object-contain"
+                />
+              )}
             </div>
 
-            {/* 実験背景・目的 */}
-            {/* <div className="mb-16">
-              <h2 className="text-2xl font-bold mb-4">{t.backgroundTitle}</h2>
-              <p className="text-gray-700">{t.backgroundText1}</p>
-              <p className="text-gray-700 mt-4">{t.backgroundText2}</p>
-              <div
-                className="relative aspect-auto mt-6 mb-6 rounded-lg overflow-hidden"
-                style={{ height: "auto", minHeight: "250px" }}
-              >
-                <Image
-                  src={getImagePath("/images/research-nishiyama1.png")}
-                  alt={
-                    language === "ja"
-                      ? "1戸当たり飼養頭数の推移"
-                      : "Trend in the Number of Cattle per Farm"
-                  }
-                  fill
-                  className="object-contain"
-                />
+            {/* メインコンテンツ */}
+            <section className="py-16">
+              <div className="container">
+                <div className="max-w-4xl mx-auto">
+                  {/* 実験背景・目的 Background */}
+                  {selectedResearch?.[language]?.backgroundText1 && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {t.backgroundTitle}
+                      </h2>
+                      <p className="text-gray-700">
+                        {selectedResearch?.[language]?.backgroundText1}
+                      </p>
+                      <p className="text-gray-700 mt-4 mb-8">
+                        {selectedResearch?.[language]?.backgroundText2}
+                      </p>
+
+                      {selectedResearch?.images?.background_image && (
+                        <div
+                          className="relative aspect-auto rounded-lg overflow-hidden"
+                          style={{ height: "auto", minHeight: "250px" }}
+                        >
+                          <Image
+                            src={selectedResearch?.images?.background_image}
+                            alt={t.backgroundTitle}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {/* 価値と効果 Value */}
+                  {selectedResearch?.[language]?.valueText1 && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {t.valueTitle}
+                      </h2>
+                      <p className="text-gray-700">
+                        {selectedResearch?.[language]?.valueText1}
+                      </p>
+                      <p className="text-gray-700 mt-4 mb-8">
+                        {selectedResearch?.[language]?.valueText2}
+                      </p>
+                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
+                        {splitDataFromHyphen(
+                          selectedResearch?.[language]?.valueList
+                        )?.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
+                  {/* 実験環境 Environment */}
+                  {selectedResearch?.[language]?.environmentText1 && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {t.environmentTitle}
+                      </h2>
+                      <p className="text-gray-700">
+                        {selectedResearch?.[language]?.environmentText1}
+                      </p>
+                      <p className="text-gray-700 mt-4 mb-8">
+                        {selectedResearch?.[language]?.environmentText2}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* 研究手法  Method */}
+                  {selectedResearch?.[language]?.methodText1 && (
+                    <div className="mb-16">
+                      {selectedResearch?.images?.method_image && (
+                        <div
+                          className="relative aspect-auto rounded-lg overflow-hidden"
+                          style={{ height: "auto", minHeight: "250px" }}
+                        >
+                          <Image
+                            src={selectedResearch?.images?.method_image}
+                            alt={t.methodTitle}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      )}
+                      <h2 className="text-2xl font-bold mb-4">
+                        {t.methodTitle}
+                      </h2>
+                      <p className="text-gray-700">
+                        {selectedResearch?.[language]?.methodText1}
+                      </p>
+                      <p className="text-gray-700 mt-4">
+                        {selectedResearch?.[language]?.methodText2}
+                      </p>
+                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
+                        {splitDataFromHyphen(
+                          selectedResearch?.[language]?.methodList
+                        )?.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ol>
+                      <p className="text-gray-700 mt-4">
+                        {selectedResearch?.[language]?.methodText3}
+                      </p>
+                    </div>
+                  )}
+                  {/* 実験結果 Result */}
+                  {selectedResearch?.[language]?.resultText1 && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {t.resultsTitle}
+                      </h2>
+                      <p className="text-gray-700">
+                        {selectedResearch?.[language]?.resultText1}
+                      </p>
+                      <p className="text-gray-700 mt-4 mb-8">
+                        {selectedResearch?.[language]?.resultText2}
+                      </p>
+                      {selectedResearch?.images?.result_image && (
+                        <div
+                          className="relative aspect-auto rounded-lg overflow-hidden"
+                          style={{ height: "auto", minHeight: "250px" }}
+                        >
+                          <Image
+                            src={selectedResearch?.images?.result_image}
+                            alt={t.resultsTitle}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* 今後の展望  Future Perspective */}
+                  {selectedResearch?.[language]?.futurePerspectiveText1 && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {t.futurePerspectiveTitle}
+                      </h2>
+                      <p className="text-gray-700">
+                        {selectedResearch?.[language]?.futurePerspectiveText1}
+                      </p>
+                      <p className="text-gray-700 mt-4">
+                        {selectedResearch?.[language]?.futurePerspectiveText2}
+                      </p>
+                    </div>
+                  )}
+                  <div className="flex justify-center mt-8">
+                    <Link href="/research/projects">
+                      <Button variant="outline">{t.backToProjects}</Button>
+                    </Link>
+                  </div>
+                </div>
               </div>
-              <p className="text-gray-700">{t.backgroundText3}</p>
-            </div> */}
-
-            {/* 実験環境 */}
-            {/* <div className="mb-16">
-              <div
-                className="relative aspect-auto mb-8 rounded-lg overflow-hidden"
-                style={{ height: "auto", minHeight: "250px" }}
-              >
-                <Image
-                  src={getImagePath("/images/research-nishiyama2.png")}
-                  alt={
-                    language === "ja" ? "実験環境" : "Experimental Environment"
-                  }
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <h2 className="text-2xl font-bold mb-4">{t.environmentTitle}</h2>
-              <p className="text-gray-700">{t.environmentText1}</p>
-              <p className="text-gray-700 mt-4">{t.environmentText2}</p>
-            </div> */}
-
-            {/* 実験結果 */}
-            {/* <div className="mb-16">
-              <div
-                className="relative aspect-auto mb-8 rounded-lg overflow-hidden"
-                style={{ height: "auto", minHeight: "250px" }}
-              >
-                <Image
-                  src={getImagePath("/images/research-nishiyama3.png")}
-                  alt={language === "ja" ? "実験結果" : "Experimental Results"}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <h2 className="text-2xl font-bold mb-4">{t.resultsTitle}</h2>
-              <p className="text-gray-700">{t.resultsText1}</p>
-              <p className="text-gray-700 mt-4">{t.resultsText2}</p>
-            </div> */}
-
-            {/* 社会的意義と今後の展望 */}
-            {/* <div className="mb-16">
-              <h2 className="text-2xl font-bold mb-4">{t.significanceTitle}</h2>
-              <p className="text-gray-700">{t.significanceText1}</p>
-              <p className="text-gray-700 mt-4">{t.significanceText2}</p>
-              <ul className="list-disc pl-5 space-y-2 mt-2 text-gray-700">
-                {t.significanceList.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-              <p className="text-gray-700 mt-4">{t.significanceText3}</p>
-            </div> */}
-
-            {/* <div className="flex justify-center mt-8">
-              <Link href="/research/projects">
-                <Button variant="outline">{t.backToProjects}</Button>
-              </Link>
-            </div> */}
+            </section>
           </div>
         </div>
       </section>

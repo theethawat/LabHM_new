@@ -1,4 +1,4 @@
-import { Research } from "@/types";
+import { Research, convertSpreadsheetToResearch } from "@/types";
 import DetailResearchPage from "./detail-research-page";
 export default async function DetailResearch({
   params,
@@ -18,7 +18,7 @@ export default async function DetailResearch({
 
   const jsonResult = await res.json();
 
-  const selectedResearch = jsonResult as Research;
+  const selectedResearch = convertSpreadsheetToResearch(jsonResult);
   console.log(selectedResearch);
 
   return (

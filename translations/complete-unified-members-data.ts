@@ -27,3 +27,12 @@ export function getAvailableAcademicYears(alumniMembers: Member[]): string[] {
     return bYear - aYear; // 降順
   });
 }
+
+export function getCompleteAlumniByYear(
+  academicYear: string,
+  inputMembers: Member[]
+): Member[] {
+  return inputMembers.filter(
+    (allMember) => allMember.isAlumni && allMember.academicYear === academicYear
+  );
+}
