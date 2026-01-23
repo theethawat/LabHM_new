@@ -20,30 +20,35 @@ export enum NewsTag {
   internationalCollaboration = "international",
   industryAcademiaCollaboration = "industry-collab",
   laboratoryManagement = "lab-management",
+  all = "all",
 }
 
-export function getInfoFromTag(tag: NewsTag, language: "ja" | "en"): string {
-  const tagMappings: { [key in NewsTag]: { ja: string; en: string } } = {
-    [NewsTag.studentActivity]: { ja: "学生活動", en: "Student Activities" },
-    [NewsTag.researchAchievement]: {
-      ja: "研究成果",
-      en: "Research Achievements",
-    },
-    [NewsTag.internationalCollaboration]: {
-      ja: "国際連携",
-      en: "International Collaboration",
-    },
-    [NewsTag.industryAcademiaCollaboration]: {
-      ja: "産学連携",
-      en: "Industry-Academia Collaboration",
-    },
-    [NewsTag.laboratoryManagement]: {
-      ja: "研究室運営",
-      en: "Laboratory Management",
-    },
-  };
-  return tagMappings[tag][language];
-}
+export const NewsTagInfo = {
+  [NewsTag.all]: {
+    ja: "すべて",
+    en: "All",
+  },
+  [NewsTag.studentActivity]: {
+    ja: "学生の活動",
+    en: "Student Activity",
+  },
+  [NewsTag.researchAchievement]: {
+    ja: "研究成果",
+    en: "Research Achievement",
+  },
+  [NewsTag.internationalCollaboration]: {
+    ja: "国際連携",
+    en: "International Collaboration",
+  },
+  [NewsTag.industryAcademiaCollaboration]: {
+    ja: "産学連携",
+    en: "Industry-Academia Collaboration",
+  },
+  [NewsTag.laboratoryManagement]: {
+    ja: "研究室運営",
+    en: "Laboratory Management",
+  },
+};
 
 export function convertSpreadsheetToNews(sheetObject: any): News {
   const tempNews: News = { ...sheetObject } as News;
