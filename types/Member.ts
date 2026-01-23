@@ -7,7 +7,7 @@ export enum DegreeType {
 }
 
 // 統一されたメンバーの型定義
-export type Member = {
+export interface Member {
   id: string;
   name: string;
   nameEn?: string;
@@ -42,7 +42,7 @@ export type Member = {
   degreeType?: DegreeType;
   academicYear?: string; // 学術年度（例：「令和5年度」）
   academicYearEn?: string;
-};
+}
 
 export function convertSpreadSheetRowToUnifiedMember(sheetObject: any): Member {
   const tempMember: Member = { ...sheetObject } as Member;

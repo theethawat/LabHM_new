@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-export type ResearchSingleLanguage = {
+export interface ResearchSingleLanguage {
   title: string;
   subtitle: string;
   overview: string;
@@ -20,9 +20,9 @@ export type ResearchSingleLanguage = {
   environmentText2?: string;
   futurePerspectiveText1?: string;
   futurePerspectiveText2?: string;
-};
+}
 
-export type SDGs = {
+export interface SDGs {
   sdg1: boolean;
   sdg2: boolean;
   sdg3: boolean;
@@ -40,14 +40,14 @@ export type SDGs = {
   sdg15: boolean;
   sdg16: boolean;
   sdg17: boolean;
-};
+}
 
-type ResearchImage = {
+interface ResearchImage {
   overview_image?: string;
   background_image?: string;
   method_image?: string;
   result_image?: string;
-};
+}
 
 export enum ResearchTag {
   medical = "medical",
@@ -56,7 +56,7 @@ export enum ResearchTag {
   human = "human",
 }
 
-export type ResearchArea = {
+export interface ResearchArea {
   id: ResearchTag;
   ja: {
     title: string;
@@ -70,16 +70,16 @@ export type ResearchArea = {
   };
   image: string;
   link: string;
-};
+}
 
-export type Research = {
+export interface Research {
   id: string;
   ja: ResearchSingleLanguage;
   en: ResearchSingleLanguage;
   tags: ResearchTag[];
   sdgs: SDGs;
   images: ResearchImage;
-};
+}
 
 const singleLanguagePlaceholder: ResearchSingleLanguage = {
   title: "",
@@ -107,7 +107,7 @@ const singleLanguagePlaceholder: ResearchSingleLanguage = {
 const translateSheetSDGs = (sheetObject: any): SDGs => {
   return Array.from(
     { length: 17 },
-    (_, i) => `sdg${i + 1}` as keyof SDGs
+    (_, i) => `sdg${i + 1}` as keyof SDGs,
   ).reduce((acc, key) => {
     acc[key] = sheetObject[key] === "TRUE";
     return acc;
@@ -119,7 +119,7 @@ export function convertSpreadsheetToResearch(sheetObject: any): Research {
   // Can use both jp and en but I use jp here, result must be same
   const langSpecKey = allKeys.filter((key) => key.startsWith("jp"));
   const langSpecKeysWithoutPrefix = langSpecKey.map((key) =>
-    key.replace(/^jp/, "")
+    key.replace(/^jp/, ""),
   );
 
   const jaResearch: ResearchSingleLanguage = { ...singleLanguagePlaceholder };
