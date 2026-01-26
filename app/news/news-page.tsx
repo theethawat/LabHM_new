@@ -22,7 +22,9 @@ export default function NewsPage({
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [activeTag, setActiveTag] = useState<NewsTag>(NewsTag.all);
+  const [activeTag, setActiveTag] = useState<NewsTag>(
+    (searchParams.get("tag") as NewsTag) || NewsTag.all,
+  );
 
   const handleActiveTagChange = (tag: NewsTag) => {
     const params = new URLSearchParams(searchParams);

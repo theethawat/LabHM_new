@@ -28,7 +28,6 @@ export default async function News({
     convertSpreadsheetToNews(row),
   );
 
-  console.log("Json Result:", jsonResult);
   return (
     <NewsPage
       newList={newsList}

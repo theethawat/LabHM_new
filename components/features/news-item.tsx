@@ -1,9 +1,13 @@
-import { News } from "@/types";
+import { News, NewsTagInfo } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-
+import dayjs from "dayjs";
+import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import "dayjs/locale/ja";
 import { getTagBgColor } from "@/lib/news-utils";
 import { getImagePath } from "@/lib/utils";
+
+dayjs.extend(LocalizedFormat);
 
 export default function NewsItem({
   newsItem,
@@ -65,10 +69,10 @@ export default function NewsItem({
         <div
           className={`absolute top-2 left-2 ${getTagBgColor(newsItem.tag)} text-white text-xs px-2 py-1 rounded pointer-events-none`}
         >
-          {newsItem.tag}
+          {NewsTagInfo?.[newsItem.tag]?.[language] || newsItem.tag}
         </div>
         <div className="absolute top-2 right-2 bg-white text-gray-800 text-xs px-2 py-1 rounded pointer-events-none">
-          {newsItem.date}
+          {dayjs(newsItem.date).locale(language).format("ll")}
         </div>
       </div>
       <div className="p-4">

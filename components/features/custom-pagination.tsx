@@ -21,7 +21,9 @@ export default function CustomPagination({
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          <PaginationPrevious
+            href={currPage > 1 ? `?page=${currPage - 1}` : "#"}
+          />
         </PaginationItem>
         {_.map(array, (pageNum) => (
           <PaginationItem
@@ -35,7 +37,9 @@ export default function CustomPagination({
           <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext href="#" />
+          <PaginationNext
+            href={currPage < totalPage ? `?page=${currPage + 1}` : "#"}
+          />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
