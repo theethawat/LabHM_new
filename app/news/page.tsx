@@ -1,70 +1,39 @@
-"use client";
+import NewsPage from "./news-page";
+import { News as NewsType, convertSpreadsheetToNews } from "@/types";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
+export default async function News({
+  searchParams,
+}: {
+  searchParams:
+    | Promise<{ page?: string; tag?: string }>
+    | { page?: string; tag?: string };
+}) {
+  // Await searchParams if it's a Promise
+  const params = await searchParams;
 
-import { useLanguage } from "@/contexts/language-context";
-import { newsData, newsTags } from "@/translations/news-data";
-import { getTagBgColor } from "@/lib/news-utils";
-import { getImagePath } from "@/lib/utils";
-import { NewsItem, NewsTagList } from "@/components/features";
-import { NewsTag } from "@/types";
+  console.log("New Search Params:", params);
 
-export default function NewsPage() {
-  const { language } = useLanguage();
-  const tags = newsTags[language];
-  const news = newsData[language];
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllNews&page=${params?.page || 1}&size=20&tag=${params?.tag || ""}`,
+  );
 
-  const [activeTag, setActiveTag] = useState<NewsTag>(NewsTag.all);
-
-  // フィルターされたニュース
-  let filteredNews = news;
-
-  // タグフィルタリング（"すべて"/"All"以外の場合）
-  const allTagText = language === "ja" ? "すべて" : "All";
-  if (activeTag !== allTagText) {
-    filteredNews = filteredNews.filter((item) => item.tag === activeTag);
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
   }
 
+  const jsonResult = await res.json();
+
+  const newsList: NewsType[] = jsonResult?.rows?.map((row: any) =>
+    convertSpreadsheetToNews(row),
+  );
+
+  console.log("Json Result:", jsonResult);
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* メインコンテンツ */}
-      <div className="flex-grow">
-        <div className="py-16">
-          {/* News タイトル */}
-          <div className="text-center mb-16">
-            <div className="relative w-full max-w-md mx-auto h-16 mb-4">
-              <Image
-                src={getImagePath("/images/logo_news.png")}
-                alt="News"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-            <p className="text-lg">{language === "ja" ? "ニュース" : "News"}</p>
-          </div>
-
-          <div className="container">
-            {/* タグナビゲーション */}
-            <NewsTagList
-              activeTag={activeTag}
-              language={language}
-              setActiveTag={setActiveTag}
-            />
-
-            {/* ニュース一覧 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {filteredNews.map((newsItem) => (
-                <div key={newsItem.id} className={newsItem.link ? "group" : ""}>
-                  <NewsItem language={language} newsItem={newsItem} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <NewsPage
+      newList={newsList}
+      totalPage={jsonResult?.allPage}
+      currPage={jsonResult?.currPage}
+    />
   );
 }
