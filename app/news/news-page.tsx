@@ -78,7 +78,11 @@ export default function NewsPage({
             </div>
           </div>
           <div className="my-4">
-            <CustomPagination totalPage={totalPage} currPage={currPage} />
+            <CustomPagination
+              totalPage={totalPage}
+              currPage={currPage}
+              anotherKey={`tag=${searchParams.get("tag")}`}
+            />
           </div>
         </div>
       </div>

@@ -12,9 +12,11 @@ import _ from "lodash";
 export default function CustomPagination({
   currPage,
   totalPage,
+  anotherKey = "",
 }: {
   currPage: number;
   totalPage: number;
+  anotherKey: string;
 }) {
   const array = Array.from({ length: totalPage }, (_, i) => i + 1);
   return (
@@ -22,7 +24,7 @@ export default function CustomPagination({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href={currPage > 1 ? `?page=${currPage - 1}` : "#"}
+            href={currPage > 1 ? `?page=${currPage - 1}&${anotherKey}` : "#"}
           />
         </PaginationItem>
         {_.map(array, (pageNum) => (
@@ -30,7 +32,9 @@ export default function CustomPagination({
             key={pageNum}
             active={pageNum === currPage ? true : false}
           >
-            <PaginationLink href={`?page=${pageNum}`}>{pageNum}</PaginationLink>
+            <PaginationLink href={`?page=${pageNum}&${anotherKey}`}>
+              {pageNum}
+            </PaginationLink>
           </PaginationItem>
         ))}
         <PaginationItem>
@@ -38,7 +42,9 @@ export default function CustomPagination({
         </PaginationItem>
         <PaginationItem>
           <PaginationNext
-            href={currPage < totalPage ? `?page=${currPage + 1}` : "#"}
+            href={
+              currPage < totalPage ? `?page=${currPage + 1}&${anotherKey}` : "#"
+            }
           />
         </PaginationItem>
       </PaginationContent>

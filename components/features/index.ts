@@ -5,6 +5,7 @@ import Loader from "./loader";
 import NewsItem from "./news-item";
 import NewsTagList from "./news-tag-list";
 import CustomPagination from "./custom-pagination";
+import ResearchItem from "./research-item";
 
 export {
   MemberCard,
@@ -14,4 +15,5 @@ export {
   NewsItem,
   NewsTagList,
   CustomPagination,
+  ResearchItem,
 };

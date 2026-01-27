@@ -109,7 +109,7 @@ export default function DetailResearchPage({
                       </p>
                       <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
                         {splitDataFromHyphen(
-                          selectedResearch?.[language]?.valueList
+                          selectedResearch?.[language]?.valueList,
                         )?.map((item, index) => (
                           <li key={index}>{item}</li>
                         ))}
@@ -158,7 +158,7 @@ export default function DetailResearchPage({
                       </p>
                       <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
                         {splitDataFromHyphen(
-                          selectedResearch?.[language]?.methodList
+                          selectedResearch?.[language]?.methodList,
                         )?.map((item, index) => (
                           <li key={index}>{item}</li>
                         ))}

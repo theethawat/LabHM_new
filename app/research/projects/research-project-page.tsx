@@ -25,7 +25,7 @@ export default function ResearchProjectsPage({
   const categoryParam = searchParams.get("category");
   console.log("URL category parameter:", categoryParam); // デバッグ用
   const foundArea: ResearchArea | undefined = researchAreas.find(
-    (area) => area.id === categoryParam
+    (area) => area.id === categoryParam,
   );
 
   // 選択されたキーワード（URLパラメータから初期値を設定）
@@ -50,7 +50,7 @@ export default function ResearchProjectsPage({
       return researches;
     }
     return researches.filter((research) =>
-      research.tags.includes(selectedKeyword.id)
+      research.tags.includes(selectedKeyword.id),
     );
   }, [selectedKeyword, researches]);
 

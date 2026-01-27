@@ -18,7 +18,7 @@ export enum NewsTag {
   studentActivity = "student-activity",
   researchAchievement = "research",
   internationalCollaboration = "international",
-  industryAcademiaCollaboration = "industry-collab",
+  industryAcademiaCollaboration = "industrial-collab",
   laboratoryManagement = "lab-management",
   all = "all",
 }
