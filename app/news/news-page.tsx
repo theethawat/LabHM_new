@@ -81,7 +81,7 @@ export default function NewsPage({
             <CustomPagination
               totalPage={totalPage}
               currPage={currPage}
-              anotherKey={`tag=${searchParams.get("tag")}`}
+              anotherKey={`tag=${searchParams.get("tag") || ""} `}
             />
           </div>
         </div>
