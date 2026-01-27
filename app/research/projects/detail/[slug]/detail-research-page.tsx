@@ -51,7 +51,7 @@ export default function DetailResearchPage({
             {/* プロジェクト概要 */}
             <div
               className="relative aspect-auto rounded-lg overflow-hidden"
-              style={{ height: "auto", minHeight: "250px" }}
+              style={{ height: "auto", minHeight: "500px" }}
             >
               {selectedResearch?.images?.overview_image && (
                 <Image
@@ -95,27 +95,7 @@ export default function DetailResearchPage({
                       )}
                     </div>
                   )}
-                  {/* 価値と効果 Value */}
-                  {selectedResearch?.[language]?.valueText1 && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {t.valueTitle}
-                      </h2>
-                      <p className="text-gray-700">
-                        {selectedResearch?.[language]?.valueText1}
-                      </p>
-                      <p className="text-gray-700 mt-4 mb-8">
-                        {selectedResearch?.[language]?.valueText2}
-                      </p>
-                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
-                        {splitDataFromHyphen(
-                          selectedResearch?.[language]?.valueList,
-                        )?.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ol>
-                    </div>
-                  )}
+
                   {/* 実験環境 Environment */}
                   {selectedResearch?.[language]?.environmentText1 && (
                     <div className="mb-16">
@@ -195,7 +175,27 @@ export default function DetailResearchPage({
                       )}
                     </div>
                   )}
-
+                  {/* 価値と効果 Value */}
+                  {selectedResearch?.[language]?.valueText1 && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {t.valueTitle}
+                      </h2>
+                      <p className="text-gray-700">
+                        {selectedResearch?.[language]?.valueText1}
+                      </p>
+                      <p className="text-gray-700 mt-4 mb-8">
+                        {selectedResearch?.[language]?.valueText2}
+                      </p>
+                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
+                        {splitDataFromHyphen(
+                          selectedResearch?.[language]?.valueList,
+                        )?.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}
                   {/* 今後の展望  Future Perspective */}
                   {selectedResearch?.[language]?.futurePerspectiveText1 && (
                     <div className="mb-16">
