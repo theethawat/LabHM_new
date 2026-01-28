@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { useLanguage } from "@/contexts/language-context";
 import { researchProjectsTranslations, researchAreas } from "@/translations";
 import { getImagePath } from "@/lib/utils";
 import { Research, ResearchArea } from "@/types";
+import { Pagination } from "@/components/features";
 
 export default function ResearchProjectsPage({
   researches,
@@ -40,111 +41,6 @@ export default function ResearchProjectsPage({
   const findResearchAreaById = (id: string): ResearchArea | undefined => {
     return researchAreas.find((area) => area.id === id);
   };
-
-  // const researchProjectsData: ResearchProject[] = useMemo(
-  //   () => [
-  //     {
-  //       id: "cattle-feeding",
-  //       title: t.projects.cattleFeeding.title,
-  //       description: t.projects.cattleFeeding.description,
-  //       image: getImagePath("/images/research-ishikawa.png"),
-  //       link: "/research/projects/cattle-feeding",
-  //       keywords: ["AI", language === "ja" ? "牛" : "Cattle"],
-  //     },
-  //     {
-  //       id: "calving-prediction",
-  //       title: t.projects.calvingPrediction.title,
-  //       description: t.projects.calvingPrediction.description,
-  //       image: getImagePath("/images/research-murayama.png"),
-  //       link: "/research/projects/calving-prediction",
-  //       keywords: ["AI", language === "ja" ? "牛" : "Cattle"],
-  //     },
-  //     {
-  //       id: "elderly-monitoring",
-  //       title: t.projects.elderlyMonitoring.title,
-  //       description: t.projects.elderlyMonitoring.description,
-  //       image: getImagePath("/images/research-remon.png"),
-  //       link: "/research/projects/elderly-monitoring",
-  //       keywords: ["AI", language === "ja" ? "人" : "Human"],
-  //     },
-  //     {
-  //       id: "fetal-monitoring",
-  //       title: t.projects.fetalMonitoring.title,
-  //       description: t.projects.fetalMonitoring.description,
-  //       image: getImagePath("/images/research-tunn.png"),
-  //       link: "/research/projects/fetal-monitoring",
-  //       keywords: ["AI", language === "ja" ? "人" : "Human", language === "ja" ? "医療" : "Medical"],
-  //     },
-  //     {
-  //       id: "bcs-evaluation",
-  //       title: t.projects.bcsEvaluation.title,
-  //       description: t.projects.bcsEvaluation.description,
-  //       image: getImagePath("/images/research-tikunami.png"),
-  //       link: "/research/projects/bcs-evaluation",
-  //       keywords: ["AI", language === "ja" ? "牛" : "Cattle"],
-  //     },
-  //     {
-  //       id: "cattle-identification",
-  //       title: t.projects.cattleIdentification.title,
-  //       description: t.projects.cattleIdentification.description,
-  //       image: getImagePath("/images/research-siihara.png"),
-  //       link: "/research/projects/cattle-identification",
-  //       keywords: ["AI", language === "ja" ? "牛" : "Cattle"],
-  //     },
-  //     {
-  //       id: "ear-tag-identification",
-  //       title: t.projects.earTagIdentification.title,
-  //       description: t.projects.earTagIdentification.description,
-  //       image: getImagePath("/images/research-simizu.png"),
-  //       link: "/research/projects/ear-tag-identification",
-  //       keywords: ["AI", language === "ja" ? "牛" : "Cattle"],
-  //     },
-  //     {
-  //       id: "calf-behavior-analysis",
-  //       title: t.projects.calfBehaviorAnalysis.title,
-  //       description: t.projects.calfBehaviorAnalysis.description,
-  //       image: getImagePath("/images/research-nishiyama.png"),
-  //       link: "/research/projects/calf-behavior-analysis",
-  //       keywords: ["AI", language === "ja" ? "牛" : "Cattle"],
-  //     },
-  //   ],
-  //   [
-  //     language,
-  //     t.projects.cattleFeeding.title,
-  //     t.projects.cattleFeeding.description,
-  //     t.projects.calvingPrediction.title,
-  //     t.projects.calvingPrediction.description,
-  //     t.projects.elderlyMonitoring.title,
-  //     t.projects.elderlyMonitoring.description,
-  //     t.projects.fetalMonitoring.title,
-  //     t.projects.fetalMonitoring.description,
-  //     t.projects.bcsEvaluation.title,
-  //     t.projects.bcsEvaluation.description,
-  //     t.projects.cattleIdentification.title,
-  //     t.projects.cattleIdentification.description,
-  //     t.projects.earTagIdentification.title,
-  //     t.projects.earTagIdentification.description,
-  //     t.projects.calfBehaviorAnalysis.title,
-  //     t.projects.calfBehaviorAnalysis.description,
-  //   ],
-  // )
-
-  // // 全てのキーワードを抽出（重複なし）
-  // const allKeywords = useMemo(() => {
-  //   const keywordsSet = new Set<string>()
-  //   researchProjectsData.forEach((project) => {
-  //     project.keywords?.forEach((keyword) => keywordsSet.add(keyword))
-  //   })
-  //   return [t.keywords.all, ...Array.from(keywordsSet)]
-  // }, [t.keywords.all, researchProjectsData])
-
-  // // 選択されたキーワードでフィルタリングされたプロジェクト
-  // const filteredProjects = useMemo(() => {
-  //   if (selectedKeyword === t.keywords.all) {
-  //     return researchProjectsData
-  //   }
-  //   return researchProjectsData.filter((project) => project.keywords?.includes(selectedKeyword))
-  // }, [selectedKeyword, t.keywords.all, researchProjectsData])
 
   const handleActiveTagChange = (tag: ResearchArea | undefined) => {
     const params = new URLSearchParams(searchParams);
@@ -288,6 +184,13 @@ export default function ResearchProjectsPage({
                 </button>
               </div>
             )}
+          </div>
+          <div className="my-4">
+            <Pagination
+              totalPage={totalPage}
+              currPage={currPage}
+              anotherKey={`tag=${searchParams.get("tag") || ""} `}
+            />
           </div>
         </div>
       </div>

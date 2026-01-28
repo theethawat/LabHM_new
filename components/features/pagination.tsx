@@ -25,6 +25,11 @@ export default function Pagination({
         <PaginationItem>
           <PaginationPrevious
             href={currPage > 1 ? `?page=${currPage - 1}&${anotherKey}` : "#"}
+            className={
+              currPage === 1
+                ? "pointer-events-none cursor-not-allowed text-gray-400"
+                : ""
+            }
           />
         </PaginationItem>
         {_.map(array, (pageNum) => (
@@ -38,12 +43,14 @@ export default function Pagination({
           </PaginationItem>
         ))}
         <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
           <PaginationNext
             href={
               currPage < totalPage ? `?page=${currPage + 1}&${anotherKey}` : "#"
+            }
+            className={
+              currPage === totalPage
+                ? "pointer-events-none cursor-not-allowed text-gray-400"
+                : ""
             }
           />
         </PaginationItem>

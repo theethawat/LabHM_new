@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 
 import { useLanguage } from "@/contexts/language-context";
 import { getImagePath } from "@/lib/utils";
-import { NewsItem, NewsTagList, CustomPagination } from "@/components/features";
+import { NewsItem, NewsTagList, Pagination } from "@/components/features";
 import { News, NewsTag } from "@/types";
 
 export default function NewsPage({
@@ -78,7 +78,7 @@ export default function NewsPage({
             </div>
           </div>
           <div className="my-4">
-            <CustomPagination
+            <Pagination
               totalPage={totalPage}
               currPage={currPage}
               anotherKey={`tag=${searchParams.get("tag") || ""} `}
