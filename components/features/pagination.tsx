@@ -1,5 +1,5 @@
 import {
-  Pagination,
+  Pagination as ShadcnPagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/pagination";
 import _ from "lodash";
 
-export default function CustomPagination({
+export default function Pagination({
   currPage,
   totalPage,
   anotherKey = "",
@@ -20,7 +20,7 @@ export default function CustomPagination({
 }) {
   const array = Array.from({ length: totalPage }, (_, i) => i + 1);
   return (
-    <Pagination>
+    <ShadcnPagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
@@ -48,6 +48,6 @@ export default function CustomPagination({
           />
         </PaginationItem>
       </PaginationContent>
-    </Pagination>
+    </ShadcnPagination>
   );
 }

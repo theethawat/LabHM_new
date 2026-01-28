@@ -20,6 +20,12 @@ export interface ResearchSingleLanguage {
   environmentText2?: string;
   futurePerspectiveText1?: string;
   futurePerspectiveText2?: string;
+  customField1Title?: string;
+  customField1Text?: string;
+  customField1List?: string;
+  customField2Title?: string;
+  customField2Text?: string;
+  customField2List?: string;
 }
 
 export interface SDGs {
@@ -72,6 +78,61 @@ export interface ResearchArea {
   link: string;
 }
 
+export enum ResearchFundSource {
+  jka = "JKA",
+  mic = "MIC",
+  noFund = "No",
+}
+
+export enum PromotionalFundSource {
+  keirin = "Keirin Race",
+  noFund = "No",
+}
+
+export const ResearchFundSourceInfo = {
+  [ResearchFundSource.jka]: {
+    ja: {
+      title: "公益財団法人 JKA",
+      labelInGrantName: "公益財団法人JKAの補助（競輪の補助）",
+    },
+    en: {
+      title: "Japan Keirin Autorace Foundation",
+      labelInGrantName: "JKA",
+    },
+    logo: "/images/JKA.png",
+  },
+  [ResearchFundSource.mic]: {
+    ja: {
+      title: "総務省 FORWARD事業",
+      labelInGrantName: "総務省 FORWARD事業",
+    },
+    en: {
+      title: "Ministry of Internal Affairs and Communications FORWARD Project",
+      labelInGrantName:
+        "Ministry of Internal Affairs and Communications FORWARD Project",
+    },
+    logo: "/images/logo_soumo.png",
+  },
+  [PromotionalFundSource.keirin]: {
+    ja: {
+      title: "Keirin Race",
+      labelInGrantName: "Keirin Race",
+    },
+    en: {
+      title: "Keirin Race",
+      labelInGrantName: "Keirin Race",
+    },
+    logo: "/images/keirin.gif",
+  },
+};
+
+export interface ResearchFund {
+  researchFund?: ResearchFundSource;
+  grantNumber?: string;
+  grantYear?: string;
+  promotionalFund?: PromotionalFundSource;
+}
+
 export interface Research {
   id: string;
   ja: ResearchSingleLanguage;
@@ -79,6 +140,7 @@ export interface Research {
   tags: ResearchTag[];
   sdgs: SDGs;
   images: ResearchImage;
+  fund?: ResearchFund;
 }
 
 const singleLanguagePlaceholder: ResearchSingleLanguage = {
@@ -101,6 +163,12 @@ const singleLanguagePlaceholder: ResearchSingleLanguage = {
   environmentText2: "",
   futurePerspectiveText1: "",
   futurePerspectiveText2: "",
+  customField1Title: "",
+  customField1Text: "",
+  customField1List: "",
+  customField2Text: "",
+  customField2Title: "",
+  customField2List: "",
 };
 
 // Code Function Refactored by GitHub Copilot GPT4.1
@@ -132,6 +200,18 @@ export function convertSpreadsheetToResearch(sheetObject: any): Research {
       sheetObject["en" + key] || "";
   });
 
+  const currentResearchFund: ResearchFund = {};
+  const keyInResearchFund = [
+    "research_fund",
+    "grant_number",
+    "grant_year",
+    "promotional_fund",
+  ];
+  _.map(keyInResearchFund, (eachKey) => {
+    currentResearchFund[_.camelCase(eachKey) as keyof ResearchFund] =
+      sheetObject[eachKey];
+  });
+
   const research: Research = {
     id: sheetObject.id,
     ja: jaResearch,
@@ -144,6 +224,7 @@ export function convertSpreadsheetToResearch(sheetObject: any): Research {
       result_image: sheetObject.result_image || "",
     },
     sdgs: translateSheetSDGs(sheetObject),
+    fund: currentResearchFund,
   };
 
   return research;

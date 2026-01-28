@@ -21,6 +21,11 @@ export const researchProjectsTranslations = {
     methodTitle: "研究手法",
     resultsTitle: "実験結果",
     valueTitle: "価値と効果",
+    researchFund: "研究補助",
+    thisWorkIsSupportByStart: "本研究は",
+    thisWorkSupportByEnd: "を受けて実施しました。",
+    grantNumber: "補助事業番号",
+    promotionalFundFrom: "",
   },
   en: {
     title: "Research Projects",
@@ -45,6 +50,11 @@ export const researchProjectsTranslations = {
     valueTitle: "Value and Effects",
     viewDetails: "View Details",
     environmentTitle: "Experimental Environment",
+    researchFund: "Research Funding",
+    thisWorkIsSupportByStart: "This work is supported in part by",
+    thisWorkSupportByEnd: ".",
+    grantNumber: "Grant Number",
+    promotionalFundFrom: "its promotional funds derived from",
     // projects: {
     //   cattleFeeding: {
     //     title: "牛の摂食行動と摂食時間管理",

@@ -4,8 +4,9 @@ import MemberTitle from "./member-title";
 import Loader from "./loader";
 import NewsItem from "./news-item";
 import NewsTagList from "./news-tag-list";
-import CustomPagination from "./custom-pagination";
+import Pagination from "./pagination";
 import ResearchItem from "./research-item";
+import ResearchFundBox from "./research-fund-box";
 
 export {
   MemberCard,
@@ -14,6 +15,7 @@ export {
   Loader,
   NewsItem,
   NewsTagList,
-  CustomPagination,
+  Pagination,
   ResearchItem,
+  ResearchFundBox,
 };

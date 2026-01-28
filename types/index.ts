@@ -10,5 +10,11 @@ export type { News, NewsInfoSingleLanguage } from "./News";
 
 // Export Functions and Enums
 export { convertSpreadSheetRowToUnifiedMember, DegreeType } from "./Member";
-export { ResearchTag, convertSpreadsheetToResearch } from "./Research";
+export {
+  ResearchTag,
+  convertSpreadsheetToResearch,
+  PromotionalFundSource,
+  ResearchFundSource,
+  ResearchFundSourceInfo,
+} from "./Research";
 export { NewsTag, convertSpreadsheetToNews, NewsTagInfo } from "./News";

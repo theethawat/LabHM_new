@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Research } from "@/types";
+import { Research, ResearchFundSource } from "@/types";
 import { useLanguage } from "@/contexts/language-context";
 import { getImagePath } from "@/lib/utils";
 import { researchProjectsTranslations } from "@/translations/research-projects";
 import { Button } from "@/components/ui/button";
+import { ResearchFundBox } from "@/components/features";
 import _ from "lodash";
 
 export default function DetailResearchPage({
@@ -19,7 +20,7 @@ export default function DetailResearchPage({
   const t = researchProjectsTranslations[language];
 
   const splitDataFromHyphen = (data: string | undefined) => {
-    const splittedResult = _.split(data, "-");
+    const splittedResult = _.split(data, "- ");
     return _.tail(splittedResult);
   };
 
@@ -95,7 +96,6 @@ export default function DetailResearchPage({
                       )}
                     </div>
                   )}
-
                   {/* 実験環境 Environment */}
                   {selectedResearch?.[language]?.environmentText1 && (
                     <div className="mb-16">
@@ -110,7 +110,6 @@ export default function DetailResearchPage({
                       </p>
                     </div>
                   )}
-
                   {/* 研究手法  Method */}
                   {selectedResearch?.[language]?.methodText1 && (
                     <div className="mb-16">
@@ -146,6 +145,42 @@ export default function DetailResearchPage({
                       <p className="text-gray-700 mt-4">
                         {selectedResearch?.[language]?.methodText3}
                       </p>
+                    </div>
+                  )}
+                  {/* Custom Field 1*/}
+                  {selectedResearch?.[language]?.customField1Title && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {selectedResearch?.[language]?.customField1Title}
+                      </h2>
+                      <p className="text-gray-700">
+                        {selectedResearch?.[language]?.customField1Text}
+                      </p>
+                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
+                        {splitDataFromHyphen(
+                          selectedResearch?.[language]?.customField1List,
+                        )?.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}{" "}
+                  {/* Custom Field 2*/}
+                  {selectedResearch?.[language]?.customField2Title && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {selectedResearch?.[language]?.customField2Title}
+                      </h2>
+                      <p className="text-gray-700">
+                        {selectedResearch?.[language]?.customField2Text}
+                      </p>
+                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
+                        {splitDataFromHyphen(
+                          selectedResearch?.[language]?.customField2List,
+                        )?.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ol>
                     </div>
                   )}
                   {/* 実験結果 Result */}
@@ -210,6 +245,11 @@ export default function DetailResearchPage({
                       </p>
                     </div>
                   )}
+                  {selectedResearch?.fund?.researchFund &&
+                    selectedResearch?.fund?.researchFund !==
+                      ResearchFundSource.noFund && (
+                      <ResearchFundBox selectedResearch={selectedResearch} />
+                    )}
                   <div className="flex justify-center mt-8">
                     <Link href="/research/projects">
                       <Button variant="outline">{t.backToProjects}</Button>
