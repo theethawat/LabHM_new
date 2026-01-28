@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import _ from "lodash";
@@ -13,10 +13,14 @@ import { Research, ResearchArea } from "@/types";
 
 export default function ResearchProjectsPage({
   researches,
+  totalPage,
+  currPage,
 }: {
   researches: Research[];
+  totalPage: number;
+  currPage: number;
 }) {
-  console.log("Researches data:", researches); // デバッグ用
+  const router = useRouter();
   const searchParams = useSearchParams();
   const { language } = useLanguage();
   const t = researchProjectsTranslations[language];
@@ -33,26 +37,9 @@ export default function ResearchProjectsPage({
     ResearchArea | undefined
   >(foundArea);
 
-  const findSelectedArea = (searchKey: string): ResearchArea | undefined => {
-    return researchAreas.find((area) => area.id === searchKey);
+  const findResearchAreaById = (id: string): ResearchArea | undefined => {
+    return researchAreas.find((area) => area.id === id);
   };
-
-  // URLパラメータが変更されたときに選択キーワードを更新
-  useEffect(() => {
-    if (categoryParam) {
-      const selectedArea = findSelectedArea(categoryParam);
-      setSelectedKeyword(selectedArea);
-    }
-  }, [categoryParam]);
-
-  const filteredProjects = useMemo(() => {
-    if (!selectedKeyword) {
-      return researches;
-    }
-    return researches.filter((research) =>
-      research.tags.includes(selectedKeyword.id),
-    );
-  }, [selectedKeyword, researches]);
 
   // const researchProjectsData: ResearchProject[] = useMemo(
   //   () => [
@@ -159,6 +146,25 @@ export default function ResearchProjectsPage({
   //   return researchProjectsData.filter((project) => project.keywords?.includes(selectedKeyword))
   // }, [selectedKeyword, t.keywords.all, researchProjectsData])
 
+  const handleActiveTagChange = (tag: ResearchArea | undefined) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (tag === undefined) {
+      params.set("tag", "");
+      params.set("page", "1");
+    } else {
+      params.set("tag", _.lowerCase(tag.en.shortTitle));
+      params.set("page", "1");
+    }
+
+    router.push(`?${params.toString()}`);
+  };
+
+  useEffect(() => {
+    handleActiveTagChange(selectedKeyword);
+    return () => {};
+  }, [selectedKeyword]);
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* メインコンテンツ */}
@@ -212,7 +218,7 @@ export default function ResearchProjectsPage({
 
             {/* プロジェクト一覧 */}
             <div className="grid gap-8">
-              {filteredProjects.map((project: Research) => (
+              {researches?.map((project: Research) => (
                 <div
                   key={project.id}
                   className="overflow-hidden bg-white border-b border-gray-200"
@@ -243,7 +249,9 @@ export default function ResearchProjectsPage({
                                 key={index}
                                 className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full cursor-pointer hover:bg-gray-200"
                                 onClick={() =>
-                                  setSelectedKeyword(findSelectedArea(keyword))
+                                  setSelectedKeyword(
+                                    findResearchAreaById(keyword),
+                                  )
                                 }
                               >
                                 {keyword}
@@ -267,7 +275,7 @@ export default function ResearchProjectsPage({
             </div>
 
             {/* 検索結果がない場合 */}
-            {filteredProjects.length === 0 && (
+            {researches?.length === 0 && (
               <div className="text-center py-12">
                 <p className="text-gray-500">
                   「{selectedKeyword?.[language]?.title}」{t.noResults.message}

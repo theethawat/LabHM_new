@@ -23,21 +23,18 @@ export default async function HomePage() {
   );
 
   const researchRes = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs`,
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs&page=1&size=4`,
   );
 
   if (!researchRes.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
 
   const jsonResult = await researchRes.json();
 
-  const researches: Research[] = jsonResult.map((row: any) =>
+  const researches: Research[] = jsonResult?.rows?.map((row: any) =>
     convertSpreadsheetToResearch(row),
   );
 
-  const last4Research = _.takeRight(researches, 4);
-
-  return <Home latestNews={latestNews} latestResearches={last4Research} />;
+  return <Home latestNews={latestNews} latestResearches={researches} />;
 }
