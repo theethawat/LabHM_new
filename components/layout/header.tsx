@@ -62,6 +62,7 @@ const Header = () => {
       career: "進学・就職先",
       contact: "お問い合わせ",
       search: "検索",
+      researchFund: "研究補助",
     },
     en: {
       about: "About",
@@ -79,6 +80,7 @@ const Header = () => {
       career: "Career",
       contact: "Contact",
       search: "Search",
+      researchFund: "Research Funding",
     },
   };
 
@@ -88,7 +90,7 @@ const Header = () => {
     <header
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300 bg-white",
-        isScrolled && "shadow-sm"
+        isScrolled && "shadow-sm",
       )}
     >
       <div className="container flex h-16 items-center justify-between">
@@ -108,7 +110,7 @@ const Header = () => {
             href="/about"
             className={cn(
               "px-3 py-2 text-sm hover:text-primary",
-              pathname === "/about" && "text-primary"
+              pathname === "/about" && "text-primary",
             )}
           >
             {currentMenu.about}
@@ -121,7 +123,7 @@ const Header = () => {
                 "px-3 py-2 text-sm hover:text-primary flex items-center cursor-pointer",
                 (pathname === "/research" ||
                   pathname.startsWith("/research/")) &&
-                  "text-primary"
+                  "text-primary",
               )}
             >
               {currentMenu.research} <ChevronDown className="h-4 w-4 ml-1" />
@@ -144,6 +146,12 @@ const Header = () => {
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
               >
                 {currentMenu.collaborations}
+              </Link>{" "}
+              <Link
+                href="/research/funding"
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.researchFund}
               </Link>
             </div>
           </div>
@@ -152,7 +160,7 @@ const Header = () => {
             href="/news"
             className={cn(
               "px-3 py-2 text-sm hover:text-primary",
-              pathname === "/news" && "text-primary"
+              pathname === "/news" && "text-primary",
             )}
           >
             {currentMenu.news}
@@ -162,7 +170,7 @@ const Header = () => {
             href="/international"
             className={cn(
               "px-3 py-2 text-sm hover:text-primary",
-              pathname === "/international" && "text-primary"
+              pathname === "/international" && "text-primary",
             )}
           >
             {currentMenu.international}
@@ -173,7 +181,7 @@ const Header = () => {
             <div
               className={cn(
                 "px-3 py-2 text-sm hover:text-primary flex items-center cursor-pointer",
-                pathname.startsWith("/members") && "text-primary"
+                pathname.startsWith("/members") && "text-primary",
               )}
             >
               {currentMenu.members} <ChevronDown className="h-4 w-4 ml-1" />
@@ -208,7 +216,7 @@ const Header = () => {
             href="/achievements"
             className={cn(
               "px-3 py-2 text-sm hover:text-primary",
-              pathname === "/achievements" && "text-primary"
+              pathname === "/achievements" && "text-primary",
             )}
           >
             {currentMenu.achievements}
@@ -218,7 +226,7 @@ const Header = () => {
             href="/career"
             className={cn(
               "px-3 py-2 text-sm hover:text-primary",
-              pathname === "/career" && "text-primary"
+              pathname === "/career" && "text-primary",
             )}
           >
             {currentMenu.career}
@@ -228,7 +236,7 @@ const Header = () => {
             href="/contact"
             className={cn(
               "px-3 py-2 text-sm hover:text-primary",
-              pathname === "/contact" && "text-primary"
+              pathname === "/contact" && "text-primary",
             )}
           >
             {currentMenu.contact}
@@ -292,7 +300,7 @@ const Header = () => {
               href="/about"
               className={cn(
                 "px-3 py-3 text-sm border-b text-right",
-                pathname === "/about" && "text-primary"
+                pathname === "/about" && "text-primary",
               )}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -333,7 +341,7 @@ const Header = () => {
               href="/news"
               className={cn(
                 "px-3 py-3 text-sm border-b text-right",
-                pathname === "/news" && "text-primary"
+                pathname === "/news" && "text-primary",
               )}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -344,7 +352,7 @@ const Header = () => {
               href="/international"
               className={cn(
                 "px-3 py-3 text-sm border-b text-right",
-                pathname === "/international" && "text-primary"
+                pathname === "/international" && "text-primary",
               )}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -392,7 +400,7 @@ const Header = () => {
               href="/achievements"
               className={cn(
                 "px-3 py-3 text-sm border-b text-right",
-                pathname === "/achievements" && "text-primary"
+                pathname === "/achievements" && "text-primary",
               )}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -403,7 +411,7 @@ const Header = () => {
               href="/career"
               className={cn(
                 "px-3 py-3 text-sm border-b text-right",
-                pathname === "/career" && "text-primary"
+                pathname === "/career" && "text-primary",
               )}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -414,7 +422,7 @@ const Header = () => {
               href="/contact"
               className={cn(
                 "px-3 py-3 text-sm text-right",
-                pathname === "/contact" && "text-primary"
+                pathname === "/contact" && "text-primary",
               )}
               onClick={() => setIsMenuOpen(false)}
             >
