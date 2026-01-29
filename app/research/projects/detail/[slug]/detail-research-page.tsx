@@ -24,6 +24,15 @@ export default function DetailResearchPage({
     return _.tail(splittedResult);
   };
 
+  const splitFromEnterAndDivide = (data: string | undefined) => {
+    const result = data?.split("\n");
+    return _.map(result, (eachResult, index) => (
+      <p key={index} className="my-2">
+        {eachResult}
+      </p>
+    ));
+  };
+
   return (
     <div>
       {/* ヘッダーセクション */}
@@ -103,11 +112,55 @@ export default function DetailResearchPage({
                         {t.environmentTitle}
                       </h2>
                       <p className="text-gray-700">
-                        {selectedResearch?.[language]?.environmentText1}
+                        {splitFromEnterAndDivide(
+                          selectedResearch?.[language]?.environmentText1,
+                        )}
                       </p>
                       <p className="text-gray-700 mt-4 mb-8">
-                        {selectedResearch?.[language]?.environmentText2}
+                        {splitFromEnterAndDivide(
+                          selectedResearch?.[language]?.environmentText2,
+                        )}
                       </p>
+                    </div>
+                  )}
+                  {/* Custom Field 1*/}
+                  {selectedResearch?.[language]?.customField1Title && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {selectedResearch?.[language]?.customField1Title}
+                      </h2>
+                      <p className="text-gray-700">
+                        {splitFromEnterAndDivide(
+                          selectedResearch?.[language]?.customField1Text,
+                        )}
+                      </p>
+                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
+                        {splitDataFromHyphen(
+                          selectedResearch?.[language]?.customField1List,
+                        )?.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  )}{" "}
+                  {/* Custom Field 2*/}
+                  {selectedResearch?.[language]?.customField2Title && (
+                    <div className="mb-16">
+                      <h2 className="text-2xl font-bold mb-4">
+                        {selectedResearch?.[language]?.customField2Title}
+                      </h2>
+                      <p className="text-gray-700">
+                        {splitFromEnterAndDivide(
+                          selectedResearch?.[language]?.customField2Text,
+                        )}
+                      </p>
+                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
+                        {splitDataFromHyphen(
+                          selectedResearch?.[language]?.customField2List,
+                        )?.map((item, index) => (
+                          <li key={index}>{item}</li>
+                        ))}
+                      </ol>
                     </div>
                   )}
                   {/* 研究手法  Method */}
@@ -130,10 +183,14 @@ export default function DetailResearchPage({
                         {t.methodTitle}
                       </h2>
                       <p className="text-gray-700">
-                        {selectedResearch?.[language]?.methodText1}
+                        {splitFromEnterAndDivide(
+                          selectedResearch?.[language]?.methodText1,
+                        )}
                       </p>
                       <p className="text-gray-700 mt-4">
-                        {selectedResearch?.[language]?.methodText2}
+                        {splitFromEnterAndDivide(
+                          selectedResearch?.[language]?.methodText2,
+                        )}
                       </p>
                       <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
                         {splitDataFromHyphen(
@@ -147,42 +204,6 @@ export default function DetailResearchPage({
                       </p>
                     </div>
                   )}
-                  {/* Custom Field 1*/}
-                  {selectedResearch?.[language]?.customField1Title && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {selectedResearch?.[language]?.customField1Title}
-                      </h2>
-                      <p className="text-gray-700">
-                        {selectedResearch?.[language]?.customField1Text}
-                      </p>
-                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
-                        {splitDataFromHyphen(
-                          selectedResearch?.[language]?.customField1List,
-                        )?.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ol>
-                    </div>
-                  )}{" "}
-                  {/* Custom Field 2*/}
-                  {selectedResearch?.[language]?.customField2Title && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {selectedResearch?.[language]?.customField2Title}
-                      </h2>
-                      <p className="text-gray-700">
-                        {selectedResearch?.[language]?.customField2Text}
-                      </p>
-                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
-                        {splitDataFromHyphen(
-                          selectedResearch?.[language]?.customField2List,
-                        )?.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ol>
-                    </div>
-                  )}
                   {/* 実験結果 Result */}
                   {selectedResearch?.[language]?.resultText1 && (
                     <div className="mb-16">
@@ -190,10 +211,14 @@ export default function DetailResearchPage({
                         {t.resultsTitle}
                       </h2>
                       <p className="text-gray-700">
-                        {selectedResearch?.[language]?.resultText1}
+                        {splitFromEnterAndDivide(
+                          selectedResearch?.[language]?.resultText1,
+                        )}
                       </p>
                       <p className="text-gray-700 mt-4 mb-8">
-                        {selectedResearch?.[language]?.resultText2}
+                        {splitFromEnterAndDivide(
+                          selectedResearch?.[language]?.resultText2,
+                        )}
                       </p>
                       {selectedResearch?.images?.result_image && (
                         <div
