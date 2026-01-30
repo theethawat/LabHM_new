@@ -32,7 +32,7 @@ export default function NewsItem({
               <Image
                 src={
                   newsItem.image && newsItem.image.trim() !== ""
-                    ? getImagePath(newsItem.image)
+                    ? newsItem.image
                     : getImagePath("/logo.png")
                 }
                 alt={newsItem?.[language]?.title || ""}
@@ -45,7 +45,7 @@ export default function NewsItem({
               <Image
                 src={
                   newsItem.image && newsItem.image.trim() !== ""
-                    ? getImagePath(newsItem.image)
+                    ? newsItem.image
                     : getImagePath("/logo.png")
                 }
                 alt={newsItem?.[language]?.title || ""}
@@ -58,7 +58,7 @@ export default function NewsItem({
           <Image
             src={
               newsItem.image && newsItem.image.trim() !== ""
-                ? getImagePath(newsItem.image)
+                ? newsItem.image
                 : getImagePath("/logo.png")
             }
             alt={newsItem?.[language]?.title || ""}

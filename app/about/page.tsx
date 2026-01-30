@@ -1,10 +1,13 @@
-import Image from "next/image"
-import { aboutTranslations } from "@/translations/about"
-import { getImagePath } from "@/lib/utils"
+"use client";
+
+import Image from "next/image";
+import { aboutTranslations } from "@/translations/about";
+import { getImagePath } from "@/lib/utils";
+import { useLanguage } from "@/contexts/language-context";
 
 export default function AboutPage() {
-  const language = "ja"
-  const t = aboutTranslations[language]
+  const { language } = useLanguage();
+  const t = aboutTranslations[language];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -14,7 +17,14 @@ export default function AboutPage() {
           {/* About タイトル */}
           <div className="text-center mb-16">
             <div className="relative w-full max-w-md mx-auto h-16 mb-4">
-              <Image src={getImagePath("/images/logo_bout.png")} alt="About" fill className="object-contain" priority unoptimized />
+              <Image
+                src={getImagePath("/images/logo_bout.png")}
+                alt="About"
+                fill
+                className="object-contain"
+                priority
+                unoptimized
+              />
             </div>
             <p className="text-lg">{t.subtitle}</p>
           </div>
@@ -29,7 +39,12 @@ export default function AboutPage() {
             {/* 左側の画像 - 1つだけ */}
             <div className="md:w-1/3">
               <div className="relative h-64 w-full overflow-hidden">
-                <Image src={getImagePath("/images/thithizin.jpg")} alt="ThiThiZin教授" fill className="object-contain" />
+                <Image
+                  src={getImagePath("/images/thithizin.jpg")}
+                  alt="ThiThiZin教授"
+                  fill
+                  className="object-contain"
+                />
               </div>
             </div>
 
@@ -37,20 +52,30 @@ export default function AboutPage() {
             <div className="md:w-2/3 space-y-8">
               {/* 研究分野1 */}
               <div>
-                <h2 className="text-xl font-bold mb-2">{t.researchAreas.title}</h2>
-                <p className="text-base leading-relaxed">{t.researchAreas.description}</p>
+                <h2 className="text-xl font-bold mb-2">
+                  {t.researchAreas.title}
+                </h2>
+                <p className="text-base leading-relaxed">
+                  {t.researchAreas.description}
+                </p>
               </div>
 
               {/* 研究分野2 */}
               <div>
-                <h2 className="text-xl font-bold mb-2">{t.collaboration.title}</h2>
-                <p className="text-base leading-relaxed">{t.collaboration.description}</p>
+                <h2 className="text-xl font-bold mb-2">
+                  {t.collaboration.title}
+                </h2>
+                <p className="text-base leading-relaxed">
+                  {t.collaboration.description}
+                </p>
               </div>
 
               {/* 研究分野3 */}
               <div>
                 <h2 className="text-xl font-bold mb-2">{t.facilities.title}</h2>
-                <p className="text-base leading-relaxed">{t.facilities.description}</p>
+                <p className="text-base leading-relaxed">
+                  {t.facilities.description}
+                </p>
               </div>
             </div>
           </div>
@@ -63,5 +88,5 @@ export default function AboutPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

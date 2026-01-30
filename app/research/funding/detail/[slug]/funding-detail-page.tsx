@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
-import { Research, ResearchFundSource } from "@/types";
 import { useLanguage } from "@/contexts/language-context";
 import { getImagePath } from "@/lib/utils";
 import { researchProjectsTranslations } from "@/translations/research-projects";
