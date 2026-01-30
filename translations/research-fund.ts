@@ -10,6 +10,7 @@ enum ResearchFundInYear {
 // Type for language-specific fields
 interface ResearchFundLangFields {
   title: string;
+  fullTitle: string;
   briefDescription: string;
   aboutTitle?: string;
   aboutText?: string;
@@ -19,16 +20,28 @@ interface ResearchFundLangFields {
 
 // Type for press releases
 interface ResearchFundPressRelease {
-  jp: { title: string };
+  ja: { title: string };
   en: { title: string };
   link?: string;
 }
 
 // Type for current projects
 interface ResearchFundCurrentProject {
-  grantNumber: string;
-  jp: { title: string; recipient: string };
-  en: { title: string; recipient: string };
+  grantNumber?: string;
+  ja: {
+    title: string;
+    recipient?: string;
+    principleInvestigator?: string;
+    division?: string;
+    researchPeriod?: string;
+  };
+  en: {
+    title: string;
+    recipient?: string;
+    principleInvestigator?: string;
+    division?: string;
+    researchPeriod?: string;
+  };
 }
 
 // Main type for each fund entry
@@ -57,6 +70,7 @@ export const ResearchFundDataTranslations: ResearchFundDataTranslationsType = {
     year: "2023-2024",
     ja: {
       title: "JKA（2023-2024年度）",
+      fullTitle: "JKA研究助成（2023-2024年度）",
       briefDescription:
         "公益財団法人JKAからの研究助成により、革新的な技術開発と社会貢献を目指した研究を実施しました。",
       aboutTitle: "JKAについて",
@@ -68,6 +82,7 @@ export const ResearchFundDataTranslations: ResearchFundDataTranslationsType = {
     },
     en: {
       title: "JKA (FY2023-2024)",
+      fullTitle: "JKA Research Grant (FY2023-2024)",
       briefDescription:
         "With research grants from the Japan Keirin Autorace Foundation, we conducted research aimed at innovative technology development and social contribution.",
       aboutTitle: "About JKA",
@@ -82,7 +97,7 @@ export const ResearchFundDataTranslations: ResearchFundDataTranslationsType = {
     currentProjects: [
       {
         grantNumber: "2023M-425",
-        jp: {
+        ja: {
           title:
             "2023年度 酪農・畜産業のDX化による牛の健康管理システムの開発補助事業",
           recipient: "国立大学法人宮崎大学",
@@ -98,32 +113,47 @@ export const ResearchFundDataTranslations: ResearchFundDataTranslationsType = {
   [ResearchFundInYear.jka2025]: {
     id: ResearchFundInYear.jka2025,
     source: ResearchFundSource.jka,
-    link: "https://www.jka-cycle.jp/",
+    link: "https://www.jka-cycle.ja/",
     year: "2025",
     ja: {
       title: "JKA（2025年度）",
+      fullTitle: "JKA研究助成（2025年度）",
       briefDescription:
         "2025年度も引き続きJKAからの助成を受け、研究プロジェクトを推進しています。",
       aboutTitle: "JKAについて",
       aboutText:
         "公益財団法人JKAは、競輪・オートレースの売上の一部を財源として、機械工業の振興、体育事業の振興、社会福祉の増進、学術研究の振興などの公益事業を行っている財団法人です。CYCLE JKA Social Actionとして、補助金を活用した支援活動を幅広く展開しています。",
       contributeToSociety:
-        "本事業による社会への貢献については、今後掲載予定です。",
+        "本研究は、持続可能な福祉ケアの実現と地域全体の健康水準の向上に寄与し、『人生100年時代』に向けた社会全体での予防・健康増進の取り組みを支援するものである。",
       researchOverview: "",
     },
     en: {
       title: "JKA (FY2025)",
+      fullTitle: "JKA Research Grant (FY2025)",
       briefDescription:
         "We are continuing our research project with a grant from JKA for FY2025.",
       aboutTitle: "About JKA",
       aboutText:
         "The Japan Keirin Autorace Foundation (JKA) is a public interest incorporated foundation that conducts public interest projects such as promotion of mechanical industry, sports promotion, social welfare enhancement, and academic research promotion, funded by proceeds from bicycle racing and auto racing. Through CYCLE JKA Social Action, they broadly develop support activities utilizing subsidies.",
       contributeToSociety:
-        "The contribution to society from this project will be posted in the future.",
+        "This research contributes to the realization of sustainable welfare care and the improvement of health standards throughout the community, supporting society-wide prevention and health promotion efforts toward the '100-year life era'.",
       researchOverview: "",
     },
     logo: "/images/JKA_banner_L.png",
     pressReleases: [],
+    currentProjects: [
+      {
+        grantNumber: "2025M-424",
+        ja: {
+          title: "プライバシーを保護した高齢者見守りと健康支援システム",
+          recipient: "国立大学法人宮崎大学",
+        },
+        en: {
+          title: "Privacy-protecting elderly care and health support system",
+          recipient: "University of Miyazaki",
+        },
+      },
+    ],
   },
   [ResearchFundInYear.mic]: {
     id: ResearchFundInYear.mic,
@@ -131,6 +161,7 @@ export const ResearchFundDataTranslations: ResearchFundDataTranslationsType = {
     link: "https://www.soumu.go.jp/",
     ja: {
       title: "総務省 FORWARD事業",
+      fullTitle: "総務省 FORWARD事業",
       briefDescription:
         "総務省の「持続可能な電波有効利用のための基盤技術研究開発事業（FORWARD）」により、電波センシング技術を活用した畜産業の課題解決に取り組んでいます。",
       researchOverview:
@@ -138,9 +169,12 @@ export const ResearchFundDataTranslations: ResearchFundDataTranslationsType = {
       aboutTitle: "FORWARD事業について",
       aboutText:
         "「持続可能な電波有効利用のための基盤技術研究開発事業（FORWARD）」は、総務省が推進する研究開発事業です。電波の有効利用を促進し、Society 5.0の実現に向けた無線通信技術の研究開発を支援しています。",
+      contributeToSociety:
+        "本研究により、獣医師の移動負担を軽減し、難産による分娩事故を減少させることができます。これにより、地域課題解決と持続可能な畜産業の発展に貢献し、九州地域における畜産業の競争力向上を目指します。",
     },
     en: {
       title: "Ministry of Internal Affairs and Communications FORWARD Project",
+      fullTitle: "MIC FORWARD Project",
       briefDescription:
         "Through the Ministry of Internal Affairs and Communications' 'Fundamental Technologies for Sustainable Efficient Radio Wave Use R&D Project (FORWARD)', we are working on solving livestock industry challenges using radio wave sensing technology.",
       researchOverview:
@@ -148,11 +182,13 @@ export const ResearchFundDataTranslations: ResearchFundDataTranslationsType = {
       aboutTitle: "About FORWARD Project",
       aboutText:
         "The 'Fundamental Technologies for Sustainable Efficient Radio Wave Use R&D Project (FORWARD)' is a research and development project promoted by the Ministry of Internal Affairs and Communications. It promotes the effective use of radio waves and supports research and development of wireless communication technologies toward the realization of Society 5.0.",
+      contributeToSociety:
+        "This research will reduce the burden of veterinarian travel and decrease parturition accidents due to dystocia. This contributes to solving regional issues and developing sustainable livestock industry, aiming to improve the competitiveness of livestock industry in the Kyushu region.",
     },
     logo: "/images/logo_soumu.png",
     pressReleases: [
       {
-        jp: {
+        ja: {
           title: "総務省 九州総合通信局 報道資料（令和7年7月25日）",
         },
         en: {
@@ -160,6 +196,24 @@ export const ResearchFundDataTranslations: ResearchFundDataTranslationsType = {
             "MIC Kyushu Bureau of Telecommunications Press Release (July 25, 2025)",
         },
         link: "https://www.soumu.go.jp/soutsu/kyushu/press/250725-1.html",
+      },
+    ],
+    currentProjects: [
+      {
+        ja: {
+          title:
+            "低電力電波センサによる心拍推定を活用した牛の分娩難産予測システムの研究開発",
+          principleInvestigator: " ThiThi Zin（ティティズイン）(宮崎大学)",
+          division: "デジタルインフラ構築部門",
+          researchPeriod: "4か年度（予定）",
+        },
+        en: {
+          title:
+            "Research and Development of Cattle Dystocia Prediction System Using Heart Rate Estimation with Low-Power Radio Wave Sensors",
+          principleInvestigator: "Thi Thi Zin (University of Miyazaki)",
+          researchPeriod: "4 years (planned)",
+          division: "Digital Infrastructure Development Division",
+        },
       },
     ],
   },

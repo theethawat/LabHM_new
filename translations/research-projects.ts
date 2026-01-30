@@ -28,6 +28,14 @@ export const researchProjectsTranslations = {
     promotionalFundFrom: "",
     researchFundingSubtitle:
       "当研究室では、様々な外部資金を活用して研究活動を推進しています。主要な資金提供機関からの支援により、先進的な研究プロジェクトを実施しています。",
+    currentProject: "現在の取り組み",
+    grantRecipient: "補助事業者",
+    contributeToSociety: "社会への貢献",
+    researchOverview: " 研究概要",
+    relatedPressReleases: "関連報道資料",
+    principleInvestigator: "研究代表者",
+    researchPeriod: "研究期間",
+    division: "部門",
   },
   en: {
     title: "Research Projects",
@@ -59,5 +67,13 @@ export const researchProjectsTranslations = {
     promotionalFundFrom: "its promotional funds derived from",
     researchFundingSubtitle:
       "Our laboratory promotes research activities utilizing various external funding sources. With support from major funding institutions, we conduct advanced research projects.",
+    currentProject: "Current Project",
+    grantRecipient: "Grant Recipient",
+    contributeToSociety: "Contribution to Society",
+    researchOverview: " Research Overview",
+    relatedPressReleases: "Related Press Releases",
+    principleInvestigator: "Principal Investigator",
+    researchPeriod: "Research Period",
+    division: "Division",
   },
 };
