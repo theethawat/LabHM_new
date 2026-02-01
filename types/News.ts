@@ -12,6 +12,7 @@ export interface News {
   image?: string;
   tag: string;
   isExternal?: boolean;
+  images?: string[];
 }
 
 export enum NewsTag {
@@ -52,13 +53,20 @@ export const NewsTagInfo = {
 
 export function convertSpreadsheetToNews(sheetObject: any): News {
   const tempNews: News = { ...sheetObject } as News;
+
+  const imageList = [];
+  for (let i = 1; i <= 13; i++) {
+    const imageKey = `support_image_${i}`;
+    sheetObject[imageKey] && imageList.push(sheetObject[imageKey]);
+  }
   tempNews.ja = {
     title: sheetObject?.jpTitle,
-    content: sheetObject?.jpContent || "",
+    content: sheetObject?.jpDescription || "",
   };
   tempNews.en = {
     title: sheetObject?.enTitle,
-    content: sheetObject?.enContent || "",
+    content: sheetObject?.enDescription || "",
   };
+  tempNews.images = imageList;
   return tempNews;
 }

@@ -7,6 +7,7 @@ import NewsTagList from "./news-tag-list";
 import Pagination from "./pagination";
 import ResearchItem from "./research-item";
 import ResearchFundBox from "./research-fund-box";
+import Gallery from "./gallery";
 
 export {
   MemberCard,
@@ -18,4 +19,5 @@ export {
   Pagination,
   ResearchItem,
   ResearchFundBox,
+  Gallery,
 };
