@@ -5,13 +5,13 @@ import Image from "next/image";
 import { useLanguage } from "@/contexts/language-context";
 import { membersTranslations } from "@/translations/members";
 import { getImagePath } from "@/lib/utils";
-import { getCompleteFacultyMembers } from "@/translations/complete-unified-members-data";
+import { getFacultyMembers } from "@/translations";
 import { MemberTitle, MemberTypeButton } from "@/components/features";
 
 export default function FacultyMembers() {
   const { language } = useLanguage();
   const t = membersTranslations[language];
-  const facultyMembers = getCompleteFacultyMembers();
+  const facultyMembers = getFacultyMembers();
 
   return (
     <div className="min-h-screen flex flex-col">

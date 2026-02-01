@@ -3,7 +3,7 @@ import { Member, convertSpreadSheetRowToUnifiedMember } from "@/types";
 
 export default async function Alumni() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_MEMBER_DATA}?functionName=getAllMembers`
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllMembers`
   );
 
   if (!res.ok) {

@@ -1,3 +1,5 @@
+import { Loader } from "@/components/features";
+
 export default function Loading() {
-  return null
+  return <Loader />;
 }

@@ -12,6 +12,7 @@
     "test-server": "cd test-server && python3 -m http.server 8000"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
@@ -47,6 +48,7 @@
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
     "date-fns": "^3.0.0",
+    "dayjs": "^1.11.19",
     "embla-carousel-react": "8.5.1",
     "googleapis": "^166.0.0",
     "input-otp": "1.4.1",
@@ -58,6 +60,7 @@
     "react-day-picker": "8.10.1",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.54.1",
+    "react-image-gallery": "^2.0.2",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",
     "sonner": "^1.7.1",

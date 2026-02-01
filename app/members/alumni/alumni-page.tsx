@@ -24,12 +24,6 @@ export default function AlumniPage({ members }: { members: Member[] }) {
   const { language } = useLanguage();
   const t = membersTranslations[language];
 
-  // データ取得
-  const doctoralStudents = _.filter(members, {
-    program: "doctoral",
-    isAlumni: false,
-  });
-
   const availableYears = getAvailableAcademicYears(members);
 
   const [selectedYear, setSelectedYear] = useState<string>(
