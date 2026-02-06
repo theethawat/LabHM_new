@@ -8,6 +8,11 @@ import { Menu, X, Search, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 import { getImagePath, getLinkPath } from "@/lib/utils";
+import {
+  awards,
+  domesticConferences,
+  internationalConferences,
+} from "@/translations";
 
 // useState部分を更新して、メニューの開閉状態を管理
 const Header = () => {
@@ -63,6 +68,11 @@ const Header = () => {
       contact: "お問い合わせ",
       search: "検索",
       researchFund: "研究補助",
+      journalPapers: "論文一覧",
+      internationalConferences: "国際会議発表",
+      domesticConferences: "国内会議発表",
+      thesis: "論文・著書",
+      awardsAndMediaCoverage: "受賞・メディア掲載",
     },
     en: {
       about: "About",
@@ -81,6 +91,11 @@ const Header = () => {
       contact: "Contact",
       search: "Search",
       researchFund: "Research Funding",
+      journalPapers: "Journal Papers",
+      internationalConferences: "International Conferences",
+      domesticConferences: "Domestic Conferences",
+      thesis: "Theses & Books",
+      awardsAndMediaCoverage: "Awards & Media Coverage",
     },
   };
 
@@ -211,16 +226,49 @@ const Header = () => {
               </a>
             </div>
           </div>
-
-          <Link
-            href="/achievements"
-            className={cn(
-              "px-3 py-2 text-sm hover:text-primary",
-              pathname === "/achievements" && "text-primary",
-            )}
-          >
-            {currentMenu.achievements}
-          </Link>
+          <div className="relative group">
+            <div
+              className={cn(
+                "px-3 py-2 text-sm hover:text-primary flex items-center cursor-pointer",
+                pathname.startsWith("/achievements") && "text-primary",
+              )}
+            >
+              {currentMenu.achievements}{" "}
+              <ChevronDown className="h-4 w-4 ml-1" />
+            </div>
+            <div className="absolute left-0 top-full w-48 bg-white shadow-md rounded-b-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+              <a
+                href={"/achievements/awards"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.awardsAndMediaCoverage}
+              </a>
+              <a
+                href={"/achievements/journals"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.journalPapers}
+              </a>
+              <a
+                href={"/achievements/international"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.internationalConferences}
+              </a>
+              <a
+                href={"/achievements/domestic"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.domesticConferences}
+              </a>{" "}
+              <a
+                href={"/achievements/thesis"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.thesis}
+              </a>
+            </div>
+          </div>
 
           <Link
             href="/career"
