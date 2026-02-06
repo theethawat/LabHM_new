@@ -1,4 +1,8 @@
+"use client";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { achievementTranslation } from "@/translations/achievements";
+import { useLanguage } from "@/contexts/language-context";
 
 // 論文データの型定義
 type Paper = {
@@ -20,7 +24,7 @@ type DegreeSection = {
 // 論文データ
 const journalPapers: DegreeSection[] = [
   {
-    degree: "博士（工学）",
+    degree: "博士（工学）", // Doctoral degree (Engineering)
     years: [
       {
         year: "令和3年度",
@@ -55,38 +59,35 @@ const journalPapers: DegreeSection[] = [
     ],
   },
   {
-    degree: "修士（工学）",
+    degree: "修士（工学）", // Master's Degree in Engineering
     years: [
       {
         year: "令和5年度",
         papers: [
           {
-            title:
-              "永野 流磨, &quot;Flaskを用いたファブリー病の振戦運動評価の研究&quot;",
+            title: "永野 流磨, Flaskを用いたファブリー病の振戦運動評価の研究",
           },
           {
             title:
-              "高岡 柚貴, &quot;RGBカメラによる牛の歩行動画を用いた個体識別に関する研究&quot;",
+              "高岡 柚貴, RGBカメラによる牛の歩行動画を用いた個体識別に関する研究",
+          },
+          {
+            title: "山元 太陽, RGBカメラを用いた行動判定に関する研究",
           },
           {
             title:
-              "山元 太陽, &quot;RGBカメラを用いた行動判定に関する研究&quot;",
+              "山口 謙志朗, 画像処理技術を用いた分娩前の牛の特徴抽出に関する研究",
           },
           {
             title:
-              "山口 謙志朗, &quot;画像処理技術を用いた分娩前の牛の特徴抽出に関する研究&quot;",
+              "清水 祐一朗, 画像処理技術を用いた耳標番号による牛の個体識別",
           },
           {
             title:
-              "清水 祐一朗, &quot;画像処理技術を用いた耳標番号による牛の個体識別&quot;",
+              "石川 太一, オプティカルフローと機械学習を用いた複数牛の反芻識別に関する研究",
           },
           {
-            title:
-              "石川 太一, &quot;オプティカルフローと機械学習を用いた複数牛の反芻識別に関する研究&quot;",
-          },
-          {
-            title:
-              "椎原 陽, &quot;3Dカメラを用いた歩行中の牛の個体識別に関する研究&quot;",
+            title: "椎原 陽, 3Dカメラを用いた歩行中の牛の個体識別に関する研究",
           },
         ],
       },
@@ -160,14 +161,18 @@ const journalPapers: DegreeSection[] = [
 ];
 
 export default function ThesisPage() {
+  const { language } = useLanguage();
+  const t = achievementTranslation[language];
   return (
     <div>
       {/* ヘッダーセクション */}
       <section className="bg-gray-100 py-16">
         <div className="container">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">論文誌</h1>
-            <p className="text-xl text-gray-600">研究室の論文発表</p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {t.title.thesis}
+            </h1>
+            <p className="text-xl text-gray-600">{t.subtitle.thesis}</p>
           </div>
         </div>
       </section>
