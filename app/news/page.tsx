@@ -4,17 +4,15 @@ import { News as NewsType, convertSpreadsheetToNews } from "@/types";
 export default async function News({
   searchParams,
 }: {
-  searchParams:
-    | Promise<{ page?: string; tag?: string }>
-    | { page?: string; tag?: string };
+  searchParams: { page?: string; tag?: string }; // | Promise<{ page?: string; tag?: string }>
 }) {
   // Await searchParams if it's a Promise
-  const params = await searchParams;
+  const params = searchParams;
 
   console.log("New Search Params:", params);
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllNews&page=${params?.page || 1}&size=20&tag=${params?.tag || ""}`,
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllNews&page=${1}&size=20&tag=`,
   );
 
   if (!res.ok) {

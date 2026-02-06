@@ -158,7 +158,7 @@ export default function ResearchProjectsPage({
                       </div>
                       <div>
                         <Link
-                          href={`projects/detail/${project?.id}`}
+                          href={`/research/projects/detail/${project?.id}`}
                           className="text-primary hover:underline font-medium"
                         >
                           {t.viewDetails} →

@@ -41,12 +41,12 @@ export default function ResearchFunding({}) {
               {langFields.briefDescription}
             </p>
             <div className="text-right mt-2">
-              <a
+              <Link
                 className="text-blue-600 hover:text-blue-800 underline text-xs"
-                href={`funding/detail/${fundEntry.id}`}
+                href={`/funding/detail/${fundEntry.id}`}
               >
                 {t.viewDetails}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

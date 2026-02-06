@@ -202,28 +202,28 @@ const Header = () => {
               {currentMenu.members} <ChevronDown className="h-4 w-4 ml-1" />
             </div>
             <div className="absolute left-0 top-full w-48 bg-white shadow-md rounded-b-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-              <a
+              <Link
                 href={"/members/faculty"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
                 // onClick={(e) => handleGoLocation("/members/faculty")}
               >
                 {currentMenu.faculty}
-              </a>
-              <a
+              </Link>
+              <Link
                 href={"/members/students"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
                 // onClick={(e) => handleGoLocation("/members/students")}
               >
                 {currentMenu.students}
-              </a>
-              <a
+              </Link>
+              <Link
                 href={"/members/alumni"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
                 // TODO: Remove it
                 // onClick={(e) => handleGoLocation("/members/alumni")}
               >
                 {currentMenu.alumni}
-              </a>
+              </Link>
             </div>
           </div>
           <div className="relative group">
@@ -237,36 +237,36 @@ const Header = () => {
               <ChevronDown className="h-4 w-4 ml-1" />
             </div>
             <div className="absolute left-0 top-full w-48 bg-white shadow-md rounded-b-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-              <a
+              <Link
                 href={"/achievements/awards"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
               >
                 {currentMenu.awardsAndMediaCoverage}
-              </a>
-              <a
+              </Link>
+              <Link
                 href={"/achievements/journals"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
               >
                 {currentMenu.journalPapers}
-              </a>
-              <a
+              </Link>
+              <Link
                 href={"/achievements/international"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
               >
                 {currentMenu.internationalConferences}
-              </a>
-              <a
+              </Link>
+              <Link
                 href={"/achievements/domestic"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
               >
                 {currentMenu.domesticConferences}
-              </a>{" "}
-              <a
+              </Link>{" "}
+              <Link
                 href={"/achievements/thesis"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
               >
                 {currentMenu.thesis}
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -413,7 +413,7 @@ const Header = () => {
                 <span>{currentMenu.members}</span>
               </div>
               <div className="pr-4 mt-2 space-y-2 text-right">
-                <a
+                <Link
                   href={"/members/faculty"}
                   className="block py-1 text-sm"
                   onClick={(e) => {
@@ -422,8 +422,8 @@ const Header = () => {
                   }}
                 >
                   {currentMenu.faculty}
-                </a>
-                <a
+                </Link>
+                <Link
                   href={"/members/students"}
                   className="block py-1 text-sm"
                   onClick={(e) => {
@@ -431,8 +431,8 @@ const Header = () => {
                   }}
                 >
                   {currentMenu.students}
-                </a>
-                <a
+                </Link>
+                <Link
                   href={"/members/alumni"}
                   className="block py-1 text-sm"
                   onClick={(e) => {
@@ -440,7 +440,7 @@ const Header = () => {
                   }}
                 >
                   {currentMenu.alumni}
-                </a>
+                </Link>
               </div>
             </div>
 
