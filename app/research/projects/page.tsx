@@ -22,11 +22,5 @@ export default async function ResearchProject({
     convertSpreadsheetToResearch(row),
   );
 
-  return (
-    <ResearchProjectsPage
-      researches={researches}
-      totalPage={jsonResult?.allPage}
-      currPage={jsonResult?.currPage}
-    />
-  );
+  return <ResearchProjectsPage researches={researches} />;
 }

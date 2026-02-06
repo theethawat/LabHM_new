@@ -43,7 +43,7 @@ export default function ResearchFunding({}) {
             <div className="text-right mt-2">
               <Link
                 className="text-blue-600 hover:text-blue-800 underline text-xs"
-                href={`/funding/detail/${fundEntry.id}`}
+                href={`/research/funding/detail/${fundEntry.id}`}
               >
                 {t.viewDetails}
               </Link>

@@ -11,15 +11,12 @@ import { researchProjectsTranslations, researchAreas } from "@/translations";
 import { getImagePath } from "@/lib/utils";
 import { Research, ResearchArea } from "@/types";
 import { Pagination } from "@/components/features";
+import { filterArticles } from "@/lib/filter-article";
 
 export default function ResearchProjectsPage({
   researches,
-  totalPage,
-  currPage,
 }: {
   researches: Research[];
-  totalPage: number;
-  currPage: number;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -28,10 +25,10 @@ export default function ResearchProjectsPage({
 
   // URLからカテゴリパラメータを取得
   const categoryParam = searchParams.get("category");
-  console.log("URL category parameter:", categoryParam); // デバッグ用
   const foundArea: ResearchArea | undefined = researchAreas.find(
     (area) => area.id === categoryParam,
   );
+  const params = new URLSearchParams(searchParams);
 
   // 選択されたキーワード（URLパラメータから初期値を設定）
   const [selectedKeyword, setSelectedKeyword] = useState<
@@ -43,8 +40,6 @@ export default function ResearchProjectsPage({
   };
 
   const handleActiveTagChange = (tag: ResearchArea | undefined) => {
-    const params = new URLSearchParams(searchParams);
-
     if (tag === undefined) {
       params.set("tag", "");
       params.set("page", "1");
@@ -60,6 +55,16 @@ export default function ResearchProjectsPage({
     handleActiveTagChange(selectedKeyword);
     return () => {};
   }, [selectedKeyword]);
+
+  const currentPage = params.get("page")
+    ? parseInt(params.get("page") as string, 10)
+    : 1;
+
+  const filteredData = filterArticles(researches, {
+    page: currentPage,
+    size: 5,
+    tag: _.lowerCase(selectedKeyword?.en?.shortTitle),
+  });
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -114,7 +119,7 @@ export default function ResearchProjectsPage({
 
             {/* プロジェクト一覧 */}
             <div className="grid gap-8">
-              {researches?.map((project: Research) => (
+              {(filteredData?.rows as Research[])?.map((project: Research) => (
                 <div
                   key={project.id}
                   className="overflow-hidden bg-white border-b border-gray-200"
@@ -187,8 +192,8 @@ export default function ResearchProjectsPage({
           </div>
           <div className="my-4">
             <Pagination
-              totalPage={totalPage}
-              currPage={currPage}
+              totalPage={filteredData.totalPage}
+              currPage={currentPage}
               anotherKey={`tag=${searchParams.get("tag") || ""} `}
             />
           </div>
