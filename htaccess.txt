@@ -1,0 +1,16 @@
+# 古い形式のアクセス制御（Apache 2.2互換）
+order deny,allow
+deny from all
+allow from all
+
+# デフォルトページ設定
+DirectoryIndex index.html
+
+# リライトエンジン有効化
+RewriteEngine On
+
+# home.php -> index.html へのリダイレクト
+RewriteRule ^home\.php$ /imagelab/index.html [L,R=301]
+
+# ルートアクセス時
+RewriteRule ^$ /imagelab/index.html [L]
