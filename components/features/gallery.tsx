@@ -5,7 +5,7 @@ import _ from "lodash";
 export default function Gallery({ images }: { images?: string[] }) {
   return (
     <div className="p-4 flex justify-center">
-      <div style={{ maxWidth: 600 }}>
+      <div style={{ maxWidth: 800 }}>
         <ImageGallery
           items={_.map(images, (each, index: number) => ({
             original: each,

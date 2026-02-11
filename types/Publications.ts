@@ -3,7 +3,6 @@ export enum PublicationType {
   journal = "journal",
   intConference = "international-conference",
   domConference = "domestic-conference",
-  patent = "patent",
 }
 
 export interface Publication {
@@ -55,14 +54,6 @@ export const PublicationTypeInfo = {
     },
     en: {
       title: "Domestic Conference",
-    },
-  },
-  [PublicationType.patent]: {
-    ja: {
-      title: "特許",
-    },
-    en: {
-      title: "Patent",
     },
   },
 };

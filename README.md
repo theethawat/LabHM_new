@@ -2,7 +2,8 @@
 
 これは、宮崎大学 情報処理システム研究室の新しいウェブサイトのプロジェクトです。
 
-このコードは元々[@nishimoto265](https://github.com/nishimoto265) によって書かれたものです。
+- このコードは元々[@nishimoto265](https://github.com/nishimoto265) によって書かれたものです。 Thank you the originate of this source code, Daichi Nishimoto.
+- ウェブサイトのデザインは [@remon-nomer66](https://github.com/remon-nomer66) によって作成されました。Thank you for the idea and design by Remon Nakashima.
 
 **ホームページURL**: [https://www.cc.miyazaki-u.ac.jp/imagelab](https://www.cc.miyazaki-u.ac.jp/imagelab/)
 
@@ -15,9 +16,6 @@
 - バージョン　2.1
 Google スプレッドシートと Google App Script に接続することで、ウェブサイトのコンテンツを簡単に更新できるように改善しました。
 
-## デザイン
-
-ウェブサイトのデザインは [@remon-nomer66](https://github.com/remon-nomer66) によって作成されました。
 
 完成予定のデザインイメージ:
 
