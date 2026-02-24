@@ -7,6 +7,7 @@
 
 **ホームページURL**: [https://www.cc.miyazaki-u.ac.jp/imagelab](https://www.cc.miyazaki-u.ac.jp/imagelab/)
 
+
 ## 概要
 
 - バージョン　2.0
@@ -44,6 +45,20 @@ Google スプレッドシートと Google App Script に接続することで、
 ## 旧バージョン
 
 *   **旧ホームページリポジトリ**: [nishimoto265/LabHM_old](https://github.com/nishimoto265/LabHM_old)
+
+## ビルドとデプロイメント
+
+* Mac / Linux
+```
+npm run build:static
+```
+
+* Windows
+
+```
+npm run build:static-win
+```
+Visit [Readme-Build](README-build.md) for more information.
 
 ## 貢献
 
