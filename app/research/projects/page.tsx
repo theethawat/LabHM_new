@@ -4,13 +4,11 @@ import { Research, convertSpreadsheetToResearch } from "@/types";
 export default async function ResearchProject({
   searchParams,
 }: {
-  searchParams:
-    | Promise<{ page?: string; tag?: string }>
-    | { page?: string; tag?: string };
+  searchParams: { page?: string; tag?: string };
 }) {
-  const params = await searchParams;
+  const params = searchParams;
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs&page=${params?.page || 1}&size=10&tag=${params?.tag || ""}`,
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs&page=${1}&size=100`,
   );
 
   if (!res.ok) {
@@ -24,11 +22,5 @@ export default async function ResearchProject({
     convertSpreadsheetToResearch(row),
   );
 
-  return (
-    <ResearchProjectsPage
-      researches={researches}
-      totalPage={jsonResult?.allPage}
-      currPage={jsonResult?.currPage}
-    />
-  );
+  return <ResearchProjectsPage researches={researches} />;
 }

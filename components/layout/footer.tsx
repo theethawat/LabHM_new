@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { ChevronRight } from "lucide-react"
-import { useLanguage } from "@/contexts/language-context"
-import { getImagePath } from "@/lib/utils"
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
+import { useLanguage } from "@/contexts/language-context";
+import { getImagePath } from "@/lib/utils";
 
 export default function Footer() {
-  const { language } = useLanguage()
+  const { language } = useLanguage();
 
   // 言語に応じたフッターテキスト
   const footerText = {
@@ -34,7 +34,7 @@ export default function Footer() {
       achievementsList: "研究業績一覧",
       career: "進学・就職先",
       contact2: "お問い合わせ",
-      copyright: "© 2024 情報処理システム研究室. All rights reserved.",
+      copyright: "© 2026 情報処理システム研究室. All rights reserved.",
     },
     en: {
       contact: "Contact",
@@ -59,11 +59,12 @@ export default function Footer() {
       achievementsList: "Achievements List",
       career: "Career",
       contact2: "Contact",
-      copyright: "© 2024 Information Processing Systems Laboratory. All rights reserved.",
+      copyright:
+        "© 2026 Information Processing Systems Laboratory. All rights reserved.",
     },
-  }
+  };
 
-  const text = footerText[language]
+  const text = footerText[language];
 
   return (
     <footer className="bg-black text-white">
@@ -84,7 +85,9 @@ export default function Footer() {
                 <h2 className="text-4xl font-bold mr-4">{text.contact}</h2>
                 <p className="text-xl">{text.contactSubtitle}</p>
               </div>
-              <p className="mb-8 max-w-md whitespace-pre-line">{text.contactDescription}</p>
+              <p className="mb-8 max-w-md whitespace-pre-line">
+                {text.contactDescription}
+              </p>
               <Link href="/contact">
                 <div className="inline-block border border-white text-white hover:bg-white hover:text-black px-8 py-3 transition-all duration-300 transform hover:translate-y-[-2px]">
                   {text.contactButton}
@@ -288,10 +291,14 @@ export default function Footer() {
         <div className="container">
           <div className="relative">
             <div className="flex justify-center">
-            <p className="text-sm text-gray-400">{text.copyright}</p>
+              <p className="text-sm text-gray-400">{text.copyright}</p>
             </div>
             <div className="absolute right-0 top-0 flex items-center space-x-4">
-              <a target="_blank" rel="noopener noreferrer" href="https://www.jka-cycle.jp/">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.jka-cycle.jp/"
+              >
                 <Image
                   src={getImagePath("/images/JKA.png")}
                   alt="JKA"
@@ -300,7 +307,11 @@ export default function Footer() {
                   className="opacity-80 hover:opacity-100 transition-opacity"
                 />
               </a>
-              <a target="_blank" rel="noopener noreferrer" href="https://keirin.jp/pc/login">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://keirin.jp/pc/login"
+              >
                 <Image
                   src={getImagePath("/images/keirin.gif")}
                   alt="Keirin"
@@ -314,5 +325,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

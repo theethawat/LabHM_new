@@ -100,3 +100,43 @@
     max-height: calc(1.5em * 3);
   }
 }
+
+
+@layer components {
+  .md-content h1 {
+    @apply text-2xl;
+    @apply my-6;
+  }
+  .md-content h2 {
+    @apply text-xl;
+    @apply my-6;
+  }
+  .md-content h3 {
+    @apply text-lg;
+  }
+  .md-content li {
+    @apply list-disc;
+    @apply list-inside;
+  }
+  .md-content code {
+    @apply bg-gray-200;
+  }
+  .md-content ol {
+    @apply list-decimal;
+  }
+  .md-content b {
+    @apply font-semibold;
+  }
+  .md-content u {
+    @apply underline;
+  }
+  .md-content p {
+    @apply my-2;
+  }
+  .md-content a {
+    @apply text-blue-500;
+  }
+  .md-content ul{
+    @apply mb-6;
+  }
+}

@@ -8,6 +8,11 @@ import { Menu, X, Search, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/language-context";
 import { cn } from "@/lib/utils";
 import { getImagePath, getLinkPath } from "@/lib/utils";
+import {
+  awards,
+  domesticConferences,
+  internationalConferences,
+} from "@/translations";
 
 // useState部分を更新して、メニューの開閉状態を管理
 const Header = () => {
@@ -63,6 +68,11 @@ const Header = () => {
       contact: "お問い合わせ",
       search: "検索",
       researchFund: "研究補助",
+      journalPapers: "論文一覧",
+      internationalConferences: "国際会議発表",
+      domesticConferences: "国内会議発表",
+      thesis: "論文・著書",
+      awardsAndMediaCoverage: "受賞・メディア掲載",
     },
     en: {
       about: "About",
@@ -81,6 +91,11 @@ const Header = () => {
       contact: "Contact",
       search: "Search",
       researchFund: "Research Funding",
+      journalPapers: "Journal Papers",
+      internationalConferences: "International Conferences",
+      domesticConferences: "Domestic Conferences",
+      thesis: "Theses & Books",
+      awardsAndMediaCoverage: "Awards & Media Coverage",
     },
   };
 
@@ -187,40 +202,73 @@ const Header = () => {
               {currentMenu.members} <ChevronDown className="h-4 w-4 ml-1" />
             </div>
             <div className="absolute left-0 top-full w-48 bg-white shadow-md rounded-b-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-              <a
+              <Link
                 href={"/members/faculty"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
                 // onClick={(e) => handleGoLocation("/members/faculty")}
               >
                 {currentMenu.faculty}
-              </a>
-              <a
+              </Link>
+              <Link
                 href={"/members/students"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
                 // onClick={(e) => handleGoLocation("/members/students")}
               >
                 {currentMenu.students}
-              </a>
-              <a
+              </Link>
+              <Link
                 href={"/members/alumni"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
                 // TODO: Remove it
                 // onClick={(e) => handleGoLocation("/members/alumni")}
               >
                 {currentMenu.alumni}
-              </a>
+              </Link>
             </div>
           </div>
-
-          <Link
-            href="/achievements"
-            className={cn(
-              "px-3 py-2 text-sm hover:text-primary",
-              pathname === "/achievements" && "text-primary",
-            )}
-          >
-            {currentMenu.achievements}
-          </Link>
+          <div className="relative group">
+            <div
+              className={cn(
+                "px-3 py-2 text-sm hover:text-primary flex items-center cursor-pointer",
+                pathname.startsWith("/achievements") && "text-primary",
+              )}
+            >
+              {currentMenu.achievements}{" "}
+              <ChevronDown className="h-4 w-4 ml-1" />
+            </div>
+            <div className="absolute left-0 top-full w-48 bg-white shadow-md rounded-b-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+              <Link
+                href={"/achievements/awards"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.awardsAndMediaCoverage}
+              </Link>
+              <Link
+                href={"/achievements/journals"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.journalPapers}
+              </Link>
+              <Link
+                href={"/achievements/international"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.internationalConferences}
+              </Link>
+              <Link
+                href={"/achievements/domestic"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.domesticConferences}
+              </Link>{" "}
+              <Link
+                href={"/achievements/thesis"}
+                className="block px-4 py-2 text-sm hover:bg-gray-100"
+              >
+                {currentMenu.thesis}
+              </Link>
+            </div>
+          </div>
 
           <Link
             href="/career"
@@ -365,7 +413,7 @@ const Header = () => {
                 <span>{currentMenu.members}</span>
               </div>
               <div className="pr-4 mt-2 space-y-2 text-right">
-                <a
+                <Link
                   href={"/members/faculty"}
                   className="block py-1 text-sm"
                   onClick={(e) => {
@@ -374,8 +422,8 @@ const Header = () => {
                   }}
                 >
                   {currentMenu.faculty}
-                </a>
-                <a
+                </Link>
+                <Link
                   href={"/members/students"}
                   className="block py-1 text-sm"
                   onClick={(e) => {
@@ -383,8 +431,8 @@ const Header = () => {
                   }}
                 >
                   {currentMenu.students}
-                </a>
-                <a
+                </Link>
+                <Link
                   href={"/members/alumni"}
                   className="block py-1 text-sm"
                   onClick={(e) => {
@@ -392,7 +440,7 @@ const Header = () => {
                   }}
                 >
                   {currentMenu.alumni}
-                </a>
+                </Link>
               </div>
             </div>
 

@@ -11,7 +11,7 @@ import {
 export default async function HomePage() {
   // Get News Data
   const newsRes = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllNews&page=1&size=4`,
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllNews&page=1&size=5`,
   );
   const newsJSONResponse = await newsRes.json();
   if (!newsRes.ok) {
@@ -23,7 +23,7 @@ export default async function HomePage() {
   );
 
   const researchRes = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs&page=1&size=4`,
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs&page=1&size=5`,
   );
 
   if (!researchRes.ok) {
@@ -36,5 +36,10 @@ export default async function HomePage() {
     convertSpreadsheetToResearch(row),
   );
 
-  return <Home latestNews={latestNews} latestResearches={researches} />;
+  return (
+    <Home
+      latestNews={_.take(latestNews, 4)}
+      latestResearches={_.take(researches, 4)}
+    />
+  );
 }

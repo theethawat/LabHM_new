@@ -1,31 +1,43 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { useLanguage } from "@/contexts/language-context"
-import { getImagePath } from "@/lib/utils"
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/language-context";
+import { getImagePath } from "@/lib/utils";
 
 // さくらサイエンス年度データの型定義
 type SakuraYear = {
   year: {
-    ja: string
-    en: string
-  }
-  image: string
+    ja: string;
+    en: string;
+  };
+  image: string;
   description?: {
-    ja: string
-    en: string
-  }
-  link?: string
-}
+    ja: string;
+    en: string;
+  };
+  link?: string;
+};
 
 // さくらサイエンス年度データ
 const sakuraYears: SakuraYear[] = [
   {
     year: {
+      ja: "2026年度",
+      en: "2026",
+    },
+    image: getImagePath("/images/sakura_2026.jpg"),
+    description: {
+      ja: "満開の桜の下での文化訪問",
+      en: "Cultural Visit Under the Blooming of Cherry Blossoms",
+    },
+    link: "/news/detail/sakura-science-2026",
+  },
+  {
+    year: {
       ja: "2025年度",
-      en: "2025 Academic Year",
+      en: "2025",
     },
     image: getImagePath("/images/sakura2025s1.jpg"),
     description: {
@@ -36,7 +48,7 @@ const sakuraYears: SakuraYear[] = [
   {
     year: {
       ja: "2024年度",
-      en: "2024 Academic Year",
+      en: "2024",
     },
     image: getImagePath("/images/sakura_2024.jpg"),
     description: {
@@ -47,7 +59,7 @@ const sakuraYears: SakuraYear[] = [
   {
     year: {
       ja: "2018年度",
-      en: "2018 Academic Year",
+      en: "2018",
     },
     image: getImagePath("/images/sakura_2018.JPG"),
     description: {
@@ -58,7 +70,7 @@ const sakuraYears: SakuraYear[] = [
   {
     year: {
       ja: "2017年度",
-      en: "2017 Academic Year",
+      en: "2017",
     },
     image: getImagePath("/images/sakura_2017.jpg"),
     description: {
@@ -69,7 +81,7 @@ const sakuraYears: SakuraYear[] = [
   {
     year: {
       ja: "2015年度",
-      en: "2015 Academic Year",
+      en: "2015",
     },
     image: getImagePath("/images/sakura_2015.JPG"),
     description: {
@@ -77,14 +89,13 @@ const sakuraYears: SakuraYear[] = [
       en: "Rural Visit and Japanese Agricultural Technology Experience Program",
     },
   },
-]
-
+];
 
 // 翻訳データを定義
 const translations = {
   pageTitle: {
-    ja: "さくらサイエンス",
-    en: "Sakura Science",
+    ja: "さくらサイエンスプログラム",
+    en: "Sakura Science Exchange Program",
   },
   pageSubtitle: {
     ja: "日本と世界の科学技術交流プログラム",
@@ -140,23 +151,23 @@ const translations = {
     ja: "詳細を見る",
     en: "View Details",
   },
-}
+};
 
 export default function SakuraSciencePage() {
-  const { language } = useLanguage()
+  const { language } = useLanguage();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
       {/* ヘッダーセクション */}
-      <section 
+      <section
         className="relative py-16 md:py-20 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url(${getImagePath('/images/normal_header.png')})`
+          backgroundImage: `url(${getImagePath("/images/normal_header.png")})`,
         }}
       >
         {/* オーバーレイ */}
         <div className="absolute inset-0 bg-black/30"></div>
-        
+
         {/* コンテンツ */}
         <div className="container relative z-10">
           <div className="text-center">
@@ -173,8 +184,12 @@ export default function SakuraSciencePage() {
           <div className="max-w-4xl mx-auto">
             <div className="space-y-8">
               <div>
-                <h2 className="text-2xl font-bold mb-4">{translations.aboutTitle[language]}</h2>
-                <p className="text-gray-700">{translations.aboutDescription[language]}</p>
+                <h2 className="text-2xl font-bold mb-4">
+                  {translations.aboutTitle[language]}
+                </h2>
+                <p className="text-gray-700">
+                  {translations.aboutDescription[language]}
+                </p>
               </div>
 
               <div className="relative h-[400px] mb-8 rounded-lg overflow-hidden">
@@ -187,14 +202,20 @@ export default function SakuraSciencePage() {
               </div>
 
               <div>
-                <h2 className="text-2xl font-bold mb-4">{translations.purposeTitle[language]}</h2>
-                <p className="text-gray-700">{translations.purposeDescription1[language]}</p>
+                <h2 className="text-2xl font-bold mb-4">
+                  {translations.purposeTitle[language]}
+                </h2>
+                <p className="text-gray-700">
+                  {translations.purposeDescription1[language]}
+                </p>
                 <ul className="list-disc pl-5 space-y-2 mt-4 text-gray-700">
                   {translations.purposeList[language].map((item, index) => (
                     <li key={index}>{item}</li>
                   ))}
                 </ul>
-                <p className="text-gray-700 mt-4">{translations.purposeDescription2[language]}</p>
+                <p className="text-gray-700 mt-4">
+                  {translations.purposeDescription2[language]}
+                </p>
               </div>
 
               <div className="flex justify-center">
@@ -206,10 +227,15 @@ export default function SakuraSciencePage() {
               <hr className="border-t border-gray-200 my-8" />
 
               <div>
-                <h2 className="text-2xl font-bold mb-6">{translations.yearsTitle[language]}</h2>
+                <h2 className="text-2xl font-bold mb-6">
+                  {translations.yearsTitle[language]}
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {sakuraYears.map((year, index) => (
-                    <div key={index} className="overflow-hidden bg-white shadow-sm border rounded-lg">
+                    <div
+                      key={index}
+                      className="overflow-hidden bg-white shadow-sm border rounded-lg"
+                    >
                       <div className="relative h-48">
                         <Image
                           src={year.image}
@@ -220,10 +246,13 @@ export default function SakuraSciencePage() {
                       </div>
                       <div className="p-4">
                         <h3 className="text-lg font-bold text-center">
-                          {year.year[language]} {translations.programSuffix[language]}
+                          {year.year[language]}{" "}
+                          {translations.programSuffix[language]}
                         </h3>
                         {year.description && (
-                          <p className="mt-2 text-sm text-gray-600 text-center">{year.description[language]}</p>
+                          <p className="mt-2 text-sm text-gray-600 text-center">
+                            {year.description[language]}
+                          </p>
                         )}
                         {year.link && (
                           <div className="mt-4 text-center">
@@ -244,5 +273,5 @@ export default function SakuraSciencePage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

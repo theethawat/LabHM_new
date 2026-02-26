@@ -8,27 +8,19 @@ import { useLanguage } from "@/contexts/language-context";
 import { getImagePath } from "@/lib/utils";
 import { NewsItem, NewsTagList, Pagination } from "@/components/features";
 import { News, NewsTag } from "@/types";
+import { filterArticles } from "@/lib/filter-article";
 
-export default function NewsPage({
-  newList,
-  totalPage,
-  currPage,
-}: {
-  newList: News[];
-  totalPage: number;
-  currPage: number;
-}) {
+export default function NewsPage({ newList }: { newList: News[] }) {
   const { language } = useLanguage();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const params = new URLSearchParams(searchParams);
 
   const [activeTag, setActiveTag] = useState<NewsTag>(
     (searchParams.get("tag") as NewsTag) || NewsTag.all,
   );
 
   const handleActiveTagChange = (tag: NewsTag) => {
-    const params = new URLSearchParams(searchParams);
-
     if (activeTag === NewsTag.all) {
       params.set("tag", "");
       params.set("page", "1");
@@ -40,6 +32,14 @@ export default function NewsPage({
     setActiveTag(tag);
     router.push(`?${params.toString()}`);
   };
+  const currentPage = params.get("page")
+    ? parseInt(params.get("page") as string, 10)
+    : 1;
+  const filteredData = filterArticles(newList, {
+    page: currentPage,
+    size: 8,
+    tag: activeTag,
+  });
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -70,17 +70,17 @@ export default function NewsPage({
 
             {/* ニュース一覧 */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {newList?.map((newsItem) => (
+              {filteredData?.rows?.map((newsItem) => (
                 <div key={newsItem.id} className={newsItem.link ? "group" : ""}>
-                  <NewsItem language={language} newsItem={newsItem} />
+                  <NewsItem language={language} newsItem={newsItem as News} />
                 </div>
               ))}
             </div>
           </div>
           <div className="my-4">
             <Pagination
-              totalPage={totalPage}
-              currPage={currPage}
+              totalPage={filteredData.totalPage}
+              currPage={currentPage}
               anotherKey={`tag=${searchParams.get("tag") || ""} `}
             />
           </div>

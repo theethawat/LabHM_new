@@ -162,7 +162,7 @@ export function convertSpreadsheetToResearch(sheetObject: any): Research {
     id: sheetObject.id,
     ja: jaResearch,
     en: enResearch,
-    tags: sheetObject.tags ? sheetObject.tags.split(",") : [],
+    tags: sheetObject.tags ? sheetObject.tags.split(", ") : [],
     images: {
       overview_image: sheetObject.overview_image || "",
       background_image: sheetObject.background_image || "",
