@@ -65,6 +65,8 @@
     "react-image-gallery": "^2.0.2",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
     "sonner": "^1.7.1",
     "swr": "^2.3.8",
     "tailwind-merge": "^2.5.5",

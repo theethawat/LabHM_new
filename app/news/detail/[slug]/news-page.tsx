@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import _ from "lodash";
+import _, { get } from "lodash";
 import dayjs from "dayjs";
+import { remark } from "remark";
+import html from "remark-html";
+import { useEffect, useState } from "react";
 
 import { useLanguage } from "@/contexts/language-context";
 import { getImagePath } from "@/lib/utils";
@@ -19,13 +22,27 @@ dayjs.extend(LocalizedFormat);
 export default function NewsPage({ news }: { news: News }) {
   const { language } = useLanguage();
   const t = newsTranslation[language];
+  const [contentHtml, setContentHtml] = useState("");
+
+  const getContentHtml = async () => {
+    const processedContent = await remark()
+      .use(html)
+      .process(news?.[language]?.content || "");
+    setContentHtml(processedContent.toString());
+  };
+
+  useEffect(() => {
+    getContentHtml();
+
+    return () => {};
+  }, [language, news]);
 
   const splitFromEnterAndDivide = (data: string | undefined) => {
     const result = data?.split("\n");
     return _.map(result, (eachResult, index) => (
-      <p key={index} className="my-4">
-        {eachResult}
-      </p>
+      <div key={index} className="my-4">
+        <div dangerouslySetInnerHTML={{ __html: eachResult }} />
+      </div>
     ));
   };
 
@@ -76,8 +93,8 @@ export default function NewsPage({ news }: { news: News }) {
                     <Gallery images={news.images} />
                   </div>
                 )}
-                <p className="text-gray-700">
-                  {splitFromEnterAndDivide(news?.[language]?.content)}
+                <p className="text-gray-700 md-content">
+                  {splitFromEnterAndDivide(contentHtml)}
                 </p>
               </div>
               <div className="flex justify-center mt-8">
