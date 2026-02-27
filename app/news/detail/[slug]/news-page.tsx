@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import _, { get } from "lodash";
+import _ from "lodash";
 import dayjs from "dayjs";
 import { remark } from "remark";
 import html from "remark-html";
@@ -93,12 +93,12 @@ export default function NewsPage({ news }: { news: News }) {
                     <Gallery images={news.images} />
                   </div>
                 )}
-                <p className="text-gray-700 md-content">
+                <div className="text-gray-700 md-content">
                   {splitFromEnterAndDivide(contentHtml)}
-                </p>
+                </div>
               </div>
               <div className="flex justify-center mt-8">
-                <Link href="/research/projects">
+                <Link href="/news">
                   <Button variant="outline">{t.backToAllNews}</Button>
                 </Link>
               </div>

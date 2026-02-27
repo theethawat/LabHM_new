@@ -139,4 +139,7 @@
   .md-content ul{
     @apply mb-6;
   }
+  .md-content img {
+    @apply w-1/3;
+  }
 }

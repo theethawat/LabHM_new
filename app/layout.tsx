@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { LanguageProvider } from "@/contexts/language-context";
+import { getImagePath } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const notoSansJP = Noto_Sans_JP({
@@ -31,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <link rel="icon" href="/icon.png" sizes="any" />
+      <link rel="icon" href={getImagePath("/icon.png")} sizes="any" />
       <body
         className={`${inter.variable} ${notoSansJP.variable} ${caveat.variable} font-sans`}
       >

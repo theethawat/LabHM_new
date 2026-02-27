@@ -7,6 +7,11 @@ export type {
   ResearchArea,
 } from "./Research";
 export type { News, NewsInfoSingleLanguage } from "./News";
+export type {
+  Publication,
+  ConferencePaper,
+  JournalPublication,
+} from "./Publications";
 
 // Export Functions and Enums
 export { convertSpreadSheetRowToUnifiedMember, DegreeType } from "./Member";
@@ -17,3 +22,8 @@ export {
   ResearchFundSource,
   ResearchFundSourceInfo,
 } from "./ResearchFund";
+export {
+  PublicationType,
+  PublicationTypeInfo,
+  convertSpreadsheetToPublication,
+} from "./Publications";

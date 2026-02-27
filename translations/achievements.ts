@@ -14,6 +14,9 @@ export const achievementTranslation = {
       journalPapers: "研究室メンバーの論文一覧",
       awardsAndMediaCoverage: "研究室メンバーの受賞・メディア掲載一覧",
     },
+    yearSuffix: "年",
+    selectYear: "年度を選択",
+    allYear: "全年度",
   },
   en: {
     title: {
@@ -31,5 +34,8 @@ export const achievementTranslation = {
       journalPapers: "Lab Members Journal Papers",
       awardsAndMediaCoverage: "Lab Members Awards & Media Coverage",
     },
+    yearSuffix: "",
+    selectYear: "Select Year",
+    allYear: "All Years",
   },
 };

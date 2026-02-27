@@ -6,21 +6,31 @@ export enum PublicationType {
 }
 
 export interface Publication {
+  id: string;
   type: PublicationType;
   year: number;
-  journalOrConference?: string;
   title: string;
   authors: string;
   research?: string;
   member?: string;
-  conferencePlace?: string;
-  conferenceDate?: Date;
-  volume?: string;
-  issue?: string;
+  link?: string;
+  citation?: string;
+}
+
+export interface ConferencePaper extends Publication {
+  conference?: string;
+  place?: string; // conferencePlace
+  date?: Date; // conferenceDate
   pages?: string;
   publisher?: string;
-  doi: string;
-  citation: string;
+}
+
+export interface JournalPublication extends Publication {
+  journal?: string;
+  volume?: number;
+  issue?: number;
+  pages?: string;
+  publisher?: string;
 }
 
 export const PublicationTypeInfo = {
@@ -57,3 +67,28 @@ export const PublicationTypeInfo = {
     },
   },
 };
+
+export function convertSpreadsheetToPublication(sheetObject: any): Publication {
+  if (
+    sheetObject.type === PublicationType.intConference ||
+    sheetObject.type === PublicationType.domConference
+  ) {
+    const conferencePaper: ConferencePaper = {
+      ...sheetObject,
+    } as ConferencePaper;
+
+    conferencePaper.conference = sheetObject.journalOrConferenceTitle;
+    conferencePaper.place = sheetObject.conferencePlace;
+    conferencePaper.date = new Date(sheetObject.conferenceDate);
+    return conferencePaper;
+  } else if (sheetObject.type === PublicationType.journal) {
+    const journalPublication: JournalPublication = {
+      ...sheetObject,
+    } as JournalPublication;
+    journalPublication.journal = sheetObject.journalOrConferenceTitle;
+    return journalPublication;
+  }
+
+  const tempPublication: Publication = { ...sheetObject } as Publication;
+  return tempPublication;
+}
