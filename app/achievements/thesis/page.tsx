@@ -3,6 +3,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { achievementTranslation } from "@/translations/achievements";
 import { useLanguage } from "@/contexts/language-context";
+import { AchievementTagList } from "@/components/features";
+import { PublicationType } from "@/types";
 
 // 論文データの型定義
 type Paper = {
@@ -168,6 +170,10 @@ export default function ThesisPage() {
       {/* ヘッダーセクション */}
       <section className="bg-gray-100 py-16">
         <div className="container">
+          <AchievementTagList
+            activeTag={PublicationType.thesis}
+            language={language}
+          />
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               {t.title.thesis}

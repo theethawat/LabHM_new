@@ -4,11 +4,16 @@ import { useState } from "react";
 import _ from "lodash";
 import { useSearchParams } from "next/navigation";
 
-import { ConferencePaper } from "@/types";
+import { ConferencePaper, PublicationType } from "@/types";
 import { achievementTranslation } from "@/translations/achievements";
 import { useLanguage } from "@/contexts/language-context";
 import { getImagePath } from "@/lib/utils";
-import { YearFilter, PublicationCard, Pagination } from "@/components/features";
+import {
+  YearFilter,
+  PublicationCard,
+  Pagination,
+  AchievementTagList,
+} from "@/components/features";
 
 // 年度ごとにグループ化する関数
 function groupByYear(papers: ConferencePaper[]): {
@@ -27,10 +32,12 @@ function groupByYear(papers: ConferencePaper[]): {
   );
 }
 
-export default function InternationalConfPage({
+export default function ConferencePage({
   papers,
+  isInternational = true,
 }: {
   papers: ConferencePaper[];
+  isInternational?: boolean;
 }) {
   const { language } = useLanguage();
   const t = achievementTranslation[language];
@@ -78,10 +85,14 @@ export default function InternationalConfPage({
         <div className="container relative z-10">
           <div className="text-center">
             <h1 className="text-2xl md:text-3xl text-white font-bold mb-4">
-              {t.title.internationalConferences}
+              {isInternational
+                ? t.title.internationalConferences
+                : t.title.domesticConferences}
             </h1>
             <p className="text-xl text-gray-300">
-              {t.subtitle.internationalConferences}
+              {isInternational
+                ? t.subtitle.internationalConferences
+                : t.subtitle.domesticConferences}
             </p>
           </div>
         </div>
@@ -90,6 +101,14 @@ export default function InternationalConfPage({
       {/* メインコンテンツ */}
       <section className="py-16">
         <div className="container">
+          <AchievementTagList
+            activeTag={
+              isInternational
+                ? PublicationType.intConference
+                : PublicationType.domConference
+            }
+            language={language}
+          />
           <YearFilter
             allYears={years}
             language={language}

@@ -41,6 +41,7 @@ export const PublicationTypeInfo = {
     en: {
       title: "Thesis / Book",
     },
+    link: "thesis",
   },
   [PublicationType.journal]: {
     ja: {
@@ -49,6 +50,7 @@ export const PublicationTypeInfo = {
     en: {
       title: "Journal",
     },
+    link: "journals",
   },
   [PublicationType.intConference]: {
     ja: {
@@ -57,6 +59,7 @@ export const PublicationTypeInfo = {
     en: {
       title: "International Conference",
     },
+    link: "international",
   },
   [PublicationType.domConference]: {
     ja: {
@@ -65,6 +68,7 @@ export const PublicationTypeInfo = {
     en: {
       title: "Domestic Conference",
     },
+    link: "domestic",
   },
 };
 

@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import InternationalConfPage from "./international-conf-page";
+import ConferencePage from "./conference-page";
 import { ConferencePaper, convertSpreadsheetToPublication } from "@/types";
 
 export default async function InternationalConf() {
@@ -18,5 +18,5 @@ export default async function InternationalConf() {
     (row: any) => convertSpreadsheetToPublication(row),
   );
 
-  return <InternationalConfPage papers={latestConfPapers} />;
+  return <ConferencePage papers={latestConfPapers} isInternational={true} />;
 }

@@ -2,10 +2,7 @@ import dayjs from "dayjs";
 import locale from "dayjs/plugin/localizedFormat";
 import "dayjs/locale/ja";
 import "dayjs/locale/en";
-import {
-  ArrowTopRightOnSquareIcon,
-  MapPinIcon,
-} from "@heroicons/react/24/outline";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import {
@@ -47,12 +44,12 @@ export default function PublicationCard({
         >
           {PublicationTypeInfo?.[paper.type]?.[language]?.title || paper.type}
         </span>
-        {"date" in paper && (
+        {"date" in paper && paper.date && (
           <span className="text-gray-500 text-sm">
             {dayjs(paper.date).locale(language).format("ll")}
           </span>
         )}
-        {"place" in paper && (
+        {"place" in paper && paper.place && (
           <span className="text-gray-500 text-sm">
             <MapPinIcon className="w-4 h-4 inline-block mr-1 mb-1" />
             {paper.place}
