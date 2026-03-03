@@ -52,7 +52,7 @@ export default function PublicationCard({
         {"place" in paper && paper.place && (
           <span className="text-gray-500 text-sm">
             <MapPinIcon className="w-4 h-4 inline-block mr-1 mb-1" />
-            {paper.place}
+            {paper.place[language] || ""} {/* 場所を表示 */}
           </span>
         )}
       </div>

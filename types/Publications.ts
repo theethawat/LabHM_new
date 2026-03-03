@@ -19,7 +19,10 @@ export interface Publication {
 
 export interface ConferencePaper extends Publication {
   conference?: string;
-  place?: string; // conferencePlace
+  place: {
+    ja?: string;
+    en?: string;
+  };
   date?: Date; // conferenceDate
   pages?: string;
   publisher?: string;
@@ -82,7 +85,10 @@ export function convertSpreadsheetToPublication(sheetObject: any): Publication {
     } as ConferencePaper;
 
     conferencePaper.conference = sheetObject.journalOrConferenceTitle;
-    conferencePaper.place = sheetObject.conferencePlace;
+    conferencePaper.place = {
+      ja: sheetObject.conferencePlace,
+      en: sheetObject.enConferencePlace,
+    };
     conferencePaper.date = new Date(sheetObject.conferenceDate);
     return conferencePaper;
   } else if (sheetObject.type === PublicationType.journal) {
