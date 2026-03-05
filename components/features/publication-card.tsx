@@ -2,7 +2,11 @@ import dayjs from "dayjs";
 import locale from "dayjs/plugin/localizedFormat";
 import "dayjs/locale/ja";
 import "dayjs/locale/en";
-import { MapPinIcon } from "@heroicons/react/24/outline";
+import {
+  BookOpenIcon,
+  CalendarIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import {
@@ -49,10 +53,22 @@ export default function PublicationCard({
             {dayjs(paper.date).locale(language).format("ll")}
           </span>
         )}
+        {!("date" in paper) && paper.year && (
+          <span className="text-gray-500 text-sm">
+            <CalendarIcon className="w-4 h-4 inline-block mr-1 mb-1" />
+            {paper.year}
+          </span>
+        )}
         {"place" in paper && paper.place && (
           <span className="text-gray-500 text-sm">
             <MapPinIcon className="w-4 h-4 inline-block mr-1 mb-1" />
             {paper.place[language] || ""} {/* 場所を表示 */}
+          </span>
+        )}{" "}
+        {"journal" in paper && paper.year && (
+          <span className="text-gray-500 text-sm">
+            <BookOpenIcon className="w-4 h-4 inline-block mr-1 mb-1" />
+            {paper.journal}
           </span>
         )}
       </div>
@@ -79,6 +95,14 @@ export default function PublicationCard({
 
       {"conference" in paper && (
         <p className="text-gray-500 italic">{paper.conference}</p>
+      )}
+
+      {"journal" in paper && (
+        <p className="text-gray-500 text-sm">
+          Volume: {paper.volume}
+          {paper?.issue && <span>, Issue: {paper.issue}</span>}
+          {paper?.pages && <span>, Pages: {paper.pages}</span>}
+        </p>
       )}
     </div>
   );
