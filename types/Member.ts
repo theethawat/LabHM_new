@@ -21,6 +21,7 @@ export interface Member {
   lab?: string; // 所属研究室
   labEn?: string;
   image: string;
+  newRecord?: string;
   background?: {
     ja: string[];
     en: string[];

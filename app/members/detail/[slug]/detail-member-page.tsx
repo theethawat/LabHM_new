@@ -80,12 +80,12 @@ export default function DetailMemberPage({
               <div className="md:col-span-2">
                 {/* 名前表示 */}
                 <div className="mb-6">
-                  <div className="text-xl font-bold mb-1">
+                  <div className="text-2xl font-bold mb-1">
                     {selectedMember?.nameKatakana
                       ? selectedMember.nameEn
                       : selectedMember?.name}
                   </div>
-                  <div className="text-lg text-gray-600">
+                  <div className="text-xl font-semibold text-gray-400">
                     {selectedMember?.nameKatakana
                       ? selectedMember.nameKatakana
                       : selectedMember?.nameEn}
@@ -117,7 +117,7 @@ export default function DetailMemberPage({
                     <p className="text-sm text-gray-600">
                       {language === "en" && selectedMember.researchTopic?.en
                         ? selectedMember.researchTopic.en
-                        : selectedMember.researchTopic?.ja}
+                        : selectedMember.researchTopic?.ja || "-"}
                     </p>
                   </div>
                 )}

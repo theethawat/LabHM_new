@@ -19,6 +19,7 @@ import {
 } from "@/translations/complete-unified-members-data";
 import { MemberTitle, MemberTypeButton } from "@/components/features";
 import { reiwaYearNameToChristianYearName } from "@/lib/reiwa-to-christian";
+import Link from "next/link";
 
 export default function AlumniPage({ members }: { members: Member[] }) {
   const { language } = useLanguage();
@@ -27,7 +28,7 @@ export default function AlumniPage({ members }: { members: Member[] }) {
   const availableYears = getAvailableAcademicYears(members);
 
   const [selectedYear, setSelectedYear] = useState<string>(
-    availableYears[0] || ""
+    availableYears[0] || "",
   );
 
   const selectedYearAlumni = getCompleteAlumniByYear(selectedYear, members);
@@ -42,7 +43,28 @@ export default function AlumniPage({ members }: { members: Member[] }) {
       groups[degreeType].push(member);
       return groups;
     },
-    {} as Record<string, Member[]>
+    {} as Record<string, Member[]>,
+  );
+
+  const displayMemberCard = (member: Member) => (
+    <Link
+      key={member.id}
+      href={`/members/detail/${member.id}`}
+      className="block"
+    >
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <h4 className="text-lg font-bold mb-2">
+          {language === "en" && member.nameEn ? member.nameEn : member.name}
+        </h4>
+        {member.researchTopic && (
+          <p className="text-gray-700">
+            {language === "en" && member.researchTopic.en
+              ? member.researchTopic.en
+              : member.researchTopic.ja}
+          </p>
+        )}
+      </div>
+    </Link>
   );
 
   return (
@@ -92,25 +114,9 @@ export default function AlumniPage({ members }: { members: Member[] }) {
                         {t.alumni.doctoral}
                       </h3>
                       <div className="grid gap-6">
-                        {groupedAlumni.doctor.map((member) => (
-                          <div
-                            key={member.id}
-                            className="bg-gray-50 p-6 rounded-lg"
-                          >
-                            <h4 className="text-lg font-bold mb-2">
-                              {language === "en" && member.nameEn
-                                ? member.nameEn
-                                : member.name}
-                            </h4>
-                            {member.researchTopic && (
-                              <p className="text-gray-700">
-                                {language === "en" && member.researchTopic.en
-                                  ? member.researchTopic.en
-                                  : member.researchTopic.ja}
-                              </p>
-                            )}
-                          </div>
-                        ))}
+                        {groupedAlumni.doctor.map((member) =>
+                          displayMemberCard(member),
+                        )}
                       </div>
                     </div>
                   )}
@@ -122,25 +128,9 @@ export default function AlumniPage({ members }: { members: Member[] }) {
                         {t.alumni.masters}
                       </h3>
                       <div className="grid gap-6">
-                        {groupedAlumni.master.map((member) => (
-                          <div
-                            key={member.id}
-                            className="bg-gray-50 p-6 rounded-lg"
-                          >
-                            <h4 className="text-lg font-bold mb-2">
-                              {language === "en" && member.nameEn
-                                ? member.nameEn
-                                : member.name}
-                            </h4>
-                            {member.researchTopic && (
-                              <p className="text-gray-700">
-                                {language === "en" && member.researchTopic.en
-                                  ? member.researchTopic.en
-                                  : member.researchTopic.ja}
-                              </p>
-                            )}
-                          </div>
-                        ))}
+                        {groupedAlumni.master.map((member) =>
+                          displayMemberCard(member),
+                        )}
                       </div>
                     </div>
                   )}
@@ -153,25 +143,9 @@ export default function AlumniPage({ members }: { members: Member[] }) {
                           {t.alumni.bachelor}
                         </h3>
                         <div className="grid gap-6">
-                          {groupedAlumni.bachelor.map((member) => (
-                            <div
-                              key={member.id}
-                              className="bg-gray-50 p-6 rounded-lg"
-                            >
-                              <h4 className="text-lg font-bold mb-2">
-                                {language === "en" && member.nameEn
-                                  ? member.nameEn
-                                  : member.name}
-                              </h4>
-                              {member.researchTopic && (
-                                <p className="text-gray-700">
-                                  {language === "en" && member.researchTopic.en
-                                    ? member.researchTopic.en
-                                    : member.researchTopic.ja}
-                                </p>
-                              )}
-                            </div>
-                          ))}
+                          {groupedAlumni.bachelor.map((member) =>
+                            displayMemberCard(member),
+                          )}
                         </div>
                       </div>
                     )}

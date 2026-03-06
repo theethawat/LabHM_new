@@ -29,8 +29,9 @@ export default async function MemberDetail({
   const selectedMember: Member =
     convertSpreadSheetRowToUnifiedMember(jsonResult);
 
+  const searchIdToFind = selectedMember.newRecord || slug;
   const publicationRes = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllPublications&page=1&size=1000&member=${slug}`,
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllPublications&page=1&size=1000&member=${searchIdToFind}`,
   );
 
   const publicationResJSON = await publicationRes.json();
@@ -43,7 +44,7 @@ export default async function MemberDetail({
   );
 
   const researchRes = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs&page=${1}&size=100&member=${slug}`,
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs&page=${1}&size=100&member=${searchIdToFind}`,
   );
 
   if (!researchRes.ok) {
