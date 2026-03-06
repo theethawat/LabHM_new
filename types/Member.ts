@@ -11,6 +11,7 @@ export interface Member {
   id: string;
   name: string;
   nameEn?: string;
+  nameKatakana?: string; // カタカナ表記の名前（必要に応じて）
   isAlumni: boolean; // 卒業生かどうかのフラグ
   graduationYear?: string; // 卒業年度（卒業生の場合）
   position?: string; // 教員・研究員の場合の役職
