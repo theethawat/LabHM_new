@@ -14,7 +14,11 @@ export type {
 } from "./Publications";
 
 // Export Functions and Enums
-export { convertSpreadSheetRowToUnifiedMember, DegreeType } from "./Member";
+export {
+  convertSpreadSheetRowToUnifiedMember,
+  DegreeType,
+  DegreeTypeInfo,
+} from "./Member";
 export { ResearchTag, convertSpreadsheetToResearch } from "./Research";
 export { NewsTag, convertSpreadsheetToNews, NewsTagInfo } from "./News";
 export {

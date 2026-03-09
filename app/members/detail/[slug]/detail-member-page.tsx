@@ -1,12 +1,20 @@
 "use client";
 
 import Image from "next/image";
-import { Member, Research, Publication } from "@/types";
+import {
+  Member,
+  Research,
+  Publication,
+  DegreeTypeInfo,
+  DegreeType,
+} from "@/types";
 import { useLanguage } from "@/contexts/language-context";
 import { getImagePath } from "@/lib/utils";
 import { membersTranslations } from "@/translations/members";
+import { achievementTranslation } from "@/translations/achievements";
 import { PublicationCard, ResearchItem } from "@/components/features";
 import { Github, Twitter, Linkedin, Globe } from "lucide-react";
+import { getStudentYearWithFullData } from "@/lib/get-student-year";
 
 // カスタムXアイコンコンポーネント
 const XIcon = ({ className }: { className?: string }) => (
@@ -80,12 +88,12 @@ export default function DetailMemberPage({
               <div className="md:col-span-2">
                 {/* 名前表示 */}
                 <div className="mb-6">
-                  <div className="text-2xl font-bold mb-1">
+                  <div className="text-3xl font-bold mb-1">
                     {selectedMember?.nameKatakana
                       ? selectedMember.nameEn
                       : selectedMember?.name}
                   </div>
-                  <div className="text-xl font-semibold text-gray-400">
+                  <div className="text-2xl font-semibold text-gray-400">
                     {selectedMember?.nameKatakana
                       ? selectedMember.nameKatakana
                       : selectedMember?.nameEn}
@@ -94,18 +102,44 @@ export default function DetailMemberPage({
 
                 {/* 職位・学年情報 */}
                 <div className="mb-6 pb-6 border-b border-gray-200">
-                  {selectedMember.isAlumni && (
-                    <div>
-                      <p className="text-sm text-gray-600 mb-2">
-                        {selectedMember.academicYear}{" "}
-                        {selectedMember.degreeType === "doctoral"
-                          ? t.alumni.doctoral
-                          : selectedMember.degreeType === "masters"
-                            ? t.alumni.masters
-                            : t.alumni.bachelor}
-                      </p>
-                    </div>
-                  )}
+                  <div>
+                    <p className="text-gray-600 mb-2">
+                      {selectedMember.isAlumni && (
+                        <span>{selectedMember.academicYear}</span>
+                      )}
+                      {DegreeTypeInfo[selectedMember.program as DegreeType] && (
+                        <span>
+                          {language === "ja" ? (
+                            <span>
+                              {
+                                DegreeTypeInfo[
+                                  selectedMember.program as DegreeType
+                                ][language]
+                              }{" "}
+                              {getStudentYearWithFullData(
+                                selectedMember.program || "",
+                                selectedMember.year,
+                                language,
+                              )}
+                            </span>
+                          ) : (
+                            <span>
+                              {getStudentYearWithFullData(
+                                selectedMember.program || "",
+                                selectedMember.year,
+                                language,
+                              )}{" "}
+                              {
+                                DegreeTypeInfo[
+                                  selectedMember.program as DegreeType
+                                ][language]
+                              }
+                            </span>
+                          )}
+                        </span>
+                      )}
+                    </p>
+                  </div>
                 </div>
 
                 {/* 研究テーマ */}
@@ -198,9 +232,7 @@ export default function DetailMemberPage({
             {/* 研究プロジェクトセクション */}
             {researches && researches.length > 0 && (
               <div className="mb-16">
-                <h2 className="text-2xl font-bold mb-6">
-                  {language === "ja" ? "研究プロジェクト" : "Research Projects"}
-                </h2>
+                <h2 className="text-2xl font-bold mb-6">{t.researchProject}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {researches?.map((research) => (
                     <ResearchItem
@@ -214,13 +246,12 @@ export default function DetailMemberPage({
             )}
 
             {/* 発表・論文セクション */}
-            {publications && publications.length > 0 && (
-              <div className="mb-16">
-                <h2 className="text-2xl font-bold mb-6">
-                  {language === "ja"
-                    ? "論文・発表"
-                    : "Publications & Presentations"}
-                </h2>
+
+            <div className="mb-16">
+              <h2 className="text-2xl font-bold mb-6">
+                {achievementTranslation[language].publicationAndPresentation}
+              </h2>{" "}
+              {publications && publications.length > 0 ? (
                 <div className="bg-gray-50 rounded-lg overflow-hidden">
                   {publications?.map((publication) => (
                     <PublicationCard
@@ -230,8 +261,10 @@ export default function DetailMemberPage({
                     />
                   ))}
                 </div>
-              </div>
-            )}
+              ) : (
+                <p className="text-gray-600 my-12">{t.noPublications}</p>
+              )}
+            </div>
           </div>
         </div>
       </section>

@@ -17,6 +17,7 @@ export const achievementTranslation = {
     yearSuffix: "年",
     selectYear: "年度を選択",
     allYear: "全年度",
+    publicationAndPresentation: "論文・発表",
   },
   en: {
     title: {
@@ -37,5 +38,6 @@ export const achievementTranslation = {
     yearSuffix: "",
     selectYear: "Select Year",
     allYear: "All Years",
+    publicationAndPresentation: "Publications & Presentations",
   },
 };

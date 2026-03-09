@@ -4,28 +4,13 @@ import Link from "next/link";
 import { membersTranslations } from "@/translations/members";
 import { getImagePath } from "@/lib/utils";
 import { Member } from "@/types";
+import { getStudentYear } from "@/lib/get-student-year";
 // カスタムXアイコンコンポーネント
 const XIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
   </svg>
 );
-
-// 学年表示用の関数
-function getYearText(program: string, year?: number, lang = "ja"): string {
-  if (!year) return "";
-
-  const yearPrefix = membersTranslations[lang as "ja" | "en"].students.year;
-
-  switch (program) {
-    case "doctoral":
-      return `${yearPrefix.doctoral}${year}${lang === "ja" ? "年" : ""}`;
-    case "masters":
-      return `${yearPrefix.masters}${year}${lang === "ja" ? "年" : ""}`;
-    default:
-      return year ? `${year}${lang === "ja" ? "年" : ""}` : "";
-  }
-}
 
 // メンバーカードコンポーネント
 // Original By Nishimoto-kun
@@ -51,7 +36,7 @@ function MemberCard({
             className="object-cover rounded-none"
           />
         </div>
-        <h3 className="font-medium text-base mb-1">
+        <h3 className="font-medium text-base mb-1 hover:text-gray-700 transition-colors duration-200 cursor-pointer">
           {language === "en" && member.nameEn
             ? member.nameEn
             : member.name.replace(/（.*?）/g, "")}
@@ -60,7 +45,7 @@ function MemberCard({
         {/* 在校生の場合：学年情報 */}
         {!member.isAlumni && member.program !== "faculty" && (
           <p className="text-sm text-gray-500 mb-2">
-            {getYearText(member.program!, member.year, language)}
+            {getStudentYear(member.program!, member.year, language)}
             {member.lab &&
               ` • ${language === "en" && member.labEn ? member.labEn : member.lab}`}
           </p>
@@ -97,7 +82,7 @@ function MemberCard({
         )}
 
         {/* ソーシャルリンク */}
-        {member.socialLinks && (
+        {/* {member.socialLinks && (
           <div className="flex space-x-3 mt-3">
             {member.socialLinks.github && (
               <Link
@@ -136,7 +121,7 @@ function MemberCard({
               </Link>
             )}
           </div>
-        )}
+        )} */}
       </Link>
     </div>
   );

@@ -6,6 +6,29 @@ export enum DegreeType {
   ResearchStudent = "research_student",
 }
 
+export const DegreeTypeInfo = {
+  [DegreeType.Doctor]: {
+    ja: "博士課程",
+    en: "Doctoral Course",
+  },
+  [DegreeType.Master]: {
+    ja: "修士課程",
+    en: "Master's Course",
+  },
+  [DegreeType.Bachelor]: {
+    ja: "学士課程",
+    en: "Bachelor Course",
+  },
+  [DegreeType.Faculty]: {
+    ja: "教員・研究員",
+    en: "Faculty Member",
+  },
+  [DegreeType.ResearchStudent]: {
+    ja: "研究生",
+    en: "Research Student",
+  },
+};
+
 // 統一されたメンバーの型定義
 export interface Member {
   id: string;
