@@ -41,10 +41,10 @@ export default function PublicationCard({
   }
 
   return (
-    <div className="p-6 bg-white border-b border-gray-200">
-      <div className="flex items-center gap-2 mb-2">
+    <div className="p-6 bg-white hover:bg-gray-50 transition-colors duration-200">
+      <div className="flex flex-wrap items-center gap-2 mb-3">
         <span
-          className={`inline-block px-2 py-1 text-xs font-medium ${getCategoryBgColor(paper.type)} text-white rounded`}
+          className={`inline-block px-2.5 py-0.5 text-xs font-bold tracking-wide ${getCategoryBgColor(paper.type)} text-white`}
         >
           {PublicationTypeInfo?.[paper.type]?.[language]?.title || paper.type}
         </span>
@@ -54,54 +54,52 @@ export default function PublicationCard({
           </span>
         )}
         {!("date" in paper) && paper.year && (
-          <span className="text-gray-500 text-sm">
-            <CalendarIcon className="w-4 h-4 inline-block mr-1 mb-1" />
+          <span className="text-gray-500 text-sm flex items-center gap-1">
+            <CalendarIcon className="w-4 h-4" />
             {paper.year}
           </span>
         )}
         {"place" in paper && paper.place && (
-          <span className="text-gray-500 text-sm">
-            <MapPinIcon className="w-4 h-4 inline-block mr-1 mb-1" />
-            {paper.place[language] || ""} {/* 場所を表示 */}
+          <span className="text-gray-500 text-sm flex items-center gap-1">
+            <MapPinIcon className="w-4 h-4" />
+            {paper.place[language] || ""}
           </span>
         )}{" "}
         {"journal" in paper && paper.year && (
-          <span className="text-gray-500 text-sm">
-            <BookOpenIcon className="w-4 h-4 inline-block mr-1 mb-1" />
+          <span className="text-gray-500 text-sm flex items-center gap-1">
+            <BookOpenIcon className="w-4 h-4" />
             {paper.journal}
           </span>
         )}
       </div>
-      <div className="font-bold text-lg mb-2">
+      <div className="font-semibold text-lg mb-2 leading-snug">
         {paper.link ? (
           <Link
             href={paper.link}
             target="_blank"
-            className="text-primary hover:text-gray-700"
+            className="group inline-flex items-start gap-1.5 text-black hover:text-gray-600 transition-colors"
           >
-            <div className="flex items-baseline">
-              <h3>{paper.title}</h3>
-              {/* 一般リンクを一時的に無効化 - 将来的に復活予定 */}
-              <span className="ml-2">
-                <ExternalLink className="h-4 w-4 text-gray-500" />
-              </span>
-            </div>
+            <h3 className="group-hover:underline underline-offset-2">
+              {paper.title}
+            </h3>
+            {/* 一般リンクを一時的に無効化 - 将来的に復活予定 */}
+            <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 mt-1 text-gray-400" />
           </Link>
         ) : (
           paper.title
         )}
       </div>
-      <p className="text-gray-700 mb-2">{paper.authors}</p>
+      <p className="text-base text-gray-600 mb-1.5">{paper.authors}</p>
 
       {"conference" in paper && (
-        <p className="text-gray-500 italic">{paper.conference}</p>
+        <p className="text-base text-gray-500">{paper.conference}</p>
       )}
 
       {"journal" in paper && (
-        <p className="text-gray-500 text-sm">
-          Volume: {paper.volume}
-          {paper?.issue && <span>, Issue: {paper.issue}</span>}
-          {paper?.pages && <span>, Pages: {paper.pages}</span>}
+        <p className="text-base text-gray-500">
+          Vol.{paper.volume}
+          {paper?.issue && <span>, No.{paper.issue}</span>}
+          {paper?.pages && <span>, pp.{paper.pages}</span>}
         </p>
       )}
     </div>

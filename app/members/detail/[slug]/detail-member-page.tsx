@@ -41,14 +41,14 @@ export default function DetailMemberPage({
     <div>
       {/* ヘッダーセクション */}
       <section
-        className="relative py-16 md:py-20 bg-cover bg-center bg-no-repeat"
+        className="relative py-20 md:py-28 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${getImagePath("/images/normal_header.png")})`,
         }}
       >
+        {" "}
         {/* オーバーレイ */}
         <div className="absolute inset-0 bg-black/30"></div>
-
         {/* コンテンツ */}
         <div className="container relative z-10">
           <div className="text-center">
@@ -69,31 +69,31 @@ export default function DetailMemberPage({
         <div className="container">
           <div className="max-w-4xl mx-auto">
             {/* 会員の詳細情報 */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
               {/* 画像セクション */}
               <div className="md:col-span-1 flex justify-center md:justify-start">
-                <div className="relative w-full max-w-xs aspect-square rounded-lg overflow-hidden">
+                <div className="relative w-full max-w-xs aspect-square overflow-hidden border border-gray-200">
                   <Image
                     src={getImagePath(
                       selectedMember.image || "/images/no_image.png",
                     )}
                     alt={selectedMember.name}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 hover:scale-105"
                   />
                 </div>
               </div>
 
               {/* 情報セクション */}
-              <div className="md:col-span-2">
+              <div className="md:col-span-2 flex flex-col justify-center">
                 {/* 名前表示 */}
-                <div className="mb-6">
-                  <div className="text-3xl font-bold mb-1">
+                <div className="mb-6 pb-6 border-b border-gray-200">
+                  <div className="text-3xl font-bold tracking-tight mb-1">
                     {selectedMember?.nameKatakana
                       ? selectedMember.nameEn
                       : selectedMember?.name}
                   </div>
-                  <div className="text-2xl font-semibold text-gray-400">
+                  <div className="text-2xl text-gray-400 font-bold">
                     {selectedMember?.nameKatakana
                       ? selectedMember.nameKatakana
                       : selectedMember?.nameEn}
@@ -101,11 +101,15 @@ export default function DetailMemberPage({
                 </div>
 
                 {/* 職位・学年情報 */}
-                <div className="mb-6 pb-6 border-b border-gray-200">
-                  <div>
-                    <p className="text-gray-600 mb-2">
+                {DegreeTypeInfo[selectedMember.program as DegreeType] ||
+                selectedMember.isAlumni ? (
+                  <div className="mb-5">
+                    <p className="text-xs font-bold tracking-widest uppercase text-gray-400 mb-1">
+                      {language === "ja" ? "所属" : "Status"}
+                    </p>
+                    <p className="text-base text-gray-800">
                       {selectedMember.isAlumni && (
-                        <span>{selectedMember.academicYear}</span>
+                        <span>{selectedMember.academicYear} </span>
                       )}
                       {DegreeTypeInfo[selectedMember.program as DegreeType] && (
                         <span>
@@ -140,15 +144,15 @@ export default function DetailMemberPage({
                       )}
                     </p>
                   </div>
-                </div>
+                ) : null}
 
                 {/* 研究テーマ */}
                 {selectedMember.researchTopic && (
-                  <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-gray-700 mb-2">
+                  <div className="mb-5">
+                    <p className="text-xs font-bold tracking-widest uppercase text-gray-400 mb-1">
                       {language === "ja" ? "研究テーマ" : "Research Topic"}
-                    </h3>
-                    <p className="text-sm text-gray-600">
+                    </p>
+                    <p className="text-base text-gray-800 leading-relaxed">
                       {language === "en" && selectedMember.researchTopic?.en
                         ? selectedMember.researchTopic.en
                         : selectedMember.researchTopic?.ja || "-"}
@@ -158,15 +162,16 @@ export default function DetailMemberPage({
 
                 {/* ソーシャルリンク */}
                 {selectedMember?.socialLinks && (
-                  <div className="flex space-x-4 mt-6">
+                  <div className="flex items-center gap-4 mt-4 pt-5 border-t border-gray-200">
                     {selectedMember?.socialLinks.github && (
                       <a
                         href={selectedMember?.socialLinks.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-600 hover:text-primary transition-colors"
+                        className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-black transition-colors"
                       >
-                        <Github className="w-5 h-5" />
+                        <Github className="w-4 h-4" />
+                        <span>GitHub</span>
                       </a>
                     )}
                     {selectedMember?.socialLinks.twitter && (
@@ -174,9 +179,10 @@ export default function DetailMemberPage({
                         href={selectedMember?.socialLinks.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-600 hover:text-primary transition-colors"
+                        className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-black transition-colors"
                       >
-                        <XIcon className="w-5 h-5" />
+                        <XIcon className="w-4 h-4" />
+                        <span>Twitter / X</span>
                       </a>
                     )}
                     {selectedMember?.socialLinks.linkedin && (
@@ -184,9 +190,10 @@ export default function DetailMemberPage({
                         href={selectedMember?.socialLinks.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-600 hover:text-primary transition-colors"
+                        className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-black transition-colors"
                       >
-                        <Linkedin className="w-5 h-5" />
+                        <Linkedin className="w-4 h-4" />
+                        <span>LinkedIn</span>
                       </a>
                     )}
                     {selectedMember?.socialLinks.website && (
@@ -194,9 +201,10 @@ export default function DetailMemberPage({
                         href={selectedMember?.socialLinks.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-600 hover:text-primary transition-colors"
+                        className="flex items-center gap-1.5 text-sm text-gray-600 hover:text-black transition-colors"
                       >
-                        <Globe className="w-5 h-5" />
+                        <Globe className="w-4 h-4" />
+                        <span>Website</span>
                       </a>
                     )}
                   </div>
@@ -209,7 +217,8 @@ export default function DetailMemberPage({
               (selectedMember?.background.ja?.length > 0 ||
                 selectedMember?.background.en?.length > 0) && (
                 <div className="mb-16">
-                  <h2 className="text-2xl font-bold mb-6">
+                  <h2 className="text-xl font-bold mb-6 pb-3 border-b border-gray-200 flex items-center gap-3">
+                    <span className="inline-block w-1 h-5 bg-black"></span>
                     {t.faculty.background}
                   </h2>
                   <ul className="space-y-3">
@@ -219,10 +228,10 @@ export default function DetailMemberPage({
                     ).map((item, index) => (
                       <li
                         key={index}
-                        className="text-gray-700 flex items-start"
+                        className="text-gray-700 flex items-start py-2 border-b border-gray-100 last:border-0"
                       >
-                        <span className="mr-3 text-primary">•</span>
-                        <span>{item}</span>
+                        <span className="mr-3 mt-1 w-1.5 h-1.5 rounded-full bg-black flex-shrink-0"></span>
+                        <span className="leading-relaxed">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -232,7 +241,10 @@ export default function DetailMemberPage({
             {/* 研究プロジェクトセクション */}
             {researches && researches.length > 0 && (
               <div className="mb-16">
-                <h2 className="text-2xl font-bold mb-6">{t.researchProject}</h2>
+                <h2 className="text-xl font-bold mb-6 pb-3 flex items-center gap-3">
+                  <span className="inline-block w-1 h-5 bg-black"></span>
+                  {t.researchProject}
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {researches?.map((research) => (
                     <ResearchItem
@@ -246,13 +258,13 @@ export default function DetailMemberPage({
             )}
 
             {/* 発表・論文セクション */}
-
             <div className="mb-16">
-              <h2 className="text-2xl font-bold mb-6">
+              <h2 className="text-xl font-bold mb-6 pb-3 flex items-center gap-3">
+                <span className="inline-block w-1 h-5 bg-black"></span>
                 {achievementTranslation[language].publicationAndPresentation}
-              </h2>{" "}
+              </h2>
               {publications && publications.length > 0 ? (
-                <div className="bg-gray-50 rounded-lg overflow-hidden">
+                <div className="divide-y divide-gray-200">
                   {publications?.map((publication) => (
                     <PublicationCard
                       key={publication.id}
@@ -262,7 +274,9 @@ export default function DetailMemberPage({
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-600 my-12">{t.noPublications}</p>
+                <p className="text-gray-500 my-12 text-center">
+                  {t.noPublications}
+                </p>
               )}
             </div>
           </div>
