@@ -125,42 +125,42 @@ export const unifiedFacultyMembers: Member[] = [
       en: "Human Behavior Analysis, AI-assisted Systems for Medical Diagnosis, Real-time Video Surveillance Systems",
     },
   },
-  {
-    id: "monaung",
-    name: "Mon Aung（ﾓﾝ ｱｳﾝ）",
-    nameEn: "Mon Aung",
-    isAlumni: false,
-    position: "研究員",
-    positionEn: "Researcher",
-    program: DegreeType.Faculty,
-    image: "/images/no_image.png",
-    background: {
-      ja: [],
-      en: [],
-    },
-    researchFields: {
-      ja: "",
-      en: "",
-    },
-  },
-  {
-    id: "nyizawaung",
-    name: "Nyi Zaw Aung（ﾆｰ ｽﾞｫｰ ｱｳﾝ）",
-    nameEn: "Nyi Zaw Aung",
-    isAlumni: false,
-    position: "研究員",
-    positionEn: "Researcher",
-    program: DegreeType.Faculty,
-    image: "/images/no_image.png",
-    background: {
-      ja: [],
-      en: [],
-    },
-    researchFields: {
-      ja: "",
-      en: "",
-    },
-  },
+  // {
+  //   id: "monaung",
+  //   name: "Mon Aung（ﾓﾝ ｱｳﾝ）",
+  //   nameEn: "Mon Aung",
+  //   isAlumni: false,
+  //   position: "研究員",
+  //   positionEn: "Researcher",
+  //   program: DegreeType.Faculty,
+  //   image: "/images/no_image.png",
+  //   background: {
+  //     ja: [],
+  //     en: [],
+  //   },
+  //   researchFields: {
+  //     ja: "",
+  //     en: "",
+  //   },
+  // },
+  // {
+  //   id: "nyizawaung",
+  //   name: "Nyi Zaw Aung（ﾆｰ ｽﾞｫｰ ｱｳﾝ）",
+  //   nameEn: "Nyi Zaw Aung",
+  //   isAlumni: false,
+  //   position: "研究員",
+  //   positionEn: "Researcher",
+  //   program: DegreeType.Faculty,
+  //   image: "/images/no_image.png",
+  //   background: {
+  //     ja: [],
+  //     en: [],
+  //   },
+  //   researchFields: {
+  //     ja: "",
+  //     en: "",
+  //   },
+  // },
   {
     id: "nomoto",
     name: "野元 理美",
@@ -186,6 +186,6 @@ export const allUnifiedMembers: Member[] = [...unifiedFacultyMembers];
 
 export function getFacultyMembers(): Member[] {
   return allUnifiedMembers.filter(
-    (member) => member.program === "faculty" && !member.isAlumni
+    (member) => member.program === "faculty" && !member.isAlumni,
   );
 }
