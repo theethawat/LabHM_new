@@ -15,7 +15,6 @@ import { achievementTranslation } from "@/translations/achievements";
 import { PublicationCard, ResearchItem } from "@/components/features";
 import { Github, Twitter, Linkedin, Globe } from "lucide-react";
 import { getStudentYearWithFullData } from "@/lib/get-student-year";
-
 // カスタムXアイコンコンポーネント
 const XIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import DetailMemberPage from "./detail-member-page";
 import {
   convertSpreadSheetRowToUnifiedMember,
@@ -7,6 +8,32 @@ import {
   Publication,
   Research,
 } from "@/types";
+import { metadataTranslations } from "@/translations/metadata";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  const memberData = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getOneMember&id=${slug}`,
+  );
+
+  if (!memberData.ok) {
+    return {};
+  }
+
+  const jsonResult = await memberData.json();
+  const member = convertSpreadSheetRowToUnifiedMember(jsonResult);
+
+  const title = member.nameKatakana
+    ? `${member.nameEn ?? member.name} | ${member.nameKatakana} - ${metadataTranslations.ja.title}`
+    : `${member.name}${member.nameEn ? ` | ${member.nameEn}` : ""} - ${metadataTranslations.ja.title}`;
+
+  return { title };
+}
 
 export default async function MemberDetail({
   params,
