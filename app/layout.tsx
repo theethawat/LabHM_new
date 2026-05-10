@@ -8,7 +8,12 @@ import { LanguageProvider } from "@/contexts/language-context";
 import { HtmlLangUpdater } from "@/components/layout/html-lang-updater";
 import { getImagePath } from "@/lib/utils";
 import { metadataTranslations } from "@/translations/metadata";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 
+// import required modules
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
   variable: "--font-noto-sans-jp",
