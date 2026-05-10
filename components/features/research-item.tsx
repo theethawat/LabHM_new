@@ -13,24 +13,24 @@ export default function ResearchItem({
   return (
     <Link href={`/research/projects/detail/${research.id}`} className="group">
       <div className="overflow-hidden h-full bg-white">
-        <div className="relative h-48 overflow-hidden border-b border-gray-200">
+        <div className="relative h-48 overflow-hidden">
           <Image
             src={research.images.overview_image || ""}
             alt={research?.en?.title}
             fill
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           {_.map(research?.tags, (eachTag, idx) => (
             <div
               key={idx}
-              className="absolute top-2 left-2 bg-green-700 text-white text-xs px-2 py-1 rounded z-10"
+              className="absolute top-2 left-2 bg-black text-white text-xs px-2 py-0.5 font-semibold tracking-wide z-10"
             >
               {_.startCase(eachTag)}
             </div>
           ))}
         </div>
         <div className="p-4">
-          <h3 className="mt-2 font-medium group-hover:text-primary transition-colors">
+          <h3 className="mt-1 font-medium text-sm leading-snug group-hover:text-gray-600 transition-colors">
             {research?.[language]?.title}
           </h3>
         </div>

@@ -35,35 +35,6 @@ export const unifiedFacultyMembers: Member[] = [
     },
   },
   {
-    id: "shiiya",
-    name: "椎屋 和久",
-    nameEn: "Kazuhisa Shiiya",
-    isAlumni: false,
-    position: "助教（情報通信工学プログラム）",
-    positionEn:
-      "Assistant Professor (Information and Communication Engineering Program)",
-    program: DegreeType.Faculty,
-    image: "/images/no_image.png",
-    background: {
-      ja: [
-        "1994年：宮崎大学工学部電気工学科 卒業",
-        "2008年：熊本大学大学院自然科学研究科 博士課程修了",
-        "宮崎大学工学部 技術職員、電気システム工学科 助手、助教を経て現職",
-        "現在：宮崎大学工学部 工学科 助教",
-      ],
-      en: [
-        "1994: Graduated from the Department of Electrical Engineering, Faculty of Engineering, University of Miyazaki",
-        "2008: Completed the Doctoral Program at the Graduate School of Science and Technology, Kumamoto University",
-        "Currently holds the position of Technical Staff, Assistant, and Assistant Professor in the Department of Electrical Systems Engineering, Faculty of Engineering, University of Miyazaki",
-        "Present: Assistant Professor, Department of Engineering, Faculty of Engineering, University of Miyazaki",
-      ],
-    },
-    researchFields: {
-      ja: "画像認識、デジタル画像処理",
-      en: "Image Recognition, Digital Image Processing",
-    },
-  },
-  {
     id: "pyketin",
     name: "Pyke Tin（パイ ティン）",
     nameEn: "Pyke Tin",
@@ -95,6 +66,36 @@ export const unifiedFacultyMembers: Member[] = [
     },
   },
   {
+    id: "shiiya",
+    name: "椎屋 和久",
+    nameEn: "Kazuhisa Shiiya",
+    isAlumni: false,
+    position: "助教（情報通信工学プログラム）",
+    positionEn:
+      "Assistant Professor (Information and Communication Engineering Program)",
+    program: DegreeType.Faculty,
+    image: "/images/no_image.png",
+    background: {
+      ja: [
+        "1994年：宮崎大学工学部電気工学科 卒業",
+        "2008年：熊本大学大学院自然科学研究科 博士課程修了",
+        "宮崎大学工学部 技術職員、電気システム工学科 助手、助教を経て現職",
+        "現在：宮崎大学工学部 工学科 助教",
+      ],
+      en: [
+        "1994: Graduated from the Department of Electrical Engineering, Faculty of Engineering, University of Miyazaki",
+        "2008: Completed the Doctoral Program at the Graduate School of Science and Technology, Kumamoto University",
+        "Currently holds the position of Technical Staff, Assistant, and Assistant Professor in the Department of Electrical Systems Engineering, Faculty of Engineering, University of Miyazaki",
+        "Present: Assistant Professor, Department of Engineering, Faculty of Engineering, University of Miyazaki",
+      ],
+    },
+    researchFields: {
+      ja: "画像認識、デジタル画像処理",
+      en: "Image Recognition, Digital Image Processing",
+    },
+  },
+
+  {
     id: "chonilarphyo",
     name: "Cho Nilar Phyo（チョ ニラ ピョ）",
     nameEn: "Cho Nilar Phyo",
@@ -125,42 +126,42 @@ export const unifiedFacultyMembers: Member[] = [
       en: "Human Behavior Analysis, AI-assisted Systems for Medical Diagnosis, Real-time Video Surveillance Systems",
     },
   },
-  {
-    id: "monaung",
-    name: "Mon Aung（ﾓﾝ ｱｳﾝ）",
-    nameEn: "Mon Aung",
-    isAlumni: false,
-    position: "研究員",
-    positionEn: "Researcher",
-    program: DegreeType.Faculty,
-    image: "/images/no_image.png",
-    background: {
-      ja: [],
-      en: [],
-    },
-    researchFields: {
-      ja: "",
-      en: "",
-    },
-  },
-  {
-    id: "nyizawaung",
-    name: "Nyi Zaw Aung（ﾆｰ ｽﾞｫｰ ｱｳﾝ）",
-    nameEn: "Nyi Zaw Aung",
-    isAlumni: false,
-    position: "研究員",
-    positionEn: "Researcher",
-    program: DegreeType.Faculty,
-    image: "/images/no_image.png",
-    background: {
-      ja: [],
-      en: [],
-    },
-    researchFields: {
-      ja: "",
-      en: "",
-    },
-  },
+  // {
+  //   id: "monaung",
+  //   name: "Mon Aung（ﾓﾝ ｱｳﾝ）",
+  //   nameEn: "Mon Aung",
+  //   isAlumni: false,
+  //   position: "研究員",
+  //   positionEn: "Researcher",
+  //   program: DegreeType.Faculty,
+  //   image: "/images/no_image.png",
+  //   background: {
+  //     ja: [],
+  //     en: [],
+  //   },
+  //   researchFields: {
+  //     ja: "",
+  //     en: "",
+  //   },
+  // },
+  // {
+  //   id: "nyizawaung",
+  //   name: "Nyi Zaw Aung（ﾆｰ ｽﾞｫｰ ｱｳﾝ）",
+  //   nameEn: "Nyi Zaw Aung",
+  //   isAlumni: false,
+  //   position: "研究員",
+  //   positionEn: "Researcher",
+  //   program: DegreeType.Faculty,
+  //   image: "/images/no_image.png",
+  //   background: {
+  //     ja: [],
+  //     en: [],
+  //   },
+  //   researchFields: {
+  //     ja: "",
+  //     en: "",
+  //   },
+  // },
   {
     id: "nomoto",
     name: "野元 理美",
@@ -186,6 +187,6 @@ export const allUnifiedMembers: Member[] = [...unifiedFacultyMembers];
 
 export function getFacultyMembers(): Member[] {
   return allUnifiedMembers.filter(
-    (member) => member.program === "faculty" && !member.isAlumni
+    (member) => member.program === "faculty" && !member.isAlumni,
   );
 }

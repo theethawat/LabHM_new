@@ -6,11 +6,35 @@ export enum DegreeType {
   ResearchStudent = "research_student",
 }
 
+export const DegreeTypeInfo = {
+  [DegreeType.Doctor]: {
+    ja: "博士課程",
+    en: "Doctoral Course",
+  },
+  [DegreeType.Master]: {
+    ja: "修士課程",
+    en: "Master's Course",
+  },
+  [DegreeType.Bachelor]: {
+    ja: "学士課程",
+    en: "Bachelor Course",
+  },
+  [DegreeType.Faculty]: {
+    ja: "教員・研究員",
+    en: "Faculty Member",
+  },
+  [DegreeType.ResearchStudent]: {
+    ja: "研究生",
+    en: "Research Student",
+  },
+};
+
 // 統一されたメンバーの型定義
 export interface Member {
   id: string;
   name: string;
   nameEn?: string;
+  nameKatakana?: string; // カタカナ表記の名前（必要に応じて）
   isAlumni: boolean; // 卒業生かどうかのフラグ
   graduationYear?: string; // 卒業年度（卒業生の場合）
   position?: string; // 教員・研究員の場合の役職
@@ -20,6 +44,7 @@ export interface Member {
   lab?: string; // 所属研究室
   labEn?: string;
   image: string;
+  newRecord?: string;
   background?: {
     ja: string[];
     en: string[];

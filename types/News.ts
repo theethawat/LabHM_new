@@ -55,7 +55,7 @@ export function convertSpreadsheetToNews(sheetObject: any): News {
   const tempNews: News = { ...sheetObject } as News;
 
   const imageList = [];
-  for (let i = 1; i <= 13; i++) {
+  for (let i = 1; i <= 20; i++) {
     const imageKey = `support_image_${i}`;
     sheetObject[imageKey] && imageList.push(sheetObject[imageKey]);
   }

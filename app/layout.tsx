@@ -1,12 +1,19 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_JP, Caveat } from "next/font/google";
+import { Noto_Sans_JP, Caveat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { LanguageProvider } from "@/contexts/language-context";
+import { HtmlLangUpdater } from "@/components/layout/html-lang-updater";
+import { getImagePath } from "@/lib/utils";
+import { metadataTranslations } from "@/translations/metadata";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+// import required modules
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
   variable: "--font-noto-sans-jp",
@@ -17,10 +24,13 @@ const caveat = Caveat({
   weight: ["400", "500", "600", "700"],
 });
 
+// Use Japanese as default metadata (will be updated client-side based on user's language selection)
+const defaultMetadata = metadataTranslations.ja;
+
 export const metadata: Metadata = {
-  title: "情報処理システム研究室 | 宮崎大学",
-  description:
-    "宮崎大学情報処理システム研究室の公式ウェブサイトです。画像処理、AI、データサイエンスの最先端研究を行っています。",
+  title: defaultMetadata.title,
+  description: defaultMetadata.description,
+  keywords: defaultMetadata.keywords,
   generator: "v0.dev",
 };
 
@@ -31,10 +41,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body
-        className={`${inter.variable} ${notoSansJP.variable} ${caveat.variable} font-sans`}
-      >
+      <link rel="icon" href={getImagePath("/icon.png")} sizes="any" />
+      <body className={`${notoSansJP.variable} ${caveat.variable} font-sans`}>
         <LanguageProvider>
+          <HtmlLangUpdater />
           <div className="flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>

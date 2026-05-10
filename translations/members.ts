@@ -1,7 +1,7 @@
 export const membersTranslations = {
   ja: {
     title: "メンバー",
-    subtitle: "メンバー",
+    subtitle: "メンバーのご紹介",
     tabs: {
       faculty: "教員・研究員",
       students: "学生",
@@ -9,7 +9,7 @@ export const membersTranslations = {
     },
     faculty: {
       title: "教員・研究員",
-      subtitle: "研究室の教員・研究員",
+      subtitle: "研究室の教員・研究員のご紹介",
       background: "経歴",
       researchFields: "研究分野",
     },
@@ -35,10 +35,13 @@ export const membersTranslations = {
       bachelor: "学士課程",
       researchPrefix: "研究内容：",
     },
+    researchTopic: "研究テーマ",
+    researchProject: "研究プロジェクト",
+    noPublications: "現在、論文はありません。",
   },
   en: {
     title: "Members",
-    subtitle: "Members",
+    subtitle: "Member Directory",
     tabs: {
       faculty: "Faculty",
       students: "Students",
@@ -46,13 +49,13 @@ export const membersTranslations = {
     },
     faculty: {
       title: "Faculty & Researchers",
-      subtitle: "Laboratory Faculty and Researchers",
+      subtitle: "Our Laboratory Faculty and Researchers",
       background: "Background",
       researchFields: "Research Fields",
     },
     students: {
       title: "Student Members",
-      subtitle: "List of Laboratory Students",
+      subtitle: "Laboratory Students Directory",
       doctoral: "Doctoral Course",
       masters: "Master's Course",
       bachelor: "Bachelor Course",
@@ -66,11 +69,14 @@ export const membersTranslations = {
     },
     alumni: {
       title: "Alumni",
-      subtitle: "Laboratory Graduates and Their Research",
+      subtitle: "Our Laboratory Graduates and Their Research",
       doctoral: "Doctoral Course",
       masters: "Master's Course",
       bachelor: "Bachelor Course",
       researchPrefix: "Research: ",
     },
+    researchTopic: "Research Topic",
+    researchProject: "Research Project",
+    noPublications: "No publications are currently available.",
   },
 };

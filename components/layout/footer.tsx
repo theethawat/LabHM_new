@@ -34,6 +34,7 @@ export default function Footer() {
       achievementsList: "研究業績一覧",
       career: "進学・就職先",
       contact2: "お問い合わせ",
+      universityWebsite: "宮崎大学ホームページ",
       copyright: "© 2026 情報処理システム研究室. All rights reserved.",
     },
     en: {
@@ -59,6 +60,7 @@ export default function Footer() {
       achievementsList: "Achievements List",
       career: "Career",
       contact2: "Contact",
+      universityWebsite: "University of Miyazaki Homepage",
       copyright:
         "© 2026 Information Processing Systems Laboratory. All rights reserved.",
     },
@@ -207,7 +209,7 @@ export default function Footer() {
               <ul className="space-y-4">
                 <li>
                   <Link
-                    href="/members#faculty"
+                    href="/members/faculty"
                     className="text-xs text-gray-400 hover:text-white transition-colors flex items-center"
                   >
                     <ChevronRight className="h-2 w-2 mr-1" />
@@ -216,7 +218,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/members#students"
+                    href="/members/students"
                     className="text-xs text-gray-400 hover:text-white transition-colors flex items-center"
                   >
                     <ChevronRight className="h-2 w-2 mr-1" />
@@ -225,7 +227,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/members#alumni"
+                    href="/members/alumni"
                     className="text-xs text-gray-400 hover:text-white transition-colors flex items-center"
                   >
                     <ChevronRight className="h-2 w-2 mr-1" />
@@ -278,6 +280,15 @@ export default function Footer() {
                   >
                     <ChevronRight className="h-2 w-2 mr-1" />
                     <span>{text.contact2}</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://www.miyazaki-u.ac.jp/"
+                    className="text-xs text-gray-400 hover:text-white transition-colors flex items-center"
+                  >
+                    <ChevronRight className="h-2 w-2 mr-1" />
+                    <span>{text.universityWebsite}</span>
                   </Link>
                 </li>
               </ul>

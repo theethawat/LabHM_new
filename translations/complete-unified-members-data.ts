@@ -30,9 +30,10 @@ export function getAvailableAcademicYears(alumniMembers: Member[]): string[] {
 
 export function getCompleteAlumniByYear(
   academicYear: string,
-  inputMembers: Member[]
+  inputMembers: Member[],
 ): Member[] {
   return inputMembers.filter(
-    (allMember) => allMember.isAlumni && allMember.academicYear === academicYear
+    (allMember) =>
+      allMember.degreeType && allMember.academicYear === academicYear,
   );
 }
