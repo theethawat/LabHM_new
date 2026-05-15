@@ -12,6 +12,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import "./overided-navigation.css";
 
 // import required modules
 const notoSansJP = Noto_Sans_JP({
