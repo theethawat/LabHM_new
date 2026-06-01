@@ -70,7 +70,6 @@ const Header = () => {
       researchFund: "研究補助",
       journalPapers: "論文一覧",
       internationalConferences: "国際会議発表",
-      domesticConferences: "国内会議発表",
       thesis: "論文・著書",
       awardsAndMediaCoverage: "受賞・メディア掲載",
     },
@@ -93,7 +92,6 @@ const Header = () => {
       researchFund: "Research Funding",
       journalPapers: "Journal Papers",
       internationalConferences: "International Conferences",
-      domesticConferences: "Domestic Conferences",
       thesis: "Theses & Books",
       awardsAndMediaCoverage: "Awards & Media Coverage",
     },
@@ -255,12 +253,6 @@ const Header = () => {
               >
                 {currentMenu.internationalConferences}
               </Link>
-              <Link
-                href={"/achievements/domestic"}
-                className="block px-4 py-2 text-sm hover:bg-gray-100"
-              >
-                {currentMenu.domesticConferences}
-              </Link>{" "}
               <Link
                 href={"/achievements/thesis"}
                 className="block px-4 py-2 text-sm hover:bg-gray-100"
