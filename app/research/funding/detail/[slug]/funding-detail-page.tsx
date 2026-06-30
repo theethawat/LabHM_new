@@ -73,6 +73,11 @@ export default function FundingDetailPage({
               {(featuredProject?.grantNumber ||
                 featuredProject?.projectTitle) && (
                 <div className="mb-12 bg-gray-50 px-6 py-6 rounded-xl border border-gray-200">
+                  <h3 className="my-1 text-gray-600">
+                    {language === "en"
+                      ? "Current Project"
+                      : "現在のプロジェクト"}
+                  </h3>
                   {featuredProject?.grantNumber && (
                     <p className="text-xl font-semibold text-gray-500 mb-2">
                       {t.grantNumber}: {featuredProject.grantNumber}
