@@ -12,7 +12,7 @@ export default async function News({
   console.log("New Search Params:", params);
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllNews&page=${1}&size=20&tag=`,
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllNews&page=${1}&size=100&tag=`,
   );
 
   if (!res.ok) {
