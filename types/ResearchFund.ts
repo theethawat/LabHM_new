@@ -31,7 +31,7 @@ export const ResearchFundSourceInfo = {
       labelInGrantName:
         "Ministry of Internal Affairs and Communications FORWARD Project",
     },
-    logo: "/images/logo_soumo.png",
+    logo: "/images/logo_soumu.png",
   },
   [PromotionalFundSource.keirin]: {
     ja: {

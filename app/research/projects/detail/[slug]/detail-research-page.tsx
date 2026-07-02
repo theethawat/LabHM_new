@@ -60,7 +60,7 @@ export default function DetailResearchPage({
             )}
 
             {/* マークダウン本文 Markdown body */}
-            <div className="mb-16 text-gray-700 md-content">
+            <div className="mb-16 text-gray-700 md-content px-6">
               <div
                 dangerouslySetInnerHTML={{
                   __html: selectedContent?.bodyHtml || "",

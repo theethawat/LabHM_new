@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Pagination as ShadcnPagination,
   PaginationContent,
@@ -8,6 +10,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import _ from "lodash";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function Pagination({
   currPage,
@@ -18,13 +21,37 @@ export default function Pagination({
   totalPage: number;
   anotherKey: string;
 }) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const array = Array.from({ length: totalPage }, (_, i) => i + 1);
+
+  const createPageHref = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (anotherKey.trim()) {
+      const additionalParams = new URLSearchParams(anotherKey.trim());
+      additionalParams.forEach((value, key) => {
+        if (value === "") {
+          params.delete(key);
+          return;
+        }
+        params.set(key, value);
+      });
+    }
+
+    params.set("page", String(page));
+    const query = params.toString();
+    return query ? `${pathname}?${query}` : pathname;
+  };
+
   return (
     <ShadcnPagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href={currPage > 1 ? `?page=${currPage - 1}&${anotherKey}` : "#"}
+            href={
+              currPage > 1 ? createPageHref(currPage - 1) : createPageHref(1)
+            }
             className={
               currPage === 1
                 ? "pointer-events-none cursor-not-allowed text-gray-400"
@@ -37,7 +64,7 @@ export default function Pagination({
             key={pageNum}
             active={pageNum === currPage ? true : false}
           >
-            <PaginationLink href={`?page=${pageNum}&${anotherKey}`}>
+            <PaginationLink href={createPageHref(pageNum)}>
               {pageNum}
             </PaginationLink>
           </PaginationItem>
@@ -45,7 +72,9 @@ export default function Pagination({
         <PaginationItem>
           <PaginationNext
             href={
-              currPage < totalPage ? `?page=${currPage + 1}&${anotherKey}` : "#"
+              currPage < totalPage
+                ? createPageHref(currPage + 1)
+                : createPageHref(totalPage)
             }
             className={
               currPage === totalPage

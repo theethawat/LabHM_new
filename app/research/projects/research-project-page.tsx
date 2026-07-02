@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,25 +23,33 @@ export default function ResearchProjectsPage({
   const { language } = useLanguage();
   const t = researchProjectsTranslations[language];
 
-  // URLからカテゴリパラメータを取得
-  const categoryParam = searchParams.get("category");
-  const foundArea: ResearchArea | undefined = researchAreas.find(
-    (area) => area.id === categoryParam,
-  );
-  const params = new URLSearchParams(searchParams);
+  const findResearchAreaByTag = (
+    tag: string | null,
+  ): ResearchArea | undefined => {
+    if (!tag) return undefined;
 
-  // 選択されたキーワード（URLパラメータから初期値を設定）
-  const [selectedKeyword, setSelectedKeyword] = useState<
-    ResearchArea | undefined
-  >(foundArea);
+    return researchAreas.find(
+      (area) =>
+        area.id === tag || _.lowerCase(area.en.shortTitle) === _.lowerCase(tag),
+    );
+  };
+
+  const selectedTag = searchParams.get("tag");
+
+  const selectedKeyword = useMemo(
+    () => findResearchAreaByTag(selectedTag),
+    [selectedTag],
+  );
 
   const findResearchAreaById = (id: string): ResearchArea | undefined => {
     return researchAreas.find((area) => area.id === id);
   };
 
   const handleActiveTagChange = (tag: ResearchArea | undefined) => {
+    const params = new URLSearchParams(searchParams.toString());
+
     if (tag === undefined) {
-      params.set("tag", "");
+      params.delete("tag");
       params.set("page", "1");
     } else {
       params.set("tag", _.lowerCase(tag.en.shortTitle));
@@ -51,13 +59,8 @@ export default function ResearchProjectsPage({
     router.push(`?${params.toString()}`);
   };
 
-  useEffect(() => {
-    handleActiveTagChange(selectedKeyword);
-    return () => {};
-  }, [selectedKeyword]);
-
-  const currentPage = params.get("page")
-    ? parseInt(params.get("page") as string, 10)
+  const currentPage = searchParams.get("page")
+    ? parseInt(searchParams.get("page") as string, 10)
     : 1;
 
   const filteredData = filterArticles(researches, {
@@ -91,7 +94,7 @@ export default function ResearchProjectsPage({
               <div className="flex justify-center">
                 <div className="flex flex-wrap gap-2 max-w-4xl justify-center">
                   <button
-                    onClick={() => setSelectedKeyword(undefined)}
+                    onClick={() => handleActiveTagChange(undefined)}
                     className={`px-4 py-2 text-sm border rounded-full transition-colors ${
                       selectedKeyword
                         ? "bg-white text-black border-gray-300 hover:bg-gray-100"
@@ -103,7 +106,7 @@ export default function ResearchProjectsPage({
                   {researchAreas.map((eachArea: ResearchArea) => (
                     <button
                       key={eachArea.id}
-                      onClick={() => setSelectedKeyword(eachArea)}
+                      onClick={() => handleActiveTagChange(eachArea)}
                       className={`px-4 py-2 text-sm border rounded-full transition-colors ${
                         selectedKeyword?.id === eachArea.id
                           ? "bg-black text-white border-black"
@@ -150,7 +153,7 @@ export default function ResearchProjectsPage({
                                 key={index}
                                 className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full cursor-pointer hover:bg-gray-200"
                                 onClick={() =>
-                                  setSelectedKeyword(
+                                  handleActiveTagChange(
                                     findResearchAreaById(keyword),
                                   )
                                 }
@@ -183,7 +186,7 @@ export default function ResearchProjectsPage({
                 </p>
                 <button
                   className="mt-4 px-4 py-2 border border-gray-300 rounded-full bg-white text-black hover:bg-gray-100 transition-colors"
-                  onClick={() => setSelectedKeyword(undefined)}
+                  onClick={() => handleActiveTagChange(undefined)}
                 >
                   {t.noResults.showAll}
                 </button>
@@ -194,7 +197,7 @@ export default function ResearchProjectsPage({
             <Pagination
               totalPage={filteredData.totalPage}
               currPage={currentPage}
-              anotherKey={`tag=${searchParams.get("tag") || ""} `}
+              anotherKey={`tag=${selectedTag || ""}`}
             />
           </div>
         </div>
