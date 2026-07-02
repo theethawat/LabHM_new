@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { Research, ResearchFundSource } from "@/types";
@@ -9,29 +8,18 @@ import { getImagePath } from "@/lib/utils";
 import { researchProjectsTranslations } from "@/translations/research-projects";
 import { Button } from "@/components/ui/button";
 import { ResearchFundBox } from "@/components/features";
-import _ from "lodash";
+import type { ResearchContentByLanguage } from "./page";
 
 export default function DetailResearchPage({
   selectedResearch,
+  contentByLanguage,
 }: {
   selectedResearch: Research;
+  contentByLanguage: ResearchContentByLanguage;
 }) {
   const { language } = useLanguage();
   const t = researchProjectsTranslations[language];
-
-  const splitDataFromHyphen = (data: string | undefined) => {
-    const splittedResult = _.split(data, "- ");
-    return _.tail(splittedResult);
-  };
-
-  const splitFromEnterAndDivide = (data: string | undefined) => {
-    const result = data?.split("\n");
-    return _.map(result, (eachResult, index) => (
-      <p key={index} className="my-2">
-        {eachResult}
-      </p>
-    ));
-  };
+  const selectedContent = contentByLanguage[language];
 
   return (
     <div>
@@ -42,10 +30,7 @@ export default function DetailResearchPage({
           backgroundImage: `url(${getImagePath("/images/normal_header.png")})`,
         }}
       >
-        {/* オーバーレイ */}
         <div className="absolute inset-0 bg-black/30"></div>
-
-        {/* コンテンツ */}
         <div className="container relative z-10">
           <div className="text-center">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tighter text-white drop-shadow-lg">
@@ -54,235 +39,47 @@ export default function DetailResearchPage({
           </div>
         </div>
       </section>
+
       {/* メインコンテンツ */}
       <section className="py-16">
         <div className="container">
           <div className="max-w-4xl mx-auto">
-            {/* プロジェクト概要 */}
-            <div
-              className="relative aspect-auto rounded-lg overflow-hidden"
-              style={{ height: "auto", minHeight: "500px" }}
-            >
-              {selectedResearch?.images?.overview_image && (
-                <Image
-                  src={selectedResearch?.images?.overview_image}
-                  alt={selectedResearch?.[language]?.title}
-                  fill
-                  className="object-contain"
+            {/* 概要カード Overview card */}
+            {selectedContent?.overviewHtml && (
+              <div className="mb-12 bg-gray-50 px-6 py-6 rounded-xl border border-gray-200">
+                <h3 className="my-1 text-gray-600">
+                  {language === "en" ? "Overview" : "概要"}
+                </h3>
+                <div
+                  className="md-content text-gray-700"
+                  dangerouslySetInnerHTML={{
+                    __html: selectedContent.overviewHtml,
+                  }}
                 />
-              )}
+              </div>
+            )}
+
+            {/* マークダウン本文 Markdown body */}
+            <div className="mb-16 text-gray-700 md-content px-6">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: selectedContent?.bodyHtml || "",
+                }}
+              />
             </div>
 
-            {/* メインコンテンツ */}
-            <section className="py-16">
-              <div className="container">
-                <div className="max-w-4xl mx-auto">
-                  {/* 実験背景・目的 Background */}
-                  {selectedResearch?.[language]?.backgroundText1 && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {t.backgroundTitle}
-                      </h2>
-                      <p className="text-gray-700">
-                        {selectedResearch?.[language]?.backgroundText1}
-                      </p>
-                      <p className="text-gray-700 mt-4 mb-8">
-                        {selectedResearch?.[language]?.backgroundText2}
-                      </p>
+            {/* 研究助成 Funding */}
+            {selectedResearch?.fund?.researchFund &&
+              selectedResearch?.fund?.researchFund !==
+                ResearchFundSource.noFund && (
+                <ResearchFundBox selectedResearch={selectedResearch} />
+              )}
 
-                      {selectedResearch?.images?.background_image && (
-                        <div
-                          className="relative aspect-auto rounded-lg overflow-hidden"
-                          style={{ height: "auto", minHeight: "250px" }}
-                        >
-                          <Image
-                            src={selectedResearch?.images?.background_image}
-                            alt={t.backgroundTitle}
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  {/* 実験環境 Environment */}
-                  {selectedResearch?.[language]?.environmentText1 && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {t.environmentTitle}
-                      </h2>
-                      <p className="text-gray-700">
-                        {splitFromEnterAndDivide(
-                          selectedResearch?.[language]?.environmentText1,
-                        )}
-                      </p>
-                      <p className="text-gray-700 mt-4 mb-8">
-                        {splitFromEnterAndDivide(
-                          selectedResearch?.[language]?.environmentText2,
-                        )}
-                      </p>
-                    </div>
-                  )}
-                  {/* Custom Field 1*/}
-                  {selectedResearch?.[language]?.customField1Title && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {selectedResearch?.[language]?.customField1Title}
-                      </h2>
-                      <p className="text-gray-700">
-                        {splitFromEnterAndDivide(
-                          selectedResearch?.[language]?.customField1Text,
-                        )}
-                      </p>
-                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
-                        {splitDataFromHyphen(
-                          selectedResearch?.[language]?.customField1List,
-                        )?.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ol>
-                    </div>
-                  )}{" "}
-                  {/* Custom Field 2*/}
-                  {selectedResearch?.[language]?.customField2Title && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {selectedResearch?.[language]?.customField2Title}
-                      </h2>
-                      <p className="text-gray-700">
-                        {splitFromEnterAndDivide(
-                          selectedResearch?.[language]?.customField2Text,
-                        )}
-                      </p>
-                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
-                        {splitDataFromHyphen(
-                          selectedResearch?.[language]?.customField2List,
-                        )?.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ol>
-                    </div>
-                  )}
-                  {/* 研究手法  Method */}
-                  {selectedResearch?.[language]?.methodText1 && (
-                    <div className="mb-16">
-                      {selectedResearch?.images?.method_image && (
-                        <div
-                          className="relative aspect-auto rounded-lg overflow-hidden"
-                          style={{ height: "auto", minHeight: "250px" }}
-                        >
-                          <Image
-                            src={selectedResearch?.images?.method_image}
-                            alt={t.methodTitle}
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                      )}
-                      <h2 className="text-2xl font-bold mb-4">
-                        {t.methodTitle}
-                      </h2>
-                      <p className="text-gray-700">
-                        {splitFromEnterAndDivide(
-                          selectedResearch?.[language]?.methodText1,
-                        )}
-                      </p>
-                      <p className="text-gray-700 mt-4">
-                        {splitFromEnterAndDivide(
-                          selectedResearch?.[language]?.methodText2,
-                        )}
-                      </p>
-                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
-                        {splitDataFromHyphen(
-                          selectedResearch?.[language]?.methodList,
-                        )?.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ol>
-                      <p className="text-gray-700 mt-4">
-                        {selectedResearch?.[language]?.methodText3}
-                      </p>
-                    </div>
-                  )}
-                  {/* 実験結果 Result */}
-                  {selectedResearch?.[language]?.resultText1 && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {t.resultsTitle}
-                      </h2>
-                      <p className="text-gray-700">
-                        {splitFromEnterAndDivide(
-                          selectedResearch?.[language]?.resultText1,
-                        )}
-                      </p>
-                      <p className="text-gray-700 mt-4 mb-8">
-                        {splitFromEnterAndDivide(
-                          selectedResearch?.[language]?.resultText2,
-                        )}
-                      </p>
-                      {selectedResearch?.images?.result_image && (
-                        <div
-                          className="relative aspect-auto rounded-lg overflow-hidden"
-                          style={{ height: "auto", minHeight: "250px" }}
-                        >
-                          <Image
-                            src={selectedResearch?.images?.result_image}
-                            alt={t.resultsTitle}
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  {/* 価値と効果 Value */}
-                  {selectedResearch?.[language]?.valueText1 && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {t.valueTitle}
-                      </h2>
-                      <p className="text-gray-700">
-                        {selectedResearch?.[language]?.valueText1}
-                      </p>
-                      <p className="text-gray-700 mt-4 mb-8">
-                        {selectedResearch?.[language]?.valueText2}
-                      </p>
-                      <ol className="list-decimal pl-5 space-y-2 mt-2 text-gray-700">
-                        {splitDataFromHyphen(
-                          selectedResearch?.[language]?.valueList,
-                        )?.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ol>
-                    </div>
-                  )}
-                  {/* 今後の展望  Future Perspective */}
-                  {selectedResearch?.[language]?.futurePerspectiveText1 && (
-                    <div className="mb-16">
-                      <h2 className="text-2xl font-bold mb-4">
-                        {t.futurePerspectiveTitle}
-                      </h2>
-                      <p className="text-gray-700">
-                        {selectedResearch?.[language]?.futurePerspectiveText1}
-                      </p>
-                      <p className="text-gray-700 mt-4">
-                        {selectedResearch?.[language]?.futurePerspectiveText2}
-                      </p>
-                    </div>
-                  )}
-                  {selectedResearch?.fund?.researchFund &&
-                    selectedResearch?.fund?.researchFund !==
-                      ResearchFundSource.noFund && (
-                      <ResearchFundBox selectedResearch={selectedResearch} />
-                    )}
-                  <div className="flex justify-center mt-8">
-                    <Link href="/research/projects">
-                      <Button variant="outline">{t.backToProjects}</Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <div className="flex justify-center mt-8">
+              <Link href="/research/projects">
+                <Button variant="outline">{t.backToProjects}</Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

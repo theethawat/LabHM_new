@@ -17,10 +17,13 @@ export default function Gallery({ images }: { images?: string[] }) {
         }}
         loop={true}
         spaceBetween={10}
-        navigation={true}
+        grabCursor={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2"
+        navigation={{
+          enabled: true,
+        }}
+        className="mySwiper2 swiper-button-tin-next"
       >
         {_.map(images, (each, index: number) => (
           <SwiperSlide key={index}>
@@ -32,7 +35,7 @@ export default function Gallery({ images }: { images?: string[] }) {
         onSwiper={setThumbsSwiper}
         loop={true}
         spaceBetween={20}
-        slidesPerView={_.size(images)}
+        slidesPerView={7}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}

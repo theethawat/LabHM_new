@@ -2,7 +2,6 @@ export enum PublicationType {
   thesis = "thesis-book",
   journal = "journal",
   intConference = "international-conference",
-  domConference = "domestic-conference",
 }
 
 export interface Publication {
@@ -64,22 +63,10 @@ export const PublicationTypeInfo = {
     },
     link: "international",
   },
-  [PublicationType.domConference]: {
-    ja: {
-      title: "国内会議",
-    },
-    en: {
-      title: "Domestic Conference",
-    },
-    link: "domestic",
-  },
 };
 
 export function convertSpreadsheetToPublication(sheetObject: any): Publication {
-  if (
-    sheetObject.type === PublicationType.intConference ||
-    sheetObject.type === PublicationType.domConference
-  ) {
+  if (sheetObject.type === PublicationType.intConference) {
     const conferencePaper: ConferencePaper = {
       ...sheetObject,
     } as ConferencePaper;

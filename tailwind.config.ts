@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
@@ -7,16 +7,17 @@ const config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+    "./content/**/*.{md,mdx}",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
   safelist: [
-    'bg-red-600',
-    'bg-green-600',
-    'bg-purple-600',
-    'bg-blue-600',
-    'bg-indigo-600',
-    'bg-orange-600',
-    'bg-gray-600',
+    "bg-red-600",
+    "bg-green-600",
+    "bg-purple-600",
+    "bg-blue-600",
+    "bg-indigo-600",
+    "bg-orange-600",
+    "bg-gray-600",
   ],
   prefix: "",
   theme: {
@@ -92,6 +93,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;

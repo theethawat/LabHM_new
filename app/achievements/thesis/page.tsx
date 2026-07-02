@@ -5,6 +5,7 @@ import { achievementTranslation } from "@/translations/achievements";
 import { useLanguage } from "@/contexts/language-context";
 import { AchievementTagList } from "@/components/features";
 import { PublicationType } from "@/types";
+import { getImagePath } from "@/lib/utils";
 
 // 論文データの型定義
 type Paper = {
@@ -167,18 +168,22 @@ export default function ThesisPage() {
   const t = achievementTranslation[language];
   return (
     <div>
-      {/* ヘッダーセクション */}
-      <section className="bg-gray-100 py-16">
-        <div className="container">
-          <AchievementTagList
-            activeTag={PublicationType.thesis}
-            language={language}
-          />
+      <section
+        className="relative py-16 md:py-20 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${getImagePath("/images/normal_header.png")})`,
+        }}
+      >
+        {/* オーバーレイ */}
+        <div className="absolute inset-0 bg-black/30"></div>
+
+        {/* コンテンツ */}
+        <div className="container relative z-10">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-2xl md:text-3xl text-white font-bold mb-4">
               {t.title.thesis}
             </h1>
-            <p className="text-xl text-gray-600">{t.subtitle.thesis}</p>
+            <p className="text-xl text-gray-300">{t.subtitle.thesis}</p>
           </div>
         </div>
       </section>
@@ -186,6 +191,11 @@ export default function ThesisPage() {
       {/* メインコンテンツ */}
       <section className="py-16">
         <div className="container">
+          {" "}
+          <AchievementTagList
+            activeTag={PublicationType.thesis}
+            language={language}
+          />
           <Tabs defaultValue="博士（工学）" className="w-full">
             <div className="flex justify-center mb-8">
               <TabsList>

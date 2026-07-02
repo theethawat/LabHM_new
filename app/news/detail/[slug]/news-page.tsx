@@ -15,6 +15,7 @@ import { News, NewsTagInfo } from "@/types";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { Gallery } from "@/components/features";
+import { transformImageAttributeListSyntax } from "@/lib/markdown";
 import "dayjs/locale/ja";
 
 dayjs.extend(LocalizedFormat);
@@ -26,8 +27,10 @@ export default function NewsPage({ news }: { news: News }) {
 
   const getContentHtml = async () => {
     const processedContent = await remark()
-      .use(html)
-      .process(news?.[language]?.content || "");
+      .use(html, { sanitize: false })
+      .process(
+        transformImageAttributeListSyntax(news?.[language]?.content || ""),
+      );
     setContentHtml(processedContent.toString());
   };
 
