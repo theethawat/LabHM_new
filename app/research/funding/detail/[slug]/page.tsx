@@ -6,6 +6,7 @@ import { readFile } from "fs/promises";
 import { notFound } from "next/navigation";
 import { remark } from "remark";
 import html from "remark-html";
+import { transformImageAttributeListSyntax } from "@/lib/markdown";
 
 const markdownFileSuffixByLanguage = {
   ja: "jp",
@@ -152,7 +153,9 @@ const getFundingContentHtmlByLanguage = async (contentKey: string) => {
           `${contentKey}-${markdownFileSuffixByLanguage[language]}.md`,
         );
 
-        const markdownContent = await readFile(markdownPath, "utf8");
+        const markdownContent = transformImageAttributeListSyntax(
+          await readFile(markdownPath, "utf8"),
+        );
         const { featuredMarkdown, remainingMarkdown } =
           splitFeaturedProjectSection(markdownContent, language);
         const parsedFeaturedProject = parseFeaturedProjectMarkdown(
@@ -162,11 +165,11 @@ const getFundingContentHtmlByLanguage = async (contentKey: string) => {
 
         const processedFeaturedDetails = parsedFeaturedProject.detailsMarkdown
           ? await remark()
-              .use(html)
+              .use(html, { sanitize: false })
               .process(parsedFeaturedProject.detailsMarkdown)
           : "";
         const processedBodyContent = await remark()
-          .use(html)
+          .use(html, { sanitize: false })
           .process(remainingMarkdown);
 
         contentByLanguage[language] = {

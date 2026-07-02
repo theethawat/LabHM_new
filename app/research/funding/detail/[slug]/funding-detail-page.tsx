@@ -99,7 +99,7 @@ export default function FundingDetailPage({
                 </div>
               )}
 
-              <div className="mb-16 text-gray-700 md-content">
+              <div className="mb-16 text-gray-700 md-content px-10 md:px-0">
                 <div
                   dangerouslySetInnerHTML={{
                     __html: selectedContent?.bodyHtml || "",

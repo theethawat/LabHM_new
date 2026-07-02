@@ -5,6 +5,7 @@ import { readFile } from "fs/promises";
 import { notFound } from "next/navigation";
 import { remark } from "remark";
 import html from "remark-html";
+import { transformImageAttributeListSyntax } from "@/lib/markdown";
 
 type ResearchLanguage = "ja" | "en";
 
@@ -92,7 +93,9 @@ const getResearchContentHtmlByLanguage = async (
 
         let markdownContent: string;
         try {
-          markdownContent = await readFile(markdownPath, "utf8");
+          markdownContent = transformImageAttributeListSyntax(
+            await readFile(markdownPath, "utf8"),
+          );
         } catch {
           // File doesn't exist for this language — leave empty
           return;
@@ -105,9 +108,9 @@ const getResearchContentHtmlByLanguage = async (
 
         const [processedOverview, processedBody] = await Promise.all([
           overviewMarkdown
-            ? remark().use(html).process(overviewMarkdown)
+            ? remark().use(html, { sanitize: false }).process(overviewMarkdown)
             : Promise.resolve(""),
-          remark().use(html).process(remainingMarkdown),
+          remark().use(html, { sanitize: false }).process(remainingMarkdown),
         ]);
 
         contentByLanguage[language] = {

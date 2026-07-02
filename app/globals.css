@@ -116,7 +116,7 @@
   }
   .md-content li {
     @apply list-disc;
-    @apply list-inside;
+    @apply mb-2;
   }
   .md-content code {
     @apply bg-gray-200;
@@ -137,17 +137,16 @@
     @apply text-blue-500;
   }
   .md-content ul{
-    @apply mb-6;
+    @apply mb-6 pl-6;
   }
   .md-content img {
     @apply w-full md:w-3/4 mx-auto;
     @apply my-6;
   }
-  .md-content ul {
-    @apply list-disc pl-6;
+
+  .md-content .funding-logo {
+    @apply h-12 md:h-16 w-auto mx-0;
   }
-  .md-content li {
-    @apply mb-2;
-  }
+
 }
 
