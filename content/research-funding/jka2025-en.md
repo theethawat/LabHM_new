@@ -20,11 +20,11 @@ This research develops a system that uses depth cameras and human pose estimatio
 
 ## Research Contents
 
-- **Research on Elderly Behavior Estimation and Risk Behavior Detection** A non-contact data collection environment was established using depth cameras. A spatiotemporal model integrating Graph Convolutional Networks (GCN) and Transformers classified four activity states; standing, sitting, lying, and transitioning. A monitoring application was also developed, enabling observation from locations such as nursing stations. [Read More](/research/projects/detail/elderly-monitoring)
+- **Research on Elderly Behavior Estimation and Risk Behavior Detection** A non-contact data collection environment was established using depth cameras. A spatiotemporal model integrating Graph Convolutional Networks (GCN) and Transformers classified four activity states; standing, sitting, lying, and transitioning. A monitoring application was also developed, enabling observation from locations such as nursing stations. [Read More](https://www.cc.miyazaki-u.ac.jp/imagelab/research/projects/detail/elderly-monitoring)
 
   <br>
 
-- **Research on Gait Information Acquisition and Fall Risk Assessment** Detailed feature analysis was conducted on five elderly participants in their 80s who attended the facility regularly. To preserve privacy, only skeletal information was analyzed. Twelve gait-related features were quantified. A three-level fall-risk assessment based on body-axis tilt angle (Safe/Caution/Dangerous) was developed, along with a comprehensive gait score integrating all twelve gait features. This enabled classification of walking conditions into four grades (A–D). [Read More](/research/projects/detail/gait-extraction)
+- **Research on Gait Information Acquisition and Fall Risk Assessment** Detailed feature analysis was conducted on five elderly participants in their 80s who attended the facility regularly. To preserve privacy, only skeletal information was analyzed. Twelve gait-related features were quantified. A three-level fall-risk assessment based on body-axis tilt angle (Safe/Caution/Dangerous) was developed, along with a comprehensive gait score integrating all twelve gait features. This enabled classification of walking conditions into four grades (A–D). [Read More](https://www.cc.miyazaki-u.ac.jp/imagelab/research/projects/detail/gait-extraction)
 
 ## Contribution to Society
 
