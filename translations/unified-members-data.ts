@@ -180,6 +180,24 @@ export const unifiedFacultyMembers: Member[] = [
       en: "",
     },
   },
+  {
+    id: "yamamoto",
+    name: "山元 三保子",
+    nameEn: "Mihoko Yamamoto",
+    isAlumni: false,
+    position: "秘書",
+    positionEn: "Secretary",
+    program: DegreeType.Faculty,
+    image: "/images/no_image.png",
+    background: {
+      ja: [],
+      en: [],
+    },
+    researchFields: {
+      ja: "",
+      en: "",
+    },
+  },
 ];
 
 // 全メンバーを統合した配列

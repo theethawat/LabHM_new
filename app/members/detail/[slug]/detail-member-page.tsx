@@ -56,7 +56,9 @@ export default function DetailMemberPage({
             </h1>
             <p className="text-xl text-gray-300">
               {language === "ja"
-                ? selectedMember?.name
+                ? selectedMember?.nameKatakana
+                  ? selectedMember?.nameEn
+                  : selectedMember?.name
                 : selectedMember?.nameEn}
             </p>
           </div>

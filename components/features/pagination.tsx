@@ -9,6 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { getLinkPath } from "@/lib/utils";
 import _ from "lodash";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -41,7 +42,8 @@ export default function Pagination({
 
     params.set("page", String(page));
     const query = params.toString();
-    return query ? `${pathname}?${query}` : pathname;
+    const pathWithQuery = query ? `${pathname}?${query}` : pathname;
+    return getLinkPath(pathWithQuery);
   };
 
   return (
@@ -60,10 +62,7 @@ export default function Pagination({
           />
         </PaginationItem>
         {_.map(array, (pageNum) => (
-          <PaginationItem
-            key={pageNum}
-            active={pageNum === currPage ? true : false}
-          >
+          <PaginationItem key={pageNum}>
             <PaginationLink href={createPageHref(pageNum)}>
               {pageNum}
             </PaginationLink>
