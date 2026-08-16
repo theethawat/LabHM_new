@@ -65,6 +65,7 @@
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",
     "remark": "^15.0.1",
+    "remark-breaks": "^4.0.0",
     "remark-html": "^16.0.1",
     "sonner": "^1.7.1",
     "swiper": "^12.1.4",
