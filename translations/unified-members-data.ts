@@ -162,24 +162,24 @@ export const unifiedFacultyMembers: Member[] = [
   //     en: "",
   //   },
   // },
-  {
-    id: "nomoto",
-    name: "野元 理美",
-    nameEn: "Satomi Nomoto",
-    isAlumni: false,
-    position: "秘書",
-    positionEn: "Secretary",
-    program: DegreeType.Faculty,
-    image: "/images/no_image.png",
-    background: {
-      ja: [],
-      en: [],
-    },
-    researchFields: {
-      ja: "",
-      en: "",
-    },
-  },
+  // {
+  //   id: "nomoto",
+  //   name: "野元 理美",
+  //   nameEn: "Satomi Nomoto",
+  //   isAlumni: false,
+  //   position: "秘書",
+  //   positionEn: "Secretary",
+  //   program: DegreeType.Faculty,
+  //   image: "/images/no_image.png",
+  //   background: {
+  //     ja: [],
+  //     en: [],
+  //   },
+  //   researchFields: {
+  //     ja: "",
+  //     en: "",
+  //   },
+  // },
   {
     id: "yamamoto",
     name: "山元 三保子",

@@ -131,7 +131,7 @@
     @apply underline;
   }
   .md-content p {
-    @apply my-2;
+    @apply my-4;
   }
   .md-content a {
     @apply text-blue-500;
