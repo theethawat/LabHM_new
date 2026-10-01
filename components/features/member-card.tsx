@@ -30,7 +30,11 @@ function MemberCard({
       <Link href={`/members/detail/${member.id}`}>
         <div className="relative w-44 h-44 mb-3">
           <Image
-            src={getImagePath(member.image || "/images/no_image.png")}
+            src={
+              // member.image ||
+              //  getImagePath(member.image || "/images/no_image.png")
+              "/images/no_image.png"
+            }
             alt={member.name}
             fill
             className="object-cover rounded-none"
@@ -41,7 +45,6 @@ function MemberCard({
             ? member.nameEn
             : member.name.replace(/（.*?）/g, "")}
         </h3>
-
         {/* 在校生の場合：学年情報 */}
         {!member.isAlumni && member.program !== "faculty" && (
           <p className="text-sm text-gray-500 mb-2">
@@ -50,7 +53,6 @@ function MemberCard({
               ` • ${language === "en" && member.labEn ? member.labEn : member.lab}`}
           </p>
         )}
-
         {/* 教員の場合：役職 */}
         {member.program === "faculty" && (
           <p className="text-sm text-gray-600 mb-2">
@@ -59,7 +61,6 @@ function MemberCard({
               : member.position}
           </p>
         )}
-
         {/* 卒業生の場合：卒業年度と学位 */}
         {member.isAlumni && (
           <p className="text-sm text-gray-500 mb-2">
@@ -71,7 +72,6 @@ function MemberCard({
                 : t.alumni.bachelor}
           </p>
         )}
-
         {/* 研究テーマ（卒業生の場合） */}
         {showResearchTopic && member.researchTopic && (
           <p className="text-xs text-gray-600 mb-2 line-clamp-3">
@@ -80,7 +80,6 @@ function MemberCard({
               : member.researchTopic.ja}
           </p>
         )}
-
         {/* ソーシャルリンク */}
         {/* {member.socialLinks && (
           <div className="flex space-x-3 mt-3">
