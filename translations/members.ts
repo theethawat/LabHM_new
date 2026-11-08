@@ -20,6 +20,8 @@ export const membersTranslations = {
       masters: "修士課程",
       bachelor: "学部生",
       researchStudents: "研究生",
+      exchange: "交換留学生",
+      researchAndExchange: "研究生・交換留学生",
       year: {
         doctoral: "博士",
         masters: "修士",
@@ -60,6 +62,8 @@ export const membersTranslations = {
       masters: "Master's Course",
       bachelor: "Bachelor Course",
       researchStudents: "Research Students",
+      researchAndExchange: "Research & Exchange Students",
+      exchange: "Exchange Students",
       year: {
         doctoral: "D",
         masters: "M",

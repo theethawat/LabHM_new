@@ -32,8 +32,7 @@ function MemberCard({
           <Image
             src={
               // member.image ||
-              //  getImagePath(member.image || "/images/no_image.png")
-              "/images/no_image.png"
+              getImagePath("/images/no_image.png")
             }
             alt={member.name}
             fill
@@ -50,7 +49,7 @@ function MemberCard({
           <p className="text-sm text-gray-500 mb-2">
             {getStudentYear(member.program!, member.year, language)}
             {member.lab &&
-              ` • ${language === "en" && member.labEn ? member.labEn : member.lab}`}
+              `${language === "en" && member.labEn ? member.labEn : member.lab}`}
           </p>
         )}
         {/* 教員の場合：役職 */}

@@ -4,6 +4,7 @@ export enum DegreeType {
   Bachelor = "bachelor",
   Faculty = "faculty",
   ResearchStudent = "research_student",
+  Exchange = "exchange",
 }
 
 export const DegreeTypeInfo = {
@@ -26,6 +27,10 @@ export const DegreeTypeInfo = {
   [DegreeType.ResearchStudent]: {
     ja: "研究生",
     en: "Research Student",
+  },
+  [DegreeType.Exchange]: {
+    ja: "交換留学生",
+    en: "Exchange Student",
   },
 };
 
