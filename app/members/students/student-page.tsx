@@ -32,6 +32,20 @@ export default function StudentPage({ members }: { members: Member[] }) {
     program: DegreeType.ResearchStudent,
     isAlumni: false,
   });
+  const exchangeStudents = _.filter(members, {
+    program: DegreeType.Exchange,
+    isAlumni: false,
+  });
+
+  const researchAndExchangeStudents = _.filter(members, {
+    program: DegreeType.ResearchStudent,
+    isAlumni: false,
+  }).concat(
+    _.filter(members, {
+      program: DegreeType.Exchange,
+      isAlumni: false,
+    }),
+  );
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -106,6 +120,24 @@ export default function StudentPage({ members }: { members: Member[] }) {
                     </h2>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-0">
                       {researchStudents.map((member) => (
+                        <MemberCard
+                          key={member.id}
+                          member={member}
+                          language={language}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/*　研究生 */}
+                {exchangeStudents.length > 0 && (
+                  <div>
+                    <h2 className="text-2xl font-bold mb-6 border-b pb-2">
+                      {t.students.exchange}
+                    </h2>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-0">
+                      {exchangeStudents.map((member) => (
                         <MemberCard
                           key={member.id}
                           member={member}

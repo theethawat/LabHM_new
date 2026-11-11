@@ -81,3 +81,15 @@ export const transformImageAttributeListSyntax = (markdown: string) => {
     },
   );
 };
+
+/**
+ * Normalizes markdown text coming from external sources.
+ * - Converts escaped newlines (\\n, \\r\\n) into real newlines.
+ * - Joins list markers split onto their own line (e.g. "-\nTitle").
+ */
+export const normalizeMarkdownLineBreaks = (markdown: string) => {
+  return markdown
+    .replace(/\\r\\n/g, "\n")
+    .replace(/\\n/g, "\n")
+    .replace(/(^|\n)([ \t]*(?:[-*+]|\d+\.))[ \t]*\n+(?=\S)/g, "$1$2 ");
+};

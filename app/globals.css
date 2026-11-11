@@ -131,7 +131,8 @@
     @apply underline;
   }
   .md-content p {
-    @apply my-2;
+    @apply my-4;
+    @apply leading-relaxed;
   }
   .md-content a {
     @apply text-blue-500;

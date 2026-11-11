@@ -3,6 +3,7 @@ import { ResearchFundSource } from "@/types";
 enum ResearchFundInYear {
   jka202324 = "jka-2023-24",
   jka2025 = "jka-2025",
+  jka2026 = "jka-2026",
   mic = "forward",
 }
 
@@ -79,5 +80,23 @@ export const ResearchFundDataTranslations: ResearchFundDataTranslationsType = {
         "Through the Ministry of Internal Affairs and Communications' 'Fundamental Technologies for Sustainable Efficient Radio Wave Use R&D Project (FORWARD)', we are working on solving livestock industry challenges using radio wave sensing technology.",
     },
     logo: "/images/logo_soumu.png",
+  },
+  [ResearchFundInYear.jka2026]: {
+    id: ResearchFundInYear.jka2026,
+    source: ResearchFundSource.jka,
+    link: "https://www.jka-cycle.ja/",
+    year: "2026",
+    contentKey: "jka2026",
+    ja: {
+      title: "JKA競輪 2026年度 機械振興補助事業",
+      briefDescription:
+        "海外で開催される国際会議等で研究発表を行う大学院生の研究交流活動。",
+    },
+    en: {
+      title: "JKA Keirin Machinery Industry Promotion Subsidy Program FY2026",
+      briefDescription:
+        "Research funds for participating in international conferences overseas and presenting outcomes.",
+    },
+    logo: "/images/JKA_banner_L.png",
   },
 };

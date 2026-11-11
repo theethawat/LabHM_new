@@ -331,6 +331,19 @@ export default function Footer() {
                   className="opacity-80 hover:opacity-100 transition-opacity"
                 />
               </a>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.soumu.go.jp/"
+              >
+                <Image
+                  src={getImagePath("/images/soumu-2.png")}
+                  alt="Soumu"
+                  width={100}
+                  height={50}
+                  className="opacity-80 hover:opacity-100 transition-opacity"
+                />
+              </a>
             </div>
           </div>
         </div>

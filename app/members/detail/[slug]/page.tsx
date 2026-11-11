@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 import DetailMemberPage from "./detail-member-page";
 import {
   convertSpreadSheetRowToUnifiedMember,
@@ -10,6 +11,50 @@ import {
 } from "@/types";
 import { metadataTranslations } from "@/translations/metadata";
 
+type PublicationResponse = {
+  rows?: any[];
+};
+
+type ResearchResponse = {
+  rows?: any[];
+};
+
+async function fetchJsonOrNull<T>(url: string): Promise<T | null> {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const text = await response.text();
+
+  try {
+    return JSON.parse(text) as T;
+  } catch (error) {
+    console.warn(`Invalid JSON response for ${url}`, error);
+    return null;
+  }
+}
+
+const getAllMembers = cache(
+  async (): Promise<any[] | null> =>
+    fetchJsonOrNull<any[]>(
+      `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllMembers`,
+    ),
+);
+
+const getMember = cache(async (slug: string): Promise<Member | null> => {
+  const members = await getAllMembers();
+
+  const memberJson = members?.find((member) => member.id?.toString() === slug);
+
+  if (!memberJson) {
+    return null;
+  }
+
+  return convertSpreadSheetRowToUnifiedMember(memberJson);
+});
+
 export async function generateMetadata({
   params,
 }: {
@@ -17,16 +62,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
 
-  const memberData = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getOneMember&id=${slug}`,
-  );
+  const member = await getMember(slug);
 
-  if (!memberData.ok) {
+  if (!member) {
     return {};
   }
-
-  const jsonResult = await memberData.json();
-  const member = convertSpreadSheetRowToUnifiedMember(jsonResult);
 
   const title = member.nameKatakana
     ? `${member.nameEn ?? member.name} | ${member.nameKatakana} - ${metadataTranslations.ja.title}`
@@ -42,48 +82,29 @@ export default async function MemberDetail({
 }) {
   const { slug } = await params;
 
-  const memberData = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getOneMember&id=${slug}`,
-  );
+  const selectedMember = await getMember(slug);
 
-  if (!memberData.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+  if (!selectedMember) {
+    throw new Error("Failed to fetch member data");
   }
-
-  const jsonResult = await memberData.json();
-
-  const selectedMember: Member =
-    convertSpreadSheetRowToUnifiedMember(jsonResult);
 
   const searchIdToFind = selectedMember.newRecord || slug;
-  const publicationRes = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllPublications&page=1&size=1000&member=${searchIdToFind}`,
+  const publicationResJson = await fetchJsonOrNull<PublicationResponse>(
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllPublications&page=1&size=1000&member=${encodeURIComponent(searchIdToFind)}`,
   );
 
-  const publicationResJSON = await publicationRes.json();
-  if (!publicationRes.ok) {
-    throw new Error("Failed to fetch data");
-  }
+  const latestPublication: Publication[] =
+    publicationResJson?.rows?.map((row: any) =>
+      convertSpreadsheetToPublication(row),
+    ) || [];
 
-  const latestPublication: Publication[] = publicationResJSON?.rows?.map(
-    (row: any) => convertSpreadsheetToPublication(row),
+  const researchJson = await fetchJsonOrNull<ResearchResponse>(
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs&page=1&size=100&member=${encodeURIComponent(searchIdToFind)}`,
   );
 
-  const researchRes = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllResearchs&page=${1}&size=100&member=${searchIdToFind}`,
-  );
-
-  if (!researchRes.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  const researchJSON = await researchRes.json();
-
-  const researches: Research[] = researchJSON?.rows?.map((row: any) =>
-    convertSpreadsheetToResearch(row),
-  );
+  const researches: Research[] =
+    researchJson?.rows?.map((row: any) => convertSpreadsheetToResearch(row)) ||
+    [];
 
   return (
     <div>
@@ -99,14 +120,14 @@ export default async function MemberDetail({
 // FIXME: The result is not return id I think
 export async function generateStaticParams() {
   // Fetch data from an API, database, or a local source
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getAllMembers`,
-  );
+  const jsonResult = await getAllMembers();
 
-  const jsonResult = await res.json();
+  if (!jsonResult) {
+    throw new Error("Failed to fetch members for static params");
+  }
 
   // Return an array of objects, each with the 'slug' property matching the dynamic segment name
-  return jsonResult?.map((eachData: any) => ({
+  return jsonResult.map((eachData: any) => ({
     slug: eachData.id.toString(), // Ensure the slug is a string
   }));
 }

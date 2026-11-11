@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import _ from "lodash";
 import dayjs from "dayjs";
 import { remark } from "remark";
 import html from "remark-html";
+import breaks from "remark-breaks";
 import { useEffect, useState } from "react";
 
 import { useLanguage } from "@/contexts/language-context";
@@ -15,7 +15,10 @@ import { News, NewsTagInfo } from "@/types";
 import { CalendarIcon, TagIcon } from "@heroicons/react/24/outline";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { Gallery } from "@/components/features";
-import { transformImageAttributeListSyntax } from "@/lib/markdown";
+import {
+  normalizeMarkdownLineBreaks,
+  transformImageAttributeListSyntax,
+} from "@/lib/markdown";
 import "dayjs/locale/ja";
 
 dayjs.extend(LocalizedFormat);
@@ -26,11 +29,14 @@ export default function NewsPage({ news }: { news: News }) {
   const [contentHtml, setContentHtml] = useState("");
 
   const getContentHtml = async () => {
+    const normalizedMarkdown = normalizeMarkdownLineBreaks(
+      news?.[language]?.content || "",
+    );
+
     const processedContent = await remark()
+      .use(breaks)
       .use(html, { sanitize: false })
-      .process(
-        transformImageAttributeListSyntax(news?.[language]?.content || ""),
-      );
+      .process(transformImageAttributeListSyntax(normalizedMarkdown));
     setContentHtml(processedContent.toString());
   };
 
@@ -39,15 +45,6 @@ export default function NewsPage({ news }: { news: News }) {
 
     return () => {};
   }, [language, news]);
-
-  const splitFromEnterAndDivide = (data: string | undefined) => {
-    const result = data?.split("\n");
-    return _.map(result, (eachResult, index) => (
-      <div key={index} className="my-4">
-        <div dangerouslySetInnerHTML={{ __html: eachResult }} />
-      </div>
-    ));
-  };
 
   return (
     <div>
@@ -96,9 +93,10 @@ export default function NewsPage({ news }: { news: News }) {
                     <Gallery images={news.images} />
                   </div>
                 )}
-                <div className="text-gray-700 md-content">
-                  {splitFromEnterAndDivide(contentHtml)}
-                </div>
+                <div
+                  className="text-gray-700 md-content px-4 md:px-0"
+                  dangerouslySetInnerHTML={{ __html: contentHtml }}
+                />
               </div>
               <div className="flex justify-center mt-8">
                 <Link href="/news">

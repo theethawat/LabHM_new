@@ -27,7 +27,9 @@ const Header = () => {
     e.preventDefault();
     if (searchQuery.trim()) {
       // 検索クエリがある場合は検索ページに遷移
-      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`;
+      window.location.href = getLinkPath(
+        `/search?q=${encodeURIComponent(searchQuery.trim())}`,
+      );
     }
   };
 
@@ -38,7 +40,7 @@ const Header = () => {
 
   // Handle To Location with Along with Menu Close
   const handleGoLocation = (url: string) => {
-    window.location.href = url;
+    window.location.href = getLinkPath(url);
   };
 
   useEffect(() => {
