@@ -1,5 +1,30 @@
+import type { Metadata } from "next";
 import NewsPage from "./news-page";
 import { convertSpreadsheetToNews, News as NewsType } from "@/types";
+import { metadataTranslations } from "@/translations/metadata";
+import { cache } from "react";
+
+async function fetchJsonOrNull<T>(url: string): Promise<T | null> {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    return null;
+  }
+
+  try {
+    const jsonResult = await response.json();
+    return jsonResult as T;
+  } catch (error) {
+    console.warn(`Invalid JSON response for ${url}`, error);
+    return null;
+  }
+}
+
+const getNews = cache(async (slug: string): Promise<any[] | null> =>
+  fetchJsonOrNull<any[]>(
+    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getOneNews&id=${slug}`,
+  ),
+);
 
 export default async function News({
   params,
@@ -8,16 +33,7 @@ export default async function News({
 }) {
   const { slug } = await params;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_SCRIPT_DATA}?functionName=getOneNews&id=${slug}`,
-  );
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  const jsonResult = await res.json();
+  const jsonResult = await getNews(slug);
 
   const selectedNews: NewsType = convertSpreadsheetToNews(jsonResult);
 
@@ -26,6 +42,25 @@ export default async function News({
       <NewsPage news={selectedNews} />
     </div>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  const news = await getNews(slug);
+  const selectedNews: NewsType = convertSpreadsheetToNews(news);
+
+  if (!news) {
+    return {};
+  }
+
+  const title = `${selectedNews?.ja?.title || ""}- ${metadataTranslations.ja.title}`;
+
+  return { title };
 }
 
 export async function generateStaticParams() {
